@@ -21,33 +21,45 @@ import pyglet
 mainWindow = Tk()
 VideoWindow = Toplevel(mainWindow)
 VideoWindow.withdraw()
-NameWindow = Toplevel(mainWindow)
-NameWindow.withdraw()
+userIDWindow = Toplevel(mainWindow)
+userIDWindow.withdraw()
 SelectVideoWindow = Toplevel(mainWindow)
 SelectVideoWindow.withdraw()
 RatingsWindow = Toplevel(mainWindow)
 RatingsWindow.withdraw()
 SpecificRatingsWindow = Toplevel(mainWindow)
 SpecificRatingsWindow.withdraw()
+FrameSelectionWindowFunny = Toplevel(mainWindow)
+FrameSelectionWindowFunny.withdraw()
+FrameSelectionWindowScary = Toplevel(mainWindow)
+FrameSelectionWindowScary.withdraw()
+FrameSelectionWindowSexy = Toplevel(mainWindow)
+FrameSelectionWindowSexy.withdraw()
+FrameSelectionWindowImportant = Toplevel(mainWindow)
+FrameSelectionWindowImportant.withdraw()
 ThankYouWindow = Toplevel(mainWindow)
 ThankYouWindow.withdraw()
 
 #User Details
-userFirstName = ''
-userLastName = ''
+userID = ''
 
 #A list containing all of the movie trailer names
 MovieTrailerList = []
+currentMovieNumber = 0
 
 #use isFunny.get() to get if it is pressed or not (1 = it is selected, 0 = it is not selected)
 isFunny = IntVar()
 isScary = IntVar() 
 isSexy = IntVar() 
 
+hasBeenToFunny = False
+hasBeenToScary = False
+hasBeenToSexy = False
+
 #Set 0 by default
 funnyRating = 0
 scaryRating = 0
-secyRating = 0
+sexyRating = 0
 
 def on_closing():
     if messagebox.askokcancel("Exiting Program", "Are you sure you want to quit?"):
@@ -61,8 +73,33 @@ RatingsWindow.protocol("WM_DELETE_WINDOW", on_closing)
 SpecificRatingsWindow.protocol("WM_DELETE_WINDOW", on_closing)
 VideoWindow.protocol("WM_DELETE_WINDOW", on_closing)
 SelectVideoWindow.protocol("WM_DELETE_WINDOW", on_closing)    
-NameWindow.protocol("WM_DELETE_WINDOW", on_closing) 
+userIDWindow.protocol("WM_DELETE_WINDOW", on_closing) 
 ThankYouWindow.protocol("WM_DELETE_WINDOW", endProgram) 
+FrameSelectionWindowFunny.protocol("WM_DELETE_WINDOW", on_closing) 
+FrameSelectionWindowScary.protocol("WM_DELETE_WINDOW", on_closing) 
+FrameSelectionWindowSexy.protocol("WM_DELETE_WINDOW", on_closing) 
+FrameSelectionWindowImportant.protocol("WM_DELETE_WINDOW", on_closing) 
+
+def SaveData():
+    print("User: " + userID)
+    print("Movie Trailer: " + MovieTrailerList[currentMovieNumber])
+
+    if(isFunny.get() == 1):
+        print("Funny: YES, " + " " + str(funnyRating) + " out of 10")
+    else:
+        print("Funny: NO")
+
+    if(isScary.get() == 1):
+        print("Scary: YES, " + str(scaryRating) + " out of 10")
+    else:
+        print("Scary: NO")
+
+    if(isSexy.get() == 1):
+        print("Sexy: YES, " + str(sexyRating) + " out of 10")
+    else:
+        print("Sexy: NO")
+    print("")
+    
 
 def SayThankYou():
     #Another window will popup at the end thanking the user for their participation
@@ -71,73 +108,139 @@ def SayThankYou():
     ThankYouWindow.deiconify()
 
     ThankYouWindow.title("Trailer Viewer Program")
-    ThankYouWindow.geometry('500x150')
-    ThankYouWindow.minsize(500, 150)
+    ThankYouWindow.geometry('500x100')
+    ThankYouWindow.minsize(500, 100)
     location = os.getcwd() + "\\Images\\uottawa_ver_black.ico"
     ThankYouWindow.iconbitmap(location)
 
-    lbl = Label(ThankYouWindow, text="Thank you for your participation in \nthe ... experiment, your results are greatly appreciated.\n You may now exit the program. If you would like to \ncomplete another movie trailer, please \nclose and restart the program.", font=(25))
+    lbl = Label(ThankYouWindow, text="Thank you for your participation in \nthe ... experiment, your results are greatly appreciated.\n You may now exit the program.", font=(25))
     lbl.config(anchor=CENTER)
     lbl.pack(padx=0, pady=0)
 
-def GetFavouriteParts():
+def GetNextTrailer():
+    FrameSelectionWindowImportant.withdraw()
+    global currentMovieNumber
+    global hasBeenToFunny
+    global hasBeenToScary
+    global hasBeenToSexy
+    global funnyRating
+    global scaryRating
+    global sexyRating
+
+    #This is where the output data for the last trailer will be saved to the excel file ******
+    SaveData()
+
+    if (len(MovieTrailerList) == (currentMovieNumber + 1)):
+        #print("No More Trailers")
+        SayThankYou()
+    else:
+        #print("More Trailers")
+        currentMovieNumber = currentMovieNumber + 1
+
+        #Reset all of the variables and GUI's
+        hasBeenToFunny = False
+        hasBeenToScary = False
+        hasBeenToSexy = False
+
+        funnyRating = 0
+        scaryRating = 0
+        sexyRating = 0
+
+        isFunny.set(0) 
+        isScary.set(0) 
+        isSexy.set(0)  
+
+        s1.set(1)
+        s2.set(1)
+        s3.set(1)
+        
+        lbl7.config(state=NORMAL)
+        s1.config(state=NORMAL)
+
+        lbl8.config(state=NORMAL)
+        s2.config(state=NORMAL)
+        
+        lbl9.config(state=NORMAL)
+        s3.config(state=NORMAL)
+
+        CreateSelectVideoWindow()
+
+
+def GetImportantParts():
     #This is where another window will pop up, which will ask which part(s) of the movie trailer was the user's favourite
-    print("temp")
+    FrameSelectionWindowImportant.update()
+    FrameSelectionWindowImportant.deiconify()
+
+def funnyClick():
+    FrameSelectionWindowFunny.withdraw()
+    ShowIndividualFrames()
+
+def scaryClick():
+    FrameSelectionWindowScary.withdraw()
+    ShowIndividualFrames()
+
+def sexyClick():
+    FrameSelectionWindowSexy.withdraw()
+    ShowIndividualFrames()
+
+def ShowIndividualFrames():
+    global hasBeenToFunny
+    global hasBeenToScary
+    global hasBeenToSexy
+
+    if((isFunny.get() == 1) and (hasBeenToFunny == False)):
+        FrameSelectionWindowFunny.update()
+        FrameSelectionWindowFunny.deiconify()
+        hasBeenToFunny = True
+    elif((isScary.get() == 1) and (hasBeenToScary == False)):
+        FrameSelectionWindowScary.update()
+        FrameSelectionWindowScary.deiconify()
+        hasBeenToScary = True
+    elif((isSexy.get() == 1) and (hasBeenToSexy == False)):
+        FrameSelectionWindowSexy.update()
+        FrameSelectionWindowSexy.deiconify()
+        hasBeenToSexy = True
+    else:
+        GetImportantParts()
 
 def GetIndividualFrames():
-    #This is where the user will select which parts of the movie trailer were funny
-    if(isFunny.get() == 1):
-        print("temp")
+    SpecificRatingsWindow.withdraw()
+    
+    ShowIndividualFrames()
 
-    #This is where the user will select which parts of the movie trailer were scary
-    if(isScary.get() == 1):
-        print("temp")
+def setFunnyRating(val):
+    global funnyRating
+    funnyRating = val
 
-    #This is where the user will select which parts of the movie trailer were sexy
-    if(isSexy.get() == 1):
-        print("temp")
+def setScaryRating(val):
+    global scaryRating
+    scaryRating = val
 
-    #Once the relevant sections have been completed, ask the user for their favourite part(s) of the movie trailer
+def setSexyRating(val):
+    global sexyRating
+    sexyRating = val
 
 def CreateSpecificRatingsWindow():
-    RatingsWindow.withdraw()
-    SpecificRatingsWindow.update()
-    SpecificRatingsWindow.deiconify()
+    if((isFunny.get() == 0) and (isScary.get() == 0) and (isSexy.get() == 0)):
+        #Skip to the window which will allow user to select the important parts of the movie trailer
+        RatingsWindow.withdraw()
+        GetImportantParts()
+    else:
+        RatingsWindow.withdraw()
+        SpecificRatingsWindow.update()
+        SpecificRatingsWindow.deiconify()
 
-    print(isFunny.get()) #Funny
-    print(isScary.get()) #Scary
-    print(isSexy.get()) #Sexy
+        if(isFunny.get() == 0):
+            lbl7.config(state=DISABLED)
+            s1.config(state=DISABLED)
 
-    rowCount = 1
-    if(isFunny.get() == 1):
-        lbl7 = Label(SpecificRatingsWindow, text="Funny", font=(25))
-        lbl7.grid(sticky="W", column=0, row=rowCount)
+        if(isScary.get() == 0):
+            lbl8.config(state=DISABLED)
+            s2.config(state=DISABLED)
 
-        s1 = Scale(SpecificRatingsWindow, from_=1, to=10, orient=HORIZONTAL)
-        s1.grid(sticky="W", column=1, row=rowCount)
-
-        rowCount += 1
-
-    if(isScary.get() == 1):
-        lbl8 = Label(SpecificRatingsWindow, text="Scary", font=(25))
-        lbl8.grid(sticky="W", column=0, row=rowCount)
-
-        s2 = Scale(SpecificRatingsWindow, from_=1, to=10, orient=HORIZONTAL)
-        s2.grid(sticky="W", column=1, row=rowCount)
-
-        rowCount += 1
-
-    if(isSexy.get() == 1):
-        lbl9 = Label(SpecificRatingsWindow, text="Sexy", font=(25))
-        lbl9.grid(sticky="W", column=0, row=rowCount)
-
-        s3 = Scale(SpecificRatingsWindow, from_=1, to=10, orient=HORIZONTAL)
-        s3.grid(sticky="W", column=1, row=rowCount)
-
-        rowCount += 1
-
-    btn5 = Button(SpecificRatingsWindow, text="Next", command=GetIndividualFrames, font=(25))
-    btn5.grid(column=0, row=rowCount, columnspan=2, pady=10)
+        if(isSexy.get() == 0):
+            lbl9.config(state=DISABLED)
+            s3.config(state=DISABLED)
 
 def CreateRatingsWindow():
     VideoWindow.withdraw()
@@ -150,22 +253,24 @@ def CreateVideoWindow():
     VideoWindow.deiconify()
 
     #Movie titles cannot have any spaces and/or special characters
-    movieLocation = os.getcwd() + "\\Movie-Trailers\\" + MovieTrailerList[listbox.curselection()[0]] + ".mp4"
+    movieLocation = os.getcwd() + "\\Movie-Trailers\\" + MovieTrailerList[currentMovieNumber] + ".mp4"
 
     os.system(movieLocation)
 
 def CreateSelectVideoWindow():
-    NameWindow.withdraw()
+    global userID
+    userIDWindow.withdraw()
     SelectVideoWindow.update()
     SelectVideoWindow.deiconify()
 
-    userFirstName = firstName.get()
-    userLastName = lastName.get() 
+    nextMovieTrailerlbl.config(text=MovieTrailerList[currentMovieNumber])
 
-def CreateNameWindow():
+    userID = userIDInput.get()
+
+def CreateuserIDWindow():
     mainWindow.withdraw()
-    NameWindow.update()
-    NameWindow.deiconify()
+    userIDWindow.update()
+    userIDWindow.deiconify()
 
 
 #Main Menu Window -----------------------------
@@ -191,51 +296,42 @@ lbl.pack(padx=0, pady=0)
 #-----------------------------------------
 
 
-#Name Entry Window -----------------------------
-#This window allows the user to enter their first and lastname for statistical purposes
+#UserID Entry Window -----------------------------
+#This window allows the user to enter their user ID for statistical purposes
 
-NameWindow.title("Trailer Viewer Program")
-NameWindow.geometry('350x150')
-NameWindow.minsize(350, 150)
-NameWindow.iconbitmap('./Images/uottawa_ver_black.ico')
-NameWindow.resizable(False, False)
+userIDWindow.title("Trailer Viewer Program")
+userIDWindow.geometry('325x100')
+userIDWindow.minsize(325, 100)
+userIDWindow.iconbitmap('./Images/uottawa_ver_black.ico')
+userIDWindow.resizable(False, False)
 
-firstNamelbl = Label(NameWindow, text="First Name: ", font=(20))
-firstNamelbl.grid(column=0, row=0)
+userIDlbl = Label(userIDWindow, text="User ID: ", font=(20))
+userIDlbl.grid(column=0, row=0)
 
-firstName = Entry(NameWindow, width=20, font=(20))
-firstName.grid(column=1, row=0)
+userIDInput = Entry(userIDWindow, width=20, font=(20))
+userIDInput.grid(column=1, row=0)
 
-
-lastNamelbl = Label(NameWindow, text="Last Name: ", font=(20))
-lastNamelbl.grid(column=0, row=1, pady=10)
-
-lastName = Entry(NameWindow,width=20, font=(20))
-lastName.grid(column=1, row=1, pady=10)
-
-btn = Button(NameWindow, text="Begin Testing", command=CreateSelectVideoWindow, font=(25))
+btn = Button(userIDWindow, text="Begin Testing", command=CreateSelectVideoWindow, font=(25))
 btn.grid(column=0, row=2, columnspan=2, pady=10)
 
 #-----------------------------------------
 
 
-#Select Video Trailer Window ----------------------------
-#This window allows the user to select which Movie Trailer they would like to watch
+#Preview Name of Video Trailer Window ----------------------------
+#This window allows the user to view what the title of the next movie trailer is, and allows them to take a break before playing the next trailer
 
 SelectVideoWindow.title("Trailer Viewer Program")
-SelectVideoWindow.geometry('350x300')
-SelectVideoWindow.minsize(350, 300)
+SelectVideoWindow.geometry('350x175')
+SelectVideoWindow.minsize(350, 175)
 SelectVideoWindow.iconbitmap('./Images/uottawa_ver_black.ico')
 
-firstNamelbl = Label(SelectVideoWindow, text="Select a movie trailer to watch", font=(20))
+firstNamelbl = Label(SelectVideoWindow, text="Next Movie Trailer:", font=(20))
 firstNamelbl.config(anchor=CENTER)
 firstNamelbl.pack(padx=0, pady=10)
 
-listbox = Listbox(SelectVideoWindow, width=40)
-listbox.yview()
-listbox.xview()
-
-listbox.pack(padx=0, pady=0)
+nextMovieTrailerlbl = Label(SelectVideoWindow, text="...", font=(20))
+nextMovieTrailerlbl.config(anchor=CENTER)
+nextMovieTrailerlbl.pack(padx=0, pady=10)
 
 btn3 = Button(SelectVideoWindow, text="Start Trailer", command=CreateVideoWindow, font=(25))
 btn3.pack(padx=0, pady=10)
@@ -301,10 +397,105 @@ SpecificRatingsWindow.iconbitmap('./Images/uottawa_ver_black.ico')
 lbl6 = Label(SpecificRatingsWindow, text="Please rate the content presence\n on a scale of 1-10?", font=(25))
 lbl6.grid(column=0, row=0, columnspan=2, pady=10)
 
+lbl7 = Label(SpecificRatingsWindow, text="Funny", font=(25))
+lbl7.grid(sticky="W", column=0, row=1)
+
+s1 = Scale(SpecificRatingsWindow, from_=1, to=10, orient=HORIZONTAL, command=setFunnyRating)
+s1.grid(sticky="W", column=1, row=1)
+
+lbl8 = Label(SpecificRatingsWindow, text="Scary", font=(25))
+lbl8.grid(sticky="W", column=0, row=2)
+
+s2 = Scale(SpecificRatingsWindow, from_=1, to=10, orient=HORIZONTAL, command=setScaryRating)
+s2.grid(sticky="W", column=1, row=2)
+
+lbl9 = Label(SpecificRatingsWindow, text="Sexy", font=(25))
+lbl9.grid(sticky="W", column=0, row=3)
+
+s3 = Scale(SpecificRatingsWindow, from_=1, to=10, orient=HORIZONTAL, command=setSexyRating)
+s3.grid(sticky="W", column=1, row=3)
+
+btn5 = Button(SpecificRatingsWindow, text="Next", command=GetIndividualFrames, font=(25))
+btn5.grid(column=0, row=4, columnspan=2, pady=10)
+
 #-----------------------------------------
 
 
-btn2 = Button(mainWindow, text="Start", command=CreateNameWindow, font=(25))
+#-----------------------------------------
+
+#Frame Selection Window Funny ----------------------------
+#This window will allow for the user to select which frame(s) contain the specified content 
+
+FrameSelectionWindowFunny.title("Trailer Viewer Program")
+FrameSelectionWindowFunny.geometry('1000x1000')
+FrameSelectionWindowFunny.minsize(1000, 1000)
+FrameSelectionWindowFunny.iconbitmap('./Images/uottawa_ver_black.ico')
+#FrameSelectionWindow.resizable(False, False)
+
+FrameSelectionWindowTitleFunnylbl = Label(FrameSelectionWindowFunny, text="Please select the frames that contain funny content", font=(25))
+FrameSelectionWindowTitleFunnylbl.grid(column=0, row=0, columnspan=2, pady=10)
+
+FrameSelectionWindowFunnybutton = Button(FrameSelectionWindowFunny, text="Next", command=funnyClick, font=(25))
+FrameSelectionWindowFunnybutton.grid(column=0, row=1, pady=10)
+
+#-----------------------------------------
+
+
+#Frame Selection Window Scary ----------------------------
+#This window will allow for the user to select which frame(s) contain the specified content 
+
+FrameSelectionWindowScary.title("Trailer Viewer Program")
+FrameSelectionWindowScary.geometry('1000x1000')
+FrameSelectionWindowScary.minsize(1000, 1000)
+FrameSelectionWindowScary.iconbitmap('./Images/uottawa_ver_black.ico')
+#FrameSelectionWindow.resizable(False, False)
+
+FrameSelectionWindowTitleScarylbl = Label(FrameSelectionWindowScary, text="Please select the frames that contain scary content", font=(25))
+FrameSelectionWindowTitleScarylbl.grid(column=0, row=0, columnspan=2, pady=10)
+
+FrameSelectionWindowScarybutton = Button(FrameSelectionWindowScary, text="Next", command=scaryClick, font=(25))
+FrameSelectionWindowScarybutton.grid(column=0, row=1, pady=10)
+
+#-----------------------------------------
+
+
+#Frame Selection Window Sexy ----------------------------
+#This window will allow for the user to select which frame(s) contain the specified content 
+
+FrameSelectionWindowSexy.title("Trailer Viewer Program")
+FrameSelectionWindowSexy.geometry('1000x1000')
+FrameSelectionWindowSexy.minsize(1000, 1000)
+FrameSelectionWindowSexy.iconbitmap('./Images/uottawa_ver_black.ico')
+#FrameSelectionWindow.resizable(False, False)
+
+FrameSelectionWindowTitleSexylbl = Label(FrameSelectionWindowSexy, text="Please select the frames that contain sexy content", font=(25))
+FrameSelectionWindowTitleSexylbl.grid(column=0, row=0, columnspan=2, pady=10)
+
+FrameSelectionWindowSexybutton = Button(FrameSelectionWindowSexy, text="Next", command=sexyClick, font=(25))
+FrameSelectionWindowSexybutton.grid(column=0, row=1, pady=10)
+
+#-----------------------------------------
+
+
+#Frame Selection Window Important ----------------------------
+#This window will allow for the user to select which frame(s) contain the specified content 
+
+FrameSelectionWindowImportant.title("Trailer Viewer Program")
+FrameSelectionWindowImportant.geometry('1000x1000')
+FrameSelectionWindowImportant.minsize(1000, 1000)
+FrameSelectionWindowImportant.iconbitmap('./Images/uottawa_ver_black.ico')
+#FrameSelectionWindow.resizable(False, False)
+
+FrameSelectionWindowTitleImportantlbl = Label(FrameSelectionWindowImportant, text="Please select the frames that contain important content", font=(25))
+FrameSelectionWindowTitleImportantlbl.grid(column=0, row=0, columnspan=2, pady=10)
+
+FrameSelectionWindowImportantbutton = Button(FrameSelectionWindowImportant, text="Next", command=GetNextTrailer, font=(25))
+FrameSelectionWindowImportantbutton.grid(column=0, row=1, pady=10)
+
+#-----------------------------------------
+
+
+btn2 = Button(mainWindow, text="Start", command=CreateuserIDWindow, font=(25))
 btn2.config(anchor=CENTER)
 btn2.pack(padx=0, pady=15)
 
@@ -315,11 +506,6 @@ def getTrailers():
         x = x.replace("./Movie-Trailers\\","") 
         x = x.replace(".mp4", "")
         MovieTrailerList.append(x)
-
-    counter = 1
-    for x in MovieTrailerList:
-        listbox.insert(counter, x)
-        counter += 1
 
 getTrailers()
 mainWindow.mainloop()
