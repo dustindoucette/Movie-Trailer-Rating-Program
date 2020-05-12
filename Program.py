@@ -101,43 +101,48 @@ def GetIndividualFrames():
 
 def CreateSpecificRatingsWindow():
     RatingsWindow.withdraw()
-    SpecificRatingsWindow.update()
-    SpecificRatingsWindow.deiconify()
 
-    print(isFunny.get()) #Funny
-    print(isScary.get()) #Scary
-    print(isSexy.get()) #Sexy
+    if((isFunny.get() is 0) and (isScary.get()) and (isSexy.get())):
+        print("None Selected")
+    else:
+        SpecificRatingsWindow.update()
+        SpecificRatingsWindow.deiconify()
 
-    rowCount = 1
-    if(isFunny.get() == 1):
-        lbl7 = Label(SpecificRatingsWindow, text="Funny", font=(25))
-        lbl7.grid(sticky="W", column=0, row=rowCount)
+        print(isFunny.get()) #Funny
+        print(isScary.get()) #Scary
+        print(isSexy.get()) #Sexy
 
-        s1 = Scale(SpecificRatingsWindow, from_=1, to=10, orient=HORIZONTAL)
-        s1.grid(sticky="W", column=1, row=rowCount)
+        rowCount = 1
 
-        rowCount += 1
+        if(isFunny.get() == 1):
+            lbl7 = Label(SpecificRatingsWindow, text="Funny", font=(25))
+            lbl7.grid(sticky="W", column=0, row=rowCount)
 
-    if(isScary.get() == 1):
-        lbl8 = Label(SpecificRatingsWindow, text="Scary", font=(25))
-        lbl8.grid(sticky="W", column=0, row=rowCount)
+            s1 = Scale(SpecificRatingsWindow, from_=1, to=10, orient=HORIZONTAL)
+            s1.grid(sticky="W", column=1, row=rowCount)
 
-        s2 = Scale(SpecificRatingsWindow, from_=1, to=10, orient=HORIZONTAL)
-        s2.grid(sticky="W", column=1, row=rowCount)
+            rowCount += 1
 
-        rowCount += 1
+        if(isScary.get() == 1):
+            lbl8 = Label(SpecificRatingsWindow, text="Scary", font=(25))
+            lbl8.grid(sticky="W", column=0, row=rowCount)
 
-    if(isSexy.get() == 1):
-        lbl9 = Label(SpecificRatingsWindow, text="Sexy", font=(25))
-        lbl9.grid(sticky="W", column=0, row=rowCount)
+            s2 = Scale(SpecificRatingsWindow, from_=1, to=10, orient=HORIZONTAL)
+            s2.grid(sticky="W", column=1, row=rowCount)
 
-        s3 = Scale(SpecificRatingsWindow, from_=1, to=10, orient=HORIZONTAL)
-        s3.grid(sticky="W", column=1, row=rowCount)
+            rowCount += 1
 
-        rowCount += 1
+        if(isSexy.get() == 1):
+            lbl9 = Label(SpecificRatingsWindow, text="Sexy", font=(25))
+            lbl9.grid(sticky="W", column=0, row=rowCount)
 
-    btn5 = Button(SpecificRatingsWindow, text="Next", command=GetIndividualFrames, font=(25))
-    btn5.grid(column=0, row=rowCount, columnspan=2, pady=10)
+            s3 = Scale(SpecificRatingsWindow, from_=1, to=10, orient=HORIZONTAL)
+            s3.grid(sticky="W", column=1, row=rowCount)
+
+            rowCount += 1
+
+        btn5 = Button(SpecificRatingsWindow, text="Next", command=GetIndividualFrames, font=(25))
+        btn5.grid(column=0, row=rowCount, columnspan=2, pady=10)
 
 def CreateRatingsWindow():
     VideoWindow.withdraw()
