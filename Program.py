@@ -6,6 +6,7 @@
 #C:\User\Tim Johns\Progam\Files         BAD **
 
 from tkinter import *
+from tkinter import ttk
 from PIL import ImageTk, Image
 from ctypes import *
 from tkinter import messagebox
@@ -30,7 +31,7 @@ RatingsWindow.withdraw()
 SpecificRatingsWindow = Toplevel(mainWindow)
 SpecificRatingsWindow.withdraw()
 FrameSelectionWindowFunny = Toplevel(mainWindow)
-FrameSelectionWindowFunny.withdraw()
+#FrameSelectionWindowFunny.withdraw()
 FrameSelectionWindowScary = Toplevel(mainWindow)
 FrameSelectionWindowScary.withdraw()
 FrameSelectionWindowSexy = Toplevel(mainWindow)
@@ -300,8 +301,8 @@ lbl.pack(padx=0, pady=0)
 #This window allows the user to enter their user ID for statistical purposes
 
 userIDWindow.title("Trailer Viewer Program")
-userIDWindow.geometry('325x100')
-userIDWindow.minsize(325, 100)
+userIDWindow.geometry('275x100')
+userIDWindow.minsize(275, 100)
 userIDWindow.iconbitmap('./Images/uottawa_ver_black.ico')
 userIDWindow.resizable(False, False)
 
@@ -435,8 +436,32 @@ FrameSelectionWindowFunny.iconbitmap('./Images/uottawa_ver_black.ico')
 FrameSelectionWindowTitleFunnylbl = Label(FrameSelectionWindowFunny, text="Please select the frames that contain funny content", font=(25))
 FrameSelectionWindowTitleFunnylbl.grid(column=0, row=0, columnspan=2, pady=10)
 
-FrameSelectionWindowFunnybutton = Button(FrameSelectionWindowFunny, text="Next", command=funnyClick, font=(25))
-FrameSelectionWindowFunnybutton.grid(column=0, row=1, pady=10)
+#Add image section here (bookmarked page on web)
+
+scaleFunny = Scale(FrameSelectionWindowFunny, from_=1, to=100, orient=HORIZONTAL, length=450)
+scaleFunny.grid(column=0, row=1, columnspan=2, pady=10)
+
+FrameSelectionWindowFunnybutton1 = Button(FrameSelectionWindowFunny, text="Begin Selection", command=funnyClick, font=(25))
+FrameSelectionWindowFunnybutton1.grid(column=0, row=2, pady=10)
+
+FrameSelectionWindowFunnybutton2 = Button(FrameSelectionWindowFunny, text="End Selection", command=funnyClick, font=(25))
+FrameSelectionWindowFunnybutton2.grid(column=1, row=2, pady=10)
+
+seperator1 = ttk.Separator(FrameSelectionWindowFunny, orient=HORIZONTAL).grid(row=3, columnspan=2, sticky="ew")
+
+FrameSelectionWindowTitleFunnylbl2 = Label(FrameSelectionWindowFunny, text="Selected Frame Sections:", font=(25))
+FrameSelectionWindowTitleFunnylbl2.grid(column=0, row=4, columnspan=2, pady=10)
+
+funnyListBox = Listbox(FrameSelectionWindowFunny, width=60)
+funnyListBox.grid(column=0, row=5, columnspan=2, pady=10)
+
+FrameSelectionWindowFunnybutton3 = Button(FrameSelectionWindowFunny, text="Remove Selection", command=funnyClick, font=(25))
+FrameSelectionWindowFunnybutton3.grid(column=0, row=6, pady=10)
+
+seperator2 = ttk.Separator(FrameSelectionWindowFunny, orient=HORIZONTAL).grid(row=7, columnspan=2, sticky="ew", pady=10)
+
+FrameSelectionWindowFunnybutton = Button(FrameSelectionWindowFunny, text="Finished", command=funnyClick, font=(25))
+FrameSelectionWindowFunnybutton.grid(column=0, row=8, columnspan=2, pady=10)
 
 #-----------------------------------------
 
