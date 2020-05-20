@@ -12,6 +12,7 @@ from ctypes import *
 from tkinter import messagebox
 from os import startfile
 import os
+import cv2
 import sys
 import glob
 
@@ -80,6 +81,43 @@ FrameSelectionWindowFunny.protocol("WM_DELETE_WINDOW", on_closing)
 FrameSelectionWindowScary.protocol("WM_DELETE_WINDOW", on_closing) 
 FrameSelectionWindowSexy.protocol("WM_DELETE_WINDOW", on_closing) 
 FrameSelectionWindowImportant.protocol("WM_DELETE_WINDOW", on_closing) 
+
+def getTrailers():
+    tempList = glob.glob("./Movie-Trailers/*.avi")
+
+    for x in tempList:
+        x = x.replace("./Movie-Trailers\\","") 
+        x = x.replace(".avi", "")
+        MovieTrailerList.append(x)
+
+getTrailers()
+
+#Generate frames for each section for each trailer
+def generateFrames():
+    print()
+    tempList = glob.glob("./Movie-Trailers/*")
+    movies = []
+
+    for x in tempList:
+        x = x.replace("./Movie-Trailers\\","") 
+        x = x.replace(".avi","") 
+        movies.append(x)
+
+    my_dict = {i:movies.count(i) for i in movies}
+
+    movieList = []
+
+    for name, number in my_dict.items():
+        if number == 1:
+            movieList.append(name)
+
+    for x in movieList:
+        os.mkdir("./Movie-Trailers/"+x)
+
+    for x in movieList:
+        os.system('python GenerateFrames.py ' + x)
+
+generateFrames()
 
 def SaveData():
     print("User: " + userID)
@@ -163,6 +201,19 @@ def GetNextTrailer():
         
         lbl9.config(state=NORMAL)
         s3.config(state=NORMAL)
+
+        #Funny Frames
+        im = Image.open("./Movie-Trailers/"+ MovieTrailerList[currentMovieNumber + 1] + "/image1.jpg")
+        resized = im.resize((400, 225), Image.ANTIALIAS)
+        tkimage = ImageTk.PhotoImage(resized)
+        myvar = Label(FrameSelectionWindowFunny, image=tkimage)
+        myvar.image = tkimage
+        myvar.grid(row=1, column=0, columnspan=2)
+
+        scaleFunny.set(1)
+        
+        tempNumber = glob.glob("./Movie-Trailers/"+ MovieTrailerList[currentMovieNumber + 1] + "/image*")
+        scaleFunny.config(to=len(tempNumber))
 
         CreateSelectVideoWindow()
 
@@ -254,7 +305,7 @@ def CreateVideoWindow():
     VideoWindow.deiconify()
 
     #Movie titles cannot have any spaces and/or special characters
-    movieLocation = os.getcwd() + "\\Movie-Trailers\\" + MovieTrailerList[currentMovieNumber] + ".mp4"
+    movieLocation = os.getcwd() + "\\Movie-Trailers\\" + MovieTrailerList[currentMovieNumber] + ".avi"
 
     os.system(movieLocation)
 
@@ -421,6 +472,17 @@ btn5.grid(column=0, row=4, columnspan=2, pady=10)
 
 #-----------------------------------------
 
+def specificFrame(val):
+    im = Image.open("./Movie-Trailers/" + MovieTrailerList[currentMovieNumber] + "/image" + val + ".jpg")
+    resized = im.resize((400, 225), Image.ANTIALIAS)
+    tkimage = ImageTk.PhotoImage(resized)
+    myvar = Label(FrameSelectionWindowFunny, image=tkimage)
+    myvar.image = tkimage
+    myvar.grid(row=1, column=0, columnspan=2)
+
+    FrameSelectionWindowFunny.update()
+    FrameSelectionWindowFunny.deiconify()
+
 
 #-----------------------------------------
 
@@ -428,40 +490,61 @@ btn5.grid(column=0, row=4, columnspan=2, pady=10)
 #This window will allow for the user to select which frame(s) contain the specified content 
 
 FrameSelectionWindowFunny.title("Trailer Viewer Program")
-FrameSelectionWindowFunny.geometry('1000x1000')
-FrameSelectionWindowFunny.minsize(1000, 1000)
+FrameSelectionWindowFunny.geometry('500x775')
+FrameSelectionWindowFunny.minsize(500, 775)
 FrameSelectionWindowFunny.iconbitmap('./Images/uottawa_ver_black.ico')
-#FrameSelectionWindow.resizable(False, False)
+#FrameSelectionWindowFunny.resizable(False, False)
 
 FrameSelectionWindowTitleFunnylbl = Label(FrameSelectionWindowFunny, text="Please select the frames that contain funny content", font=(25))
 FrameSelectionWindowTitleFunnylbl.grid(column=0, row=0, columnspan=2, pady=10)
 
 #Add image section here (bookmarked page on web)
+im = Image.open("./Movie-Trailers/"+ MovieTrailerList[currentMovieNumber] + "/image1.jpg")
+resized = im.resize((400, 225), Image.ANTIALIAS)
+tkimage = ImageTk.PhotoImage(resized)
+myvar = Label(FrameSelectionWindowFunny, image=tkimage)
+myvar.image = tkimage
+myvar.grid(row=1, column=0, columnspan=2)
 
-scaleFunny = Scale(FrameSelectionWindowFunny, from_=1, to=100, orient=HORIZONTAL, length=450)
-scaleFunny.grid(column=0, row=1, columnspan=2, pady=10)
+tempNumber = glob.glob("./Movie-Trailers/"+ MovieTrailerList[currentMovieNumber] + "/image*")
+
+scaleFunny = Scale(FrameSelectionWindowFunny, from_=1, to=len(tempNumber), orient=HORIZONTAL, command=specificFrame, length=450)
+scaleFunny.grid(column=0, row=2, columnspan=2, pady=10)
 
 FrameSelectionWindowFunnybutton1 = Button(FrameSelectionWindowFunny, text="Begin Selection", command=funnyClick, font=(25))
-FrameSelectionWindowFunnybutton1.grid(column=0, row=2, pady=10)
+FrameSelectionWindowFunnybutton1.grid(column=0, row=3, pady=10)
 
 FrameSelectionWindowFunnybutton2 = Button(FrameSelectionWindowFunny, text="End Selection", command=funnyClick, font=(25))
-FrameSelectionWindowFunnybutton2.grid(column=1, row=2, pady=10)
+FrameSelectionWindowFunnybutton2.grid(column=1, row=3, pady=10)
 
-seperator1 = ttk.Separator(FrameSelectionWindowFunny, orient=HORIZONTAL).grid(row=3, columnspan=2, sticky="ew")
+seperator1 = ttk.Separator(FrameSelectionWindowFunny, orient=HORIZONTAL).grid(row=4, columnspan=2, sticky="ew")
 
 FrameSelectionWindowTitleFunnylbl2 = Label(FrameSelectionWindowFunny, text="Selected Frame Sections:", font=(25))
-FrameSelectionWindowTitleFunnylbl2.grid(column=0, row=4, columnspan=2, pady=10)
+FrameSelectionWindowTitleFunnylbl2.grid(column=0, row=5, columnspan=2, pady=10)
 
 funnyListBox = Listbox(FrameSelectionWindowFunny, width=60)
-funnyListBox.grid(column=0, row=5, columnspan=2, pady=10)
+funnyListBox.grid(column=0, row=6, columnspan=2, pady=10)
 
 FrameSelectionWindowFunnybutton3 = Button(FrameSelectionWindowFunny, text="Remove Selection", command=funnyClick, font=(25))
-FrameSelectionWindowFunnybutton3.grid(column=0, row=6, pady=10)
+FrameSelectionWindowFunnybutton3.grid(column=0, row=7, pady=10)
 
-seperator2 = ttk.Separator(FrameSelectionWindowFunny, orient=HORIZONTAL).grid(row=7, columnspan=2, sticky="ew", pady=10)
+seperator2 = ttk.Separator(FrameSelectionWindowFunny, orient=HORIZONTAL).grid(row=8, columnspan=2, sticky="ew", pady=10)
 
 FrameSelectionWindowFunnybutton = Button(FrameSelectionWindowFunny, text="Finished", command=funnyClick, font=(25))
-FrameSelectionWindowFunnybutton.grid(column=0, row=8, columnspan=2, pady=10)
+FrameSelectionWindowFunnybutton.grid(column=0, row=9, columnspan=2, pady=10)
+
+FrameSelectionWindowFunny.grid_rowconfigure(0, weight=1)
+FrameSelectionWindowFunny.grid_rowconfigure(1, weight=1)
+FrameSelectionWindowFunny.grid_rowconfigure(2, weight=1)
+FrameSelectionWindowFunny.grid_rowconfigure(3, weight=1)
+FrameSelectionWindowFunny.grid_rowconfigure(4, weight=1)
+FrameSelectionWindowFunny.grid_rowconfigure(5, weight=1)
+FrameSelectionWindowFunny.grid_rowconfigure(6, weight=1)
+FrameSelectionWindowFunny.grid_rowconfigure(7, weight=1)
+FrameSelectionWindowFunny.grid_rowconfigure(8, weight=1)
+FrameSelectionWindowFunny.grid_rowconfigure(9, weight=1)
+FrameSelectionWindowFunny.grid_columnconfigure(0, weight=1)
+FrameSelectionWindowFunny.grid_columnconfigure(1, weight=1)
 
 #-----------------------------------------
 
@@ -519,18 +602,8 @@ FrameSelectionWindowImportantbutton.grid(column=0, row=1, pady=10)
 
 #-----------------------------------------
 
-
 btn2 = Button(mainWindow, text="Start", command=CreateuserIDWindow, font=(25))
 btn2.config(anchor=CENTER)
 btn2.pack(padx=0, pady=15)
 
-def getTrailers():
-    tempList = glob.glob("./Movie-Trailers/*.mp4")
-
-    for x in tempList:
-        x = x.replace("./Movie-Trailers\\","") 
-        x = x.replace(".mp4", "")
-        MovieTrailerList.append(x)
-
-getTrailers()
 mainWindow.mainloop()
