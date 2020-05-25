@@ -101,7 +101,7 @@ This Python program was created by Dustin Doucette, a 4th year undergraduate Com
 
 ## Project Files
 
-By default, the project contains the following file and folder layout:
+By default, the project contains the following file and directory layout:
 
     ```
     Movie_Trailer_Program
