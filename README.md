@@ -6,17 +6,17 @@ This Python program was created by Dustin Doucette, a 4th year undergraduate Com
 
 ## Program Requirements
 
-Python 3 ([download](https://www.python.org/downloads/))
+* Python 3 ([download](https://www.python.org/downloads/))
 
-    **Note:** For ease of use, ensure Python gets added to the PATH environment variable during installation
+      **Note:** For ease of use, ensure Python gets added to the PATH environment variable during installation
 
-External Python Modules:
+* External Python Modules:
 
-    -Pillow
+      -Pillow
     
-    -OpenCV-Python
+      -OpenCV-Python
     
-    -Pyglet
+      -Pyglet
 
 ## Installation
 
@@ -38,7 +38,7 @@ External Python Modules:
 
 ## Program Set-Up
 
-Place pre-downloaded AVI Movie Trailers into the folder `./Movie-Trailers`.
+* Place pre-downloaded AVI Movie Trailers into the folder `./Movie-Trailers`.
 
 ## Program Use Instructions
 
@@ -70,13 +70,13 @@ Place pre-downloaded AVI Movie Trailers into the folder `./Movie-Trailers`.
 
 ## Program Considerations
 
-The program needs to have at least one movie trailer placed inside the folder `Movie-Trailers` to function properly.
+* The program needs to have at least **one** movie trailer placed inside the folder `Movie-Trailers` to function properly.
 
 ## Program Output
 
-After step 10 (for each movie trailer) is completed, a new line is added to the excel output file named `Results.xlsx` located within the `Output-Logs` folder.
+* After each individual completion of step 10 is completed, a new line is added to the excel output file named `Results.xlsx` located within the `Output-Logs` folder.
 
-The `Results.xlsx` file will have the following columns (one new line added after every inidividual test):
+* The `Results.xlsx` file will have the following columns (one new line of data added after every inidividual test):
 
 | User ID | Movie Trailer | Funny | Funny Rating | Funny Sections | Scary | Scary Rating | Scary Sections | Sexy | Sexy Rating |  Sexy Sections  |  Important Sections  |
 |---------|---------------|-------|--------------|----------------|-------|--------------|----------------|------|-------------|-----------------|----------------------|
@@ -84,8 +84,9 @@ The `Results.xlsx` file will have the following columns (one new line added afte
 |987654321| The Thinning  |  NO   |     N/A      |       N/A      |  YES  |     5/10     |    (34,38)     |  YES |    3/10     |(12,21), (26,35) |   (12,21), (26,35)   |
 |187462945|   Peter Pan   |  YES  |     6/10     | (0,5), (23,30) |  NO   |     N/A      |      N/A       |  NO  |    N/A      |       N/A       |         N/A          |
 
-|         User ID       | Displays the User ID of the participant                                                                                                                      |
-|:---------------------:|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|           Column      | Description of Data                                                                                                                                          |
+|-----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|       **User ID**     | Displays the User ID of the participant                                                                                                                      |
 |  **Movie Trailer**    | Displays the name of the movie trailer that the participant is reviewing                                                                                     |
 |       **Funny**       | Displays whether or not the participant thinks the movie trailer contains funny content                                                                      |
 |   **Funny Rating**    | Displays a number between 1-10, where the participant decides how funny the movie trailer content was                                                        |
@@ -97,9 +98,6 @@ The `Results.xlsx` file will have the following columns (one new line added afte
 |    **Sexy Rating**    | Displays a number between 1-10, where the participant decides how Sexy the movie trailer content was                                                         |
 |   **Sexy Sections**   | Displays comma seperated tuples, where the first value is the start time (in seconds) and the second value is the end time (in seconds) of the Sexy content  |
 |**Important Sections** | Displays comma seperated tuples, where the first value is the start time (in seconds) and the second value is the end time (in seconds) of the Sexy content  |
-
-
-
 
 ## Project Files
 
