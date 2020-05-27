@@ -11,6 +11,7 @@ from PIL import ImageTk, Image
 from ctypes import *
 from tkinter import messagebox
 from os import startfile
+from functools import partial
 import os
 import cv2
 import sys
@@ -32,7 +33,7 @@ RatingsWindow.withdraw()
 SpecificRatingsWindow = Toplevel(mainWindow)
 SpecificRatingsWindow.withdraw()
 FrameSelectionWindowFunny = Toplevel(mainWindow)
-#FrameSelectionWindowFunny.withdraw()
+FrameSelectionWindowFunny.withdraw()
 FrameSelectionWindowScary = Toplevel(mainWindow)
 FrameSelectionWindowScary.withdraw()
 FrameSelectionWindowSexy = Toplevel(mainWindow)
@@ -62,21 +63,33 @@ hasBeenToSexy = False
 funnyRating = 0
 currentFunny = 0
 funnySections = []
-funnyListBoxCount = 1
+
+allFunnyButtons = []
+selectedFunnyButtons = []
+
 
 scaryRating = 0
 currentScary = 1
 scarySections = []
-scaryListBoxCount = 1
+
+allScaryButtons = []
+selectedScaryButtons = []
+
 
 sexyRating = 0
 currentSexy = 1
 sexySections = []
-sexyListBoxCount = 1
+
+allSexyButtons = []
+selectedSexyButtons = []
+
 
 currentImportant = 1
 importantSections = []
-importantListBoxCount = 1
+
+allImportantButtons = []
+selectedImportantButtons = []
+
 
 startFrame = 1
 endFrame = 1
@@ -95,10 +108,6 @@ VideoWindow.protocol("WM_DELETE_WINDOW", on_closing)
 SelectVideoWindow.protocol("WM_DELETE_WINDOW", on_closing)    
 userIDWindow.protocol("WM_DELETE_WINDOW", on_closing) 
 ThankYouWindow.protocol("WM_DELETE_WINDOW", endProgram) 
-FrameSelectionWindowFunny.protocol("WM_DELETE_WINDOW", on_closing) 
-FrameSelectionWindowScary.protocol("WM_DELETE_WINDOW", on_closing) 
-FrameSelectionWindowSexy.protocol("WM_DELETE_WINDOW", on_closing) 
-FrameSelectionWindowImportant.protocol("WM_DELETE_WINDOW", on_closing) 
 
 def getTrailers():
     tempList = glob.glob("./Movie-Trailers/*.avi")
@@ -137,27 +146,70 @@ def generateFrames():
 
 generateFrames()
 
+def getGoodData(tempInput1 = []):
+    #print("In: " + str(tempInput1))
+    tempInput = sorted(tempInput1)
+    #print("Sorted: " + str(tempInput))
+    newArray = []
+    tempNewArray = []
+    lastOne = -1
+
+    for x in tempInput:
+        if(lastOne == -1):
+            lastOne = x
+            tempNewArray.append(x)
+            if(x == tempInput[len(tempInput) - 1]):
+                newArray.append(tempNewArray)
+        else:
+            if(lastOne == x - 1):
+                tempNewArray.append(x)
+                lastOne = x
+                if(x == tempInput[len(tempInput) - 1]):
+                    newArray.append(tempNewArray)
+            else:
+                newArray.append(tempNewArray)
+                tempNewArray = [x]
+                lastOne = x
+                if(x == tempInput[len(tempInput) - 1]):
+                    newArray.append(tempNewArray)
+
+    finalArray = []
+
+    for x in newArray:
+        if(len(x) == 1):
+            finalArray.append(x[0])
+        else:
+            finalArray.append([x[0], x[len(x)-1]])
+
+    return(finalArray)
+
+
 def SaveData():
     print("User: " + userID)
     print("Movie Trailer: " + MovieTrailerList[currentMovieNumber])
 
     if(isFunny.get() == 1):
+        funnySections = getGoodData(selectedFunnyButtons)
         print("Funny: YES, " + " " + str(funnyRating) + " out of 10")
         print("Funny Sections: " + str(funnySections))
     else:
         print("Funny: NO")
 
     if(isScary.get() == 1):
+        scarySections = getGoodData(selectedScaryButtons)
+        print("temp Out: " + str(scarySections))
         print("Scary: YES, " + str(scaryRating) + " out of 10")
         print("Scary Sections: " + str(scarySections))
     else:
         print("Scary: NO")
 
     if(isSexy.get() == 1):
+        sexySections = getGoodData(selectedSexyButtons)
         print("Sexy: YES, " + str(sexyRating) + " out of 10")
         print("Sexy Sections: " + str(sexySections))
     else:
         print("Sexy: NO")
+    importantSections = getGoodData(selectedImportantButtons)
     print("Important Sections: " + str(importantSections))
     print("")
     
@@ -179,7 +231,6 @@ def SayThankYou():
     lbl.pack(padx=0, pady=0)
 
 def GetNextTrailer():
-    FrameSelectionWindowImportant.withdraw()
     global currentMovieNumber
     global hasBeenToFunny
     global hasBeenToScary
@@ -203,6 +254,24 @@ def GetNextTrailer():
     global currentImportant
     global importantSections
     global importantListBoxCount
+
+    global allFunnyButtons
+    global selectedFunnyButtons
+    global FrameSelectionWindowFunny
+
+    global allScaryButtons
+    global selectedScaryButtons
+    global FrameSelectionWindowScary
+
+    global allSexyButtons
+    global selectedSexyButtons
+    global FrameSelectionWindowSexy
+
+    global allImportantButtons
+    global selectedImportantButtons
+    global FrameSelectionWindowImportant
+
+    FrameSelectionWindowImportant.withdraw()
 
     global startFrame
     global endFrame
@@ -261,53 +330,37 @@ def GetNextTrailer():
         lbl9.config(state=NORMAL)
         s3.config(state=NORMAL)
 
-        #Funny Frames
-        
+        allFunnyButtons = []
+        selectedFunnyButtons = []
 
-        #Scary Frames
-        im = Image.open("./Movie-Trailers/"+ MovieTrailerList[currentMovieNumber] + "/image1.jpg")
-        resized = im.resize((400, 225), Image.ANTIALIAS)
-        tkimage = ImageTk.PhotoImage(resized)
-        myvar = Label(FrameSelectionWindowScary, image=tkimage)
-        myvar.image = tkimage
-        myvar.grid(row=1, column=0, columnspan=2)
+        FrameSelectionWindowFunny.destroy()
+        FrameSelectionWindowFunny = Toplevel(mainWindow)
+        FrameSelectionWindowFunny.withdraw()
+        createFunnyWindow()
 
-        scaleScary.set(1)
-        
-        tempNumber = glob.glob("./Movie-Trailers/"+ MovieTrailerList[currentMovieNumber] + "/image*")
-        scaleScary.config(to=len(tempNumber))
+        allScaryButtons = []
+        selectedScaryButtons = []
 
-        scaryListBox.delete(0,'end')
+        FrameSelectionWindowScary.destroy()
+        FrameSelectionWindowScary = Toplevel(mainWindow)
+        FrameSelectionWindowScary.withdraw()
+        createScaryWindow()
 
-        #Sexy Frames
-        im = Image.open("./Movie-Trailers/"+ MovieTrailerList[currentMovieNumber] + "/image1.jpg")
-        resized = im.resize((400, 225), Image.ANTIALIAS)
-        tkimage = ImageTk.PhotoImage(resized)
-        myvar = Label(FrameSelectionWindowSexy, image=tkimage)
-        myvar.image = tkimage
-        myvar.grid(row=1, column=0, columnspan=2)
+        allSexyButtons = []
+        selectedSexyButtons = []
 
-        scaleSexy.set(1)
-        
-        tempNumber = glob.glob("./Movie-Trailers/"+ MovieTrailerList[currentMovieNumber] + "/image*")
-        scaleSexy.config(to=len(tempNumber))
+        FrameSelectionWindowSexy.destroy()
+        FrameSelectionWindowSexy = Toplevel(mainWindow)
+        FrameSelectionWindowSexy.withdraw()
+        createSexyWindow()
 
-        sexyListBox.delete(0,'end')
+        allImportantButtons = []
+        selectedImportantButtons = []
 
-        #Important Frames
-        im = Image.open("./Movie-Trailers/"+ MovieTrailerList[currentMovieNumber] + "/image1.jpg")
-        resized = im.resize((400, 225), Image.ANTIALIAS)
-        tkimage = ImageTk.PhotoImage(resized)
-        myvar = Label(FrameSelectionWindowImportant, image=tkimage)
-        myvar.image = tkimage
-        myvar.grid(row=1, column=0, columnspan=2)
-
-        scaleImportant.set(1)
-        
-        tempNumber = glob.glob("./Movie-Trailers/"+ MovieTrailerList[currentMovieNumber] + "/image*")
-        scaleImportant.config(to=len(tempNumber))
-
-        importantListBox.delete(0,'end')
+        FrameSelectionWindowImportant.destroy()
+        FrameSelectionWindowImportant = Toplevel(mainWindow)
+        FrameSelectionWindowImportant.withdraw()
+        createImportantWindow()
 
         CreateSelectVideoWindow()
 
@@ -593,420 +646,287 @@ SpecificRatingsWindow.grid_columnconfigure(1, weight=1)
 
 #-----------------------------------------
 
+def printFunnyNumber(inputFromUser):
+    global allFunnyButtons
+    global selectedFunnyButtons
+    #print(inputFromUser)
+
+    if inputFromUser not in selectedFunnyButtons:
+        selectedFunnyButtons.append(inputFromUser)
+        allFunnyButtons[int(inputFromUser)-1].config(bg = "red")
+    else:
+        selectedFunnyButtons.remove(inputFromUser)
+        allFunnyButtons[int(inputFromUser)-1].config(bg = "white")
+    
+    #print("Currently selected Funny Buttons: " + str(selectedFunnyButtons))
+
 #Frame Selection Window Funny ----------------------------
 #This window will allow for the user to select which frame(s) contain the specified content 
+def createFunnyWindow():
+    FrameSelectionWindowFunny.title("Trailer Viewer Program")
+    FrameSelectionWindowFunny.geometry('500x775')
+    FrameSelectionWindowFunny.minsize(500, 775)
+    FrameSelectionWindowFunny.iconbitmap('./Images/uottawa_ver_black.ico')
+    #FrameSelectionWindowFunny.resizable(False, False)
+    FrameSelectionWindowFunny.protocol("WM_DELETE_WINDOW", on_closing) 
 
-FrameSelectionWindowFunny.title("Trailer Viewer Program")
-FrameSelectionWindowFunny.geometry('500x775')
-FrameSelectionWindowFunny.minsize(500, 775)
-FrameSelectionWindowFunny.iconbitmap('./Images/uottawa_ver_black.ico')
-#FrameSelectionWindowFunny.resizable(False, False)
+    FrameSelectionWindowTitleFunnylbl = Label(FrameSelectionWindowFunny, text="Please select the frames that contain funny content", font=(25))
+    FrameSelectionWindowTitleFunnylbl.grid(column=0, row=0, columnspan=2, pady=10)
 
-FrameSelectionWindowTitleFunnylbl = Label(FrameSelectionWindowFunny, text="Please select the frames that contain funny content", font=(25))
-FrameSelectionWindowTitleFunnylbl.grid(column=0, row=0, columnspan=2, pady=10)
+    photoFrameFunny = Frame(FrameSelectionWindowFunny)
+    photoFrameFunny.grid(column=0, row=1, columnspan=2, pady=10)
 
-photoFrame = Frame(FrameSelectionWindowFunny)
-photoFrame.grid(column=0, row=1, columnspan=2, pady=10)
+    photoFrameFunny.grid_rowconfigure(0, weight=1)
+    photoFrameFunny.grid_columnconfigure(0, weight=1)
 
-photoFrame.grid_rowconfigure(0, weight=1)
-photoFrame.grid_columnconfigure(0, weight=1)
+    rowCount = 0
+    columnCount = 0
 
-rowCount = 0
-columnCount = 0
+    tempNumber = glob.glob("./Movie-Trailers/"+ MovieTrailerList[currentMovieNumber] + "/image*")
 
-tempNumber = glob.glob("./Movie-Trailers/"+ MovieTrailerList[currentMovieNumber] + "/image*")
+    for x in range(1, len(tempNumber) + 1):
+        if(columnCount == 10):
+            columnCount = 0
+            rowCount = rowCount + 1
 
-for x in range(1, len(tempNumber)):
-    if(columnCount == 8):
-        columnCount = 0
-        rowCount = rowCount + 1
+        im = Image.open("./Movie-Trailers/"+ MovieTrailerList[currentMovieNumber] + "/image" + str(x) + ".jpg")
+        resized = im.resize((160, 90), Image.ANTIALIAS)
+        tkimage = ImageTk.PhotoImage(resized)
 
-    im = Image.open("./Movie-Trailers/"+ MovieTrailerList[currentMovieNumber] + "/image" + str(x) + ".jpg")
-    resized = im.resize((160, 90), Image.ANTIALIAS)
-    tkimage = ImageTk.PhotoImage(resized)
-    myvar = Label(photoFrame, image=tkimage)
-    myvar.image = tkimage
-    myvar.grid(row=rowCount, column=columnCount)
+        action_with_arg = partial(printFunnyNumber, x)
+        myvar = Button(photoFrameFunny, bd=2, bg = "white", image=tkimage, command=action_with_arg)
 
-    columnCount = columnCount + 1
+        myvar.image = tkimage
+        myvar.grid(row=rowCount, column=columnCount)
 
+        allFunnyButtons.append(myvar)
 
+        columnCount = columnCount + 1
 
+    FrameSelectionWindowFunnybutton = Button(FrameSelectionWindowFunny, text="Finished", command=funnyClick, font=(25))
+    FrameSelectionWindowFunnybutton.grid(column=0, row=2, pady=10)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    FrameSelectionWindowFunny.grid_rowconfigure(0, weight=1)
+    FrameSelectionWindowFunny.grid_rowconfigure(1, weight=1)
+    FrameSelectionWindowFunny.grid_rowconfigure(2, weight=1)
+    FrameSelectionWindowFunny.grid_columnconfigure(0, weight=1)
 
 #-----------------------------------------
 
-def scarySpecificFrame(val):
-    global currentScary
-    currentScary = int(val)
-    im = Image.open("./Movie-Trailers/" + MovieTrailerList[currentMovieNumber] + "/image" + val + ".jpg")
-    resized = im.resize((400, 225), Image.ANTIALIAS)
-    tkimage = ImageTk.PhotoImage(resized)
-    myvar = Label(FrameSelectionWindowScary, image=tkimage)
-    myvar.image = tkimage
-    myvar.grid(row=1, column=0, columnspan=2)
+#-----------------------------------------
 
-    FrameSelectionWindowScary.update()
-    FrameSelectionWindowScary.deiconify()
+def printScaryNumber(inputFromUser):
+    global allScaryButtons
+    global selectedScaryButtons
+    #print(inputFromUser)
 
-def scaryClickBegin():
-    global currentScary
-    global startFrame
-    startFrame = currentScary
-    FrameSelectionWindowScarybutton2.config(state=NORMAL)
-
-
-def scaryClickEnd():
-    global startFrame
-    global currentScary
-    global endFrame
-    global scaryListBoxCount
-    endFrame = currentScary
-
-    if((startFrame > 0) and (startFrame is not endFrame) and (startFrame < endFrame)):
-        scarySections.append([startFrame, endFrame])
-
-        scaryListBoxCount = scaryListBoxCount + 1
-        scaryListBox.insert(scaryListBoxCount, "Frame: " + str(startFrame) + ", to Frame: " + str(endFrame))
-
-        startFrame = 0
-        endFrame = 0
-        FrameSelectionWindowScarybutton2.config(state=DISABLED)
-
-def scaryRemove():
-    #Add Try Catch Statment
-    try:
-        text = scaryListBox.get(scaryListBox.curselection())
-        scaryListBox.delete(scaryListBox.curselection())
-        first = text
-
-        temp = first.split(", to Frame")
-
-        first = temp[0].replace("Frame: ", "")
-        second = temp[1].replace(": ", "")
-
-        tempList = [int(first), int(second)]
-        scarySections.remove(tempList)
-    except:
-        messagebox.showerror("Error", "Please select a valid frame selection to delete")
+    if inputFromUser not in selectedScaryButtons:
+        selectedScaryButtons.append(inputFromUser)
+        allScaryButtons[int(inputFromUser)-1].config(bg = "red")
+    else:
+        selectedScaryButtons.remove(inputFromUser)
+        allScaryButtons[int(inputFromUser)-1].config(bg = "white")
+    
+    #print("Currently selected Scary Buttons: " + str(selectedScaryButtons))
 
 #Frame Selection Window Scary ----------------------------
 #This window will allow for the user to select which frame(s) contain the specified content 
+def createScaryWindow():
+    FrameSelectionWindowScary.title("Trailer Viewer Program")
+    FrameSelectionWindowScary.geometry('500x775')
+    FrameSelectionWindowScary.minsize(500, 775)
+    FrameSelectionWindowScary.iconbitmap('./Images/uottawa_ver_black.ico')
+    #FrameSelectionWindowScary.resizable(False, False)
+    FrameSelectionWindowScary.protocol("WM_DELETE_WINDOW", on_closing) 
 
-FrameSelectionWindowScary.title("Trailer Viewer Program")
-FrameSelectionWindowScary.geometry('500x775')
-FrameSelectionWindowScary.minsize(500, 775)
-FrameSelectionWindowScary.iconbitmap('./Images/uottawa_ver_black.ico')
-#FrameSelectionWindowScary.resizable(False, False)
+    FrameSelectionWindowTitleScarylbl = Label(FrameSelectionWindowScary, text="Please select the frames that contain scary content", font=(25))
+    FrameSelectionWindowTitleScarylbl.grid(column=0, row=0, columnspan=2, pady=10)
 
-FrameSelectionWindowTitleScarylbl = Label(FrameSelectionWindowScary, text="Please select the frames that contain scary content", font=(25))
-FrameSelectionWindowTitleScarylbl.grid(column=0, row=0, columnspan=2, pady=10)
+    photoFrameScary = Frame(FrameSelectionWindowScary)
+    photoFrameScary.grid(column=0, row=1, columnspan=2, pady=10)
 
-#Add image section here (bookmarked page on web)
-im = Image.open("./Movie-Trailers/"+ MovieTrailerList[currentMovieNumber] + "/image1.jpg")
-resized = im.resize((400, 225), Image.ANTIALIAS)
-tkimage = ImageTk.PhotoImage(resized)
-myvar = Label(FrameSelectionWindowScary, image=tkimage)
-myvar.image = tkimage
-myvar.grid(row=1, column=0, columnspan=2)
+    photoFrameScary.grid_rowconfigure(0, weight=1)
+    photoFrameScary.grid_columnconfigure(0, weight=1)
 
-tempNumber = glob.glob("./Movie-Trailers/"+ MovieTrailerList[currentMovieNumber] + "/image*")
+    rowCount = 0
+    columnCount = 0
 
-scaleScary = Scale(FrameSelectionWindowScary, from_=1, to=len(tempNumber), orient=HORIZONTAL, command=scarySpecificFrame, length=450)
-scaleScary.grid(column=0, row=2, columnspan=2, pady=10)
+    tempNumber = glob.glob("./Movie-Trailers/"+ MovieTrailerList[currentMovieNumber] + "/image*")
 
-FrameSelectionWindowScarybutton1 = Button(FrameSelectionWindowScary, text="Begin Selection", command=scaryClickBegin, font=(25))
-FrameSelectionWindowScarybutton1.grid(column=0, row=3, pady=10)
+    for x in range(1, len(tempNumber) + 1):
+        if(columnCount == 10):
+            columnCount = 0
+            rowCount = rowCount + 1
 
-FrameSelectionWindowScarybutton2 = Button(FrameSelectionWindowScary, text="End Selection", command=scaryClickEnd, font=(25))
-FrameSelectionWindowScarybutton2.grid(column=1, row=3, pady=10)
+        im = Image.open("./Movie-Trailers/"+ MovieTrailerList[currentMovieNumber] + "/image" + str(x) + ".jpg")
+        resized = im.resize((160, 90), Image.ANTIALIAS)
+        tkimage = ImageTk.PhotoImage(resized)
 
-seperator1 = ttk.Separator(FrameSelectionWindowScary, orient=HORIZONTAL).grid(row=4, columnspan=2, sticky="ew")
+        action_with_arg = partial(printScaryNumber, x)
+        myvar = Button(photoFrameScary, bd=2, bg = "white", image=tkimage, command=action_with_arg)
 
-FrameSelectionWindowTitleScarylbl2 = Label(FrameSelectionWindowScary, text="Selected Frame Sections:", font=(25))
-FrameSelectionWindowTitleScarylbl2.grid(column=0, row=5, columnspan=2, pady=10)
+        myvar.image = tkimage
+        myvar.grid(row=rowCount, column=columnCount)
 
-scaryListBox = Listbox(FrameSelectionWindowScary, width=60, selectmode=SINGLE)
-scaryListBox.grid(column=0, row=6, columnspan=2, pady=10)
+        allScaryButtons.append(myvar)
 
-FrameSelectionWindowScarybutton3 = Button(FrameSelectionWindowScary, text="Remove Selection", command=scaryRemove, font=(25))
-FrameSelectionWindowScarybutton3.grid(column=0, row=7, pady=10)
+        columnCount = columnCount + 1
 
-seperator2 = ttk.Separator(FrameSelectionWindowScary, orient=HORIZONTAL).grid(row=8, columnspan=2, sticky="ew", pady=10)
+    FrameSelectionWindowScarybutton = Button(FrameSelectionWindowScary, text="Finished", command=scaryClick, font=(25))
+    FrameSelectionWindowScarybutton.grid(column=0, row=2, pady=10)
 
-FrameSelectionWindowScarybutton = Button(FrameSelectionWindowScary, text="Finished", command=scaryClick, font=(25))
-FrameSelectionWindowScarybutton.grid(column=0, row=9, columnspan=2, pady=10)
-
-FrameSelectionWindowScary.grid_rowconfigure(0, weight=1)
-FrameSelectionWindowScary.grid_rowconfigure(1, weight=1)
-FrameSelectionWindowScary.grid_rowconfigure(2, weight=1)
-FrameSelectionWindowScary.grid_rowconfigure(3, weight=1)
-FrameSelectionWindowScary.grid_rowconfigure(4, weight=1)
-FrameSelectionWindowScary.grid_rowconfigure(5, weight=1)
-FrameSelectionWindowScary.grid_rowconfigure(6, weight=1)
-FrameSelectionWindowScary.grid_rowconfigure(7, weight=1)
-FrameSelectionWindowScary.grid_rowconfigure(8, weight=1)
-FrameSelectionWindowScary.grid_rowconfigure(9, weight=1)
-FrameSelectionWindowScary.grid_columnconfigure(0, weight=1)
-FrameSelectionWindowScary.grid_columnconfigure(1, weight=1)
+    FrameSelectionWindowScary.grid_rowconfigure(0, weight=1)
+    FrameSelectionWindowScary.grid_rowconfigure(1, weight=1)
+    FrameSelectionWindowScary.grid_rowconfigure(2, weight=1)
+    FrameSelectionWindowScary.grid_columnconfigure(0, weight=1)
 
 #-----------------------------------------
 
-def sexySpecificFrame(val):
-    global currentSexy
-    currentSexy = int(val)
-    im = Image.open("./Movie-Trailers/" + MovieTrailerList[currentMovieNumber] + "/image" + val + ".jpg")
-    resized = im.resize((400, 225), Image.ANTIALIAS)
-    tkimage = ImageTk.PhotoImage(resized)
-    myvar = Label(FrameSelectionWindowSexy, image=tkimage)
-    myvar.image = tkimage
-    myvar.grid(row=1, column=0, columnspan=2)
+#-----------------------------------------
 
-    FrameSelectionWindowSexy.update()
-    FrameSelectionWindowSexy.deiconify()
+def printSexyNumber(inputFromUser):
+    global allSexyButtons
+    global selectedSexyButtons
+    #print(inputFromUser)
 
-def sexyClickBegin():
-    global currentSexy
-    global startFrame
-    startFrame = currentSexy
-    FrameSelectionWindowSexybutton2.config(state=NORMAL)
-
-
-def sexyClickEnd():
-    global startFrame
-    global currentSexy
-    global endFrame
-    global sexyListBoxCount
-    endFrame = currentSexy
-
-    if((startFrame > 0) and (startFrame is not endFrame) and (startFrame < endFrame)):
-        sexySections.append([startFrame, endFrame])
-
-        sexyListBoxCount = sexyListBoxCount + 1
-        sexyListBox.insert(sexyListBoxCount, "Frame: " + str(startFrame) + ", to Frame: " + str(endFrame))
-
-        startFrame = 0
-        endFrame = 0
-        FrameSelectionWindowSexybutton2.config(state=DISABLED)
-
-def sexyRemove():
-    #Add Try Catch Statment
-    try:
-        text = sexyListBox.get(sexyListBox.curselection())
-        sexyListBox.delete(sexyListBox.curselection())
-        first = text
-
-        temp = first.split(", to Frame")
-
-        first = temp[0].replace("Frame: ", "")
-        second = temp[1].replace(": ", "")
-
-        tempList = [int(first), int(second)]
-        sexySections.remove(tempList)
-    except:
-        messagebox.showerror("Error", "Please select a valid frame selection to delete")
+    if inputFromUser not in selectedSexyButtons:
+        selectedSexyButtons.append(inputFromUser)
+        allSexyButtons[int(inputFromUser)-1].config(bg = "red")
+    else:
+        selectedSexyButtons.remove(inputFromUser)
+        allSexyButtons[int(inputFromUser)-1].config(bg = "white")
+    
+    #print("Currently selected Sexy Buttons: " + str(selectedSexyButtons))
 
 #Frame Selection Window Sexy ----------------------------
 #This window will allow for the user to select which frame(s) contain the specified content 
+def createSexyWindow():
+    FrameSelectionWindowSexy.title("Trailer Viewer Program")
+    FrameSelectionWindowSexy.geometry('500x775')
+    FrameSelectionWindowSexy.minsize(500, 775)
+    FrameSelectionWindowSexy.iconbitmap('./Images/uottawa_ver_black.ico')
+    #FrameSelectionWindowSexy.resizable(False, False)
+    FrameSelectionWindowSexy.protocol("WM_DELETE_WINDOW", on_closing) 
 
-FrameSelectionWindowSexy.title("Trailer Viewer Program")
-FrameSelectionWindowSexy.geometry('500x775')
-FrameSelectionWindowSexy.minsize(500, 775)
-FrameSelectionWindowSexy.iconbitmap('./Images/uottawa_ver_black.ico')
-#FrameSelectionWindowSexy.resizable(False, False)
+    FrameSelectionWindowTitleSexylbl = Label(FrameSelectionWindowSexy, text="Please select the frames that contain sexy content", font=(25))
+    FrameSelectionWindowTitleSexylbl.grid(column=0, row=0, columnspan=2, pady=10)
 
-FrameSelectionWindowTitleSexylbl = Label(FrameSelectionWindowSexy, text="Please select the frames that contain sexy content", font=(25))
-FrameSelectionWindowTitleSexylbl.grid(column=0, row=0, columnspan=2, pady=10)
+    photoFrameSexy = Frame(FrameSelectionWindowSexy)
+    photoFrameSexy.grid(column=0, row=1, columnspan=2, pady=10)
 
-#Add image section here (bookmarked page on web)
-im = Image.open("./Movie-Trailers/"+ MovieTrailerList[currentMovieNumber] + "/image1.jpg")
-resized = im.resize((400, 225), Image.ANTIALIAS)
-tkimage = ImageTk.PhotoImage(resized)
-myvar = Label(FrameSelectionWindowSexy, image=tkimage)
-myvar.image = tkimage
-myvar.grid(row=1, column=0, columnspan=2)
+    photoFrameSexy.grid_rowconfigure(0, weight=1)
+    photoFrameSexy.grid_columnconfigure(0, weight=1)
 
-tempNumber = glob.glob("./Movie-Trailers/"+ MovieTrailerList[currentMovieNumber] + "/image*")
+    rowCount = 0
+    columnCount = 0
 
-scaleSexy = Scale(FrameSelectionWindowSexy, from_=1, to=len(tempNumber), orient=HORIZONTAL, command=sexySpecificFrame, length=450)
-scaleSexy.grid(column=0, row=2, columnspan=2, pady=10)
+    tempNumber = glob.glob("./Movie-Trailers/"+ MovieTrailerList[currentMovieNumber] + "/image*")
 
-FrameSelectionWindowSexybutton1 = Button(FrameSelectionWindowSexy, text="Begin Selection", command=sexyClickBegin, font=(25))
-FrameSelectionWindowSexybutton1.grid(column=0, row=3, pady=10)
+    for x in range(1, len(tempNumber) + 1):
+        if(columnCount == 10):
+            columnCount = 0
+            rowCount = rowCount + 1
 
-FrameSelectionWindowSexybutton2 = Button(FrameSelectionWindowSexy, text="End Selection", command=sexyClickEnd, font=(25))
-FrameSelectionWindowSexybutton2.grid(column=1, row=3, pady=10)
+        im = Image.open("./Movie-Trailers/"+ MovieTrailerList[currentMovieNumber] + "/image" + str(x) + ".jpg")
+        resized = im.resize((160, 90), Image.ANTIALIAS)
+        tkimage = ImageTk.PhotoImage(resized)
 
-seperator1 = ttk.Separator(FrameSelectionWindowSexy, orient=HORIZONTAL).grid(row=4, columnspan=2, sticky="ew")
+        action_with_arg = partial(printSexyNumber, x)
+        myvar = Button(photoFrameSexy, bd=2, bg = "white", image=tkimage, command=action_with_arg)
 
-FrameSelectionWindowTitleSexylbl2 = Label(FrameSelectionWindowSexy, text="Selected Frame Sections:", font=(25))
-FrameSelectionWindowTitleSexylbl2.grid(column=0, row=5, columnspan=2, pady=10)
+        myvar.image = tkimage
+        myvar.grid(row=rowCount, column=columnCount)
 
-sexyListBox = Listbox(FrameSelectionWindowSexy, width=60, selectmode=SINGLE)
-sexyListBox.grid(column=0, row=6, columnspan=2, pady=10)
+        allSexyButtons.append(myvar)
 
-FrameSelectionWindowSexybutton3 = Button(FrameSelectionWindowSexy, text="Remove Selection", command=sexyRemove, font=(25))
-FrameSelectionWindowSexybutton3.grid(column=0, row=7, pady=10)
+        columnCount = columnCount + 1
 
-seperator2 = ttk.Separator(FrameSelectionWindowSexy, orient=HORIZONTAL).grid(row=8, columnspan=2, sticky="ew", pady=10)
+    FrameSelectionWindowSexybutton = Button(FrameSelectionWindowSexy, text="Finished", command=sexyClick, font=(25))
+    FrameSelectionWindowSexybutton.grid(column=0, row=2, pady=10)
 
-FrameSelectionWindowSexybutton = Button(FrameSelectionWindowSexy, text="Finished", command=sexyClick, font=(25))
-FrameSelectionWindowSexybutton.grid(column=0, row=9, columnspan=2, pady=10)
-
-FrameSelectionWindowSexy.grid_rowconfigure(0, weight=1)
-FrameSelectionWindowSexy.grid_rowconfigure(1, weight=1)
-FrameSelectionWindowSexy.grid_rowconfigure(2, weight=1)
-FrameSelectionWindowSexy.grid_rowconfigure(3, weight=1)
-FrameSelectionWindowSexy.grid_rowconfigure(4, weight=1)
-FrameSelectionWindowSexy.grid_rowconfigure(5, weight=1)
-FrameSelectionWindowSexy.grid_rowconfigure(6, weight=1)
-FrameSelectionWindowSexy.grid_rowconfigure(7, weight=1)
-FrameSelectionWindowSexy.grid_rowconfigure(8, weight=1)
-FrameSelectionWindowSexy.grid_rowconfigure(9, weight=1)
-FrameSelectionWindowSexy.grid_columnconfigure(0, weight=1)
-FrameSelectionWindowSexy.grid_columnconfigure(1, weight=1)
+    FrameSelectionWindowSexy.grid_rowconfigure(0, weight=1)
+    FrameSelectionWindowSexy.grid_rowconfigure(1, weight=1)
+    FrameSelectionWindowSexy.grid_rowconfigure(2, weight=1)
+    FrameSelectionWindowSexy.grid_columnconfigure(0, weight=1)
 
 #-----------------------------------------
 
-def importantSpecificFrame(val):
-    global currentImportant
-    currentImportant = int(val)
-    im = Image.open("./Movie-Trailers/" + MovieTrailerList[currentMovieNumber] + "/image" + val + ".jpg")
-    resized = im.resize((400, 225), Image.ANTIALIAS)
-    tkimage = ImageTk.PhotoImage(resized)
-    myvar = Label(FrameSelectionWindowImportant, image=tkimage)
-    myvar.image = tkimage
-    myvar.grid(row=1, column=0, columnspan=2)
+#-----------------------------------------
 
-    FrameSelectionWindowImportant.update()
-    FrameSelectionWindowImportant.deiconify()
+def printImportantNumber(inputFromUser):
+    global allImportantButtons
+    global selectedImportantButtons
+    #print(inputFromUser)
 
-def importantClickBegin():
-    global currentImportant
-    global startFrame
-    startFrame = currentImportant
-    FrameSelectionWindowImportantbutton2.config(state=NORMAL)
-
-
-def importantClickEnd():
-    global startFrame
-    global currentImportant
-    global endFrame
-    global importantListBoxCount
-    endFrame = currentImportant
-
-    if((startFrame > 0) and (startFrame is not endFrame) and (startFrame < endFrame)):
-        importantSections.append([startFrame, endFrame])
-
-        importantListBoxCount = importantListBoxCount + 1
-        importantListBox.insert(importantListBoxCount, "Frame: " + str(startFrame) + ", to Frame: " + str(endFrame))
-
-        startFrame = 0
-        endFrame = 0
-        FrameSelectionWindowImportantbutton2.config(state=DISABLED)
-
-def importantRemove():
-    #Add Try Catch Statment
-    try:
-        text = importantListBox.get(importantListBox.curselection())
-        importantListBox.delete(importantListBox.curselection())
-        first = text
-
-        temp = first.split(", to Frame")
-
-        first = temp[0].replace("Frame: ", "")
-        second = temp[1].replace(": ", "")
-
-        tempList = [int(first), int(second)]
-        importantSections.remove(tempList)
-    except:
-        messagebox.showerror("Error", "Please select a valid frame selection to delete")
-
+    if inputFromUser not in selectedImportantButtons:
+        selectedImportantButtons.append(inputFromUser)
+        allImportantButtons[int(inputFromUser)-1].config(bg = "red")
+    else:
+        selectedImportantButtons.remove(inputFromUser)
+        allImportantButtons[int(inputFromUser)-1].config(bg = "white")
+    
+    #print("Currently selected Important Buttons: " + str(selectedImportantButtons))
 
 #Frame Selection Window Important ----------------------------
 #This window will allow for the user to select which frame(s) contain the specified content 
+def createImportantWindow():
+    FrameSelectionWindowImportant.title("Trailer Viewer Program")
+    FrameSelectionWindowImportant.geometry('500x775')
+    FrameSelectionWindowImportant.minsize(500, 775)
+    FrameSelectionWindowImportant.iconbitmap('./Images/uottawa_ver_black.ico')
+    #FrameSelectionWindowImportant.resizable(False, False)
+    FrameSelectionWindowImportant.protocol("WM_DELETE_WINDOW", on_closing) 
 
-FrameSelectionWindowImportant.title("Trailer Viewer Program")
-FrameSelectionWindowImportant.geometry('500x775')
-FrameSelectionWindowImportant.minsize(500, 775)
-FrameSelectionWindowImportant.iconbitmap('./Images/uottawa_ver_black.ico')
-#FrameSelectionWindowImportant.resizable(False, False)
+    FrameSelectionWindowTitleImportantlbl = Label(FrameSelectionWindowImportant, text="Please select the frames that contain important content", font=(25))
+    FrameSelectionWindowTitleImportantlbl.grid(column=0, row=0, columnspan=2, pady=10)
 
-FrameSelectionWindowTitleImportantlbl = Label(FrameSelectionWindowImportant, text="Please select the frames that contain important content", font=(25))
-FrameSelectionWindowTitleImportantlbl.grid(column=0, row=0, columnspan=2, pady=10)
+    photoFrameImportant = Frame(FrameSelectionWindowImportant)
+    photoFrameImportant.grid(column=0, row=1, columnspan=2, pady=10)
 
-#Add image section here (bookmarked page on web)
-im = Image.open("./Movie-Trailers/"+ MovieTrailerList[currentMovieNumber] + "/image1.jpg")
-resized = im.resize((400, 225), Image.ANTIALIAS)
-tkimage = ImageTk.PhotoImage(resized)
-myvar = Label(FrameSelectionWindowImportant, image=tkimage)
-myvar.image = tkimage
-myvar.grid(row=1, column=0, columnspan=2)
+    photoFrameImportant.grid_rowconfigure(0, weight=1)
+    photoFrameImportant.grid_columnconfigure(0, weight=1)
 
-tempNumber = glob.glob("./Movie-Trailers/"+ MovieTrailerList[currentMovieNumber] + "/image*")
+    rowCount = 0
+    columnCount = 0
 
-scaleImportant = Scale(FrameSelectionWindowImportant, from_=1, to=len(tempNumber), orient=HORIZONTAL, command=importantSpecificFrame, length=450)
-scaleImportant.grid(column=0, row=2, columnspan=2, pady=10)
+    tempNumber = glob.glob("./Movie-Trailers/"+ MovieTrailerList[currentMovieNumber] + "/image*")
 
-FrameSelectionWindowImportantbutton1 = Button(FrameSelectionWindowImportant, text="Begin Selection", command=importantClickBegin, font=(25))
-FrameSelectionWindowImportantbutton1.grid(column=0, row=3, pady=10)
+    for x in range(1, len(tempNumber) + 1):
+        if(columnCount == 10):
+            columnCount = 0
+            rowCount = rowCount + 1
 
-FrameSelectionWindowImportantbutton2 = Button(FrameSelectionWindowImportant, text="End Selection", command=importantClickEnd, font=(25))
-FrameSelectionWindowImportantbutton2.grid(column=1, row=3, pady=10)
+        im = Image.open("./Movie-Trailers/"+ MovieTrailerList[currentMovieNumber] + "/image" + str(x) + ".jpg")
+        resized = im.resize((160, 90), Image.ANTIALIAS)
+        tkimage = ImageTk.PhotoImage(resized)
 
-seperator1 = ttk.Separator(FrameSelectionWindowImportant, orient=HORIZONTAL).grid(row=4, columnspan=2, sticky="ew")
+        action_with_arg = partial(printImportantNumber, x)
+        myvar = Button(photoFrameImportant, bd=2, bg = "white", image=tkimage, command=action_with_arg)
 
-FrameSelectionWindowTitleImportantlbl2 = Label(FrameSelectionWindowImportant, text="Selected Frame Sections:", font=(25))
-FrameSelectionWindowTitleImportantlbl2.grid(column=0, row=5, columnspan=2, pady=10)
+        myvar.image = tkimage
+        myvar.grid(row=rowCount, column=columnCount)
 
-importantListBox = Listbox(FrameSelectionWindowImportant, width=60, selectmode=SINGLE)
-importantListBox.grid(column=0, row=6, columnspan=2, pady=10)
+        allImportantButtons.append(myvar)
 
-FrameSelectionWindowImportantbutton3 = Button(FrameSelectionWindowImportant, text="Remove Selection", command=importantRemove, font=(25))
-FrameSelectionWindowImportantbutton3.grid(column=0, row=7, pady=10)
+        columnCount = columnCount + 1
 
-seperator2 = ttk.Separator(FrameSelectionWindowImportant, orient=HORIZONTAL).grid(row=8, columnspan=2, sticky="ew", pady=10)
+    FrameSelectionWindowImportantbutton = Button(FrameSelectionWindowImportant, text="Finished", command=GetNextTrailer, font=(25))
+    FrameSelectionWindowImportantbutton.grid(column=0, row=2, pady=10)
 
-FrameSelectionWindowImportantbutton = Button(FrameSelectionWindowImportant, text="Finished", command=GetNextTrailer, font=(25))
-FrameSelectionWindowImportantbutton.grid(column=0, row=9, columnspan=2, pady=10)
-
-FrameSelectionWindowImportant.grid_rowconfigure(0, weight=1)
-FrameSelectionWindowImportant.grid_rowconfigure(1, weight=1)
-FrameSelectionWindowImportant.grid_rowconfigure(2, weight=1)
-FrameSelectionWindowImportant.grid_rowconfigure(3, weight=1)
-FrameSelectionWindowImportant.grid_rowconfigure(4, weight=1)
-FrameSelectionWindowImportant.grid_rowconfigure(5, weight=1)
-FrameSelectionWindowImportant.grid_rowconfigure(6, weight=1)
-FrameSelectionWindowImportant.grid_rowconfigure(7, weight=1)
-FrameSelectionWindowImportant.grid_rowconfigure(8, weight=1)
-FrameSelectionWindowImportant.grid_rowconfigure(9, weight=1)
-FrameSelectionWindowImportant.grid_columnconfigure(0, weight=1)
-FrameSelectionWindowImportant.grid_columnconfigure(1, weight=1)
+    FrameSelectionWindowImportant.grid_rowconfigure(0, weight=1)
+    FrameSelectionWindowImportant.grid_rowconfigure(1, weight=1)
+    FrameSelectionWindowImportant.grid_rowconfigure(2, weight=1)
+    FrameSelectionWindowImportant.grid_columnconfigure(0, weight=1)
 
 #-----------------------------------------
 
 btn2 = Button(mainWindow, text="Start", command=CreateuserIDWindow, font=(25))
 btn2.config(anchor=CENTER)
 btn2.pack(padx=0, pady=15)
+
+createFunnyWindow()
+createScaryWindow()
+createSexyWindow()
+createImportantWindow()
 
 mainWindow.mainloop()
