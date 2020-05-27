@@ -1,4 +1,4 @@
-import cv2
+from cv2 import cv2
 import sys
 
 #print(sys.argv[1])
@@ -13,7 +13,7 @@ def getFrame(sec):
     return hasFrames
 
 sec = 0
-frameRate = 0.5 #//it will capture image in each 0.5 second
+frameRate = 1 #//it will capture image in each 1 second
 count=1
 success = getFrame(sec)
 
