@@ -767,7 +767,7 @@ def scaryRemove():
     #Add Try Catch Statment
     try:
         text = scaryListBox.get(scaryListBox.curselection())
-        scaryListBox.delete(funnyListBox.curselection())
+        scaryListBox.delete(scaryListBox.curselection())
         first = text
 
         temp = first.split(", to Frame")
@@ -883,7 +883,7 @@ def sexyRemove():
     #Add Try Catch Statment
     try:
         text = sexyListBox.get(sexyListBox.curselection())
-        sexyListBox.delete(funnyListBox.curselection())
+        sexyListBox.delete(sexyListBox.curselection())
         first = text
 
         temp = first.split(", to Frame")
@@ -999,7 +999,7 @@ def importantRemove():
     #Add Try Catch Statment
     try:
         text = importantListBox.get(importantListBox.curselection())
-        importantListBox.delete(funnyListBox.curselection())
+        importantListBox.delete(importantListBox.curselection())
         first = text
 
         temp = first.split(", to Frame")
