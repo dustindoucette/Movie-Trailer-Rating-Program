@@ -472,6 +472,12 @@ userIDInput.grid(column=1, row=0)
 btn = Button(userIDWindow, text="Begin Testing", command=CreateSelectVideoWindow, font=(25))
 btn.grid(column=0, row=2, columnspan=2, pady=10)
 
+userIDWindow.grid_rowconfigure(0, weight=1)
+userIDWindow.grid_rowconfigure(1, weight=1)
+userIDWindow.grid_rowconfigure(2, weight=1)
+userIDWindow.grid_columnconfigure(0, weight=1)
+userIDWindow.grid_columnconfigure(1, weight=1)
+
 #-----------------------------------------
 
 
@@ -530,16 +536,23 @@ lbl5 = Label(RatingsWindow, text="Did the video content contain any\n of the fol
 lbl5.grid(column=0, row=0, pady=10)
 
 c1 = Checkbutton(RatingsWindow, text='Funny Content', variable=isFunny, font=(25))
-c1.grid(sticky="W", column=0, row=1)
+c1.grid(column=0, row=1)
 
 c2 = Checkbutton(RatingsWindow, text='Scary Content', variable=isScary, font=(25))
-c2.grid(sticky="W", column=0, row=2)
+c2.grid(column=0, row=2)
 
 c3 = Checkbutton(RatingsWindow, text='Sexy Content', variable=isSexy, font=(25))
-c3.grid(sticky="W", column=0, row=3)
+c3.grid(column=0, row=3)
 
 btn5 = Button(RatingsWindow, text="Next", command=CreateSpecificRatingsWindow, font=(25))
 btn5.grid(column=0, row=4, pady=10)
+
+RatingsWindow.grid_rowconfigure(0, weight=1)
+RatingsWindow.grid_rowconfigure(1, weight=1)
+RatingsWindow.grid_rowconfigure(2, weight=1)
+RatingsWindow.grid_rowconfigure(3, weight=1)
+RatingsWindow.grid_rowconfigure(4, weight=1)
+RatingsWindow.grid_columnconfigure(0, weight=1)
 
 #-----------------------------------------
 
@@ -556,25 +569,39 @@ lbl6 = Label(SpecificRatingsWindow, text="Please rate the content presence\n on 
 lbl6.grid(column=0, row=0, columnspan=2, pady=10)
 
 lbl7 = Label(SpecificRatingsWindow, text="Funny", font=(25))
-lbl7.grid(sticky="W", column=0, row=1)
+lbl7.grid(column=0, row=1)
 
 s1 = Scale(SpecificRatingsWindow, from_=1, to=10, orient=HORIZONTAL, command=setFunnyRating)
-s1.grid(sticky="W", column=1, row=1)
+s1.grid(column=1, row=1)
+
+seperator10 = ttk.Separator(SpecificRatingsWindow, orient=HORIZONTAL).grid(row=2, columnspan=2, sticky="ew")
 
 lbl8 = Label(SpecificRatingsWindow, text="Scary", font=(25))
-lbl8.grid(sticky="W", column=0, row=2)
+lbl8.grid(column=0, row=3)
 
 s2 = Scale(SpecificRatingsWindow, from_=1, to=10, orient=HORIZONTAL, command=setScaryRating)
-s2.grid(sticky="W", column=1, row=2)
+s2.grid(column=1, row=3)
+
+seperator11 = ttk.Separator(SpecificRatingsWindow, orient=HORIZONTAL).grid(row=4, columnspan=2, sticky="ew")
 
 lbl9 = Label(SpecificRatingsWindow, text="Sexy", font=(25))
-lbl9.grid(sticky="W", column=0, row=3)
+lbl9.grid(column=0, row=5)
 
 s3 = Scale(SpecificRatingsWindow, from_=1, to=10, orient=HORIZONTAL, command=setSexyRating)
-s3.grid(sticky="W", column=1, row=3)
+s3.grid(column=1, row=5)
 
 btn5 = Button(SpecificRatingsWindow, text="Next", command=GetIndividualFrames, font=(25))
-btn5.grid(column=0, row=4, columnspan=2, pady=10)
+btn5.grid(column=0, row=6, columnspan=2, pady=10)
+
+SpecificRatingsWindow.grid_rowconfigure(0, weight=1)
+SpecificRatingsWindow.grid_rowconfigure(1, weight=1)
+SpecificRatingsWindow.grid_rowconfigure(2, weight=1)
+SpecificRatingsWindow.grid_rowconfigure(3, weight=1)
+SpecificRatingsWindow.grid_rowconfigure(4, weight=1)
+SpecificRatingsWindow.grid_rowconfigure(5, weight=1)
+SpecificRatingsWindow.grid_rowconfigure(6, weight=1)
+SpecificRatingsWindow.grid_columnconfigure(0, weight=1)
+SpecificRatingsWindow.grid_columnconfigure(1, weight=1)
 
 #-----------------------------------------
 
