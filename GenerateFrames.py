@@ -1,4 +1,4 @@
-import cv2
+from cv2 import cv2
 import sys
 
 #print(sys.argv[1])
