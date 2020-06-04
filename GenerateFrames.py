@@ -1,7 +1,9 @@
+#This is a Python program that creates individual frames for specified movie trailer
+#Author: Dustin Doucette (dustin.doucette@carleton.ca)
+
 from cv2 import cv2
 import sys
 
-#print(sys.argv[1])
 
 vidcap = cv2.VideoCapture('./Movie-Trailers/' + sys.argv[1] + '.avi')
 
