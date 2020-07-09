@@ -8,7 +8,7 @@ This Python program was created by Dustin Doucette, a 4th year undergraduate Com
 
 * Python 3 ([download](https://www.python.org/downloads/))
 
-      **Note:** For ease of use, ensure Python gets added to the PATH environment variable during installation
+    **Note:** For ease of use, ensure Python gets added to the PATH environment variable during installation
 
 * External Python Modules:
 
@@ -17,6 +17,8 @@ This Python program was created by Dustin Doucette, a 4th year undergraduate Com
       -OpenCV-Python
     
       -Pyglet
+      
+      -Keyboard
 
 ## Installation
 
@@ -35,10 +37,14 @@ This Python program was created by Dustin Doucette, a 4th year undergraduate Com
     `pip install opencv-python`
     
     `pip install pyglet`
+    
+    `pip install keyboard`
 
 ## Program Set-Up
 
 * Place pre-downloaded AVI Movie Trailers into the folder `./Movie-Trailers`.
+
+    **Note:** Movie Trailer filenames cannot have any special characters (including spaces). Instead replace spaces with underscores, and also remove any special characters entirely.
 
 ## Program Use Instructions
 
@@ -62,7 +68,11 @@ This Python program was created by Dustin Doucette, a 4th year undergraduate Com
 
 9. Select all of the relevant movie trailer frames which encompass the specified content. You will be given a new window for each box you selected in step 6 (if no boxes were selected, skip to step 10). Press `Finished`.
 
+    **Note:** you can select multiple frames at once by first selecting the start frame, then holding the shift key and selecting the last frame (all of the frames will be selected if the first frame was selected, or will become un-selected if the first frame was not selected).
+
 10. Select all of the relevant movie trailer frames which encompass the important scenes. Press `Finished`.
+
+    **Note:** you can select multiple frames at once by first selecting the start frame, then holding the shift key and selecting the last frame (all of the frames will be selected if the first frame was selected, or will become un-selected if the first frame was not selected).
 
 11. If there are more movie trailers to be reviewed, the name of the next movie trailer will be displayed. Press `Start Trailer`. This will bring the user back to step 6.
 
@@ -74,9 +84,9 @@ This Python program was created by Dustin Doucette, a 4th year undergraduate Com
 
 ## Program Output
 
-* After each individual completion of step 10 is completed, a new line is added to the excel output file named `Results.xlsx` located within the `Output-Logs` folder.
+* After each individual completion of step 10 is completed, a new line is added to the excel output file named `Results.csv` located within the `Output-Logs` folder.
 
-* The `Results.xlsx` file will have the following columns (one new line of data added after every inidividual test):
+* The `Results.csv` file will have the following columns (one new line of data added after every inidividual test):
 
 | User ID | Movie Trailer | Funny | Funny Rating | Funny Sections | Scary | Scary Rating | Scary Sections | Sexy | Sexy Rating |  Sexy Sections  |  Important Sections  |
 |---------|---------------|-------|--------------|----------------|-------|--------------|----------------|------|-------------|-----------------|----------------------|
@@ -99,6 +109,10 @@ This Python program was created by Dustin Doucette, a 4th year undergraduate Com
 |   **Sexy Sections**   | Displays comma seperated tuples, where the first value is the start time (in seconds) and the second value is the end time (in seconds) of the Sexy content  |
 |**Important Sections** | Displays comma seperated tuples, where the first value is the start time (in seconds) and the second value is the end time (in seconds) of the Sexy content  |
 
+  **Note:** If there is a single second displayed in any of the "Sections", it is because the user selected that one frame without any other frames before and/or immediately after it.
+    
+  **Note:** Ensure the `Results.csv` file is not open during program execution. If the file is open when the program tries to write new data to it, the write will fail and that data will be lost.
+
 ## Project Files
 
 By default, the project contains the following file and directory layout:
@@ -116,7 +130,7 @@ By default, the project contains the following file and directory layout:
     └───Movie-Trailers
     │
     └───Output-Logs
-        |   Results.xlsx (Contains the results from testing)
+        |   Results.csv (Contains the results from testing)
     ```
 
 
