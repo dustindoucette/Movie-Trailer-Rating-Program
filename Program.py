@@ -1,7 +1,9 @@
-#This is a Python program that allows users to view movie trailers and answer questions about them
+#This is a Python program that allows users to view movie trailers and answer questions about them, then outputs the data to a csv file for analysis
 #Author: Dustin Doucette (dustin.doucette@carleton.ca)
 
 #**NOTE** This program must reside in a directory with no spaces in any names
+#**NOTE** The Movie Trailer names must not contain any special characters (it also cannot have spaces)
+
 #C:\User\ddouce\Program\Files           GOOD
 #C:\User\Tim Johns\Progam\Files         BAD **
 
@@ -14,11 +16,12 @@ from os import startfile
 import os
 import cv2
 import sys
+import csv
 import glob
 
 import pyglet
 
-#windll.shcore.SetProcessDpiAwareness(1)
+#Create all of the GUI's, so that they are ready for the user to use
 
 mainWindow = Tk()
 VideoWindow = Toplevel(mainWindow)
@@ -58,7 +61,7 @@ hasBeenToFunny = False
 hasBeenToScary = False
 hasBeenToSexy = False
 
-#Set 0 by default
+#Global variables 
 funnyRating = 0
 currentFunny = 0
 funnySections = []
@@ -81,11 +84,13 @@ importantListBoxCount = 1
 startFrame = 1
 endFrame = 1
 
+#When the user presses the "X" on a GUI window, make sure they did not click it accidentally
 def on_closing():
     if messagebox.askokcancel("Exiting Program", "Are you sure you want to quit?"):
         RatingsWindow.destroy()
         mainWindow.destroy()
 
+#When this function is called, terminate the entire program
 def endProgram():
     mainWindow.destroy()
 
@@ -100,6 +105,7 @@ FrameSelectionWindowScary.protocol("WM_DELETE_WINDOW", on_closing)
 FrameSelectionWindowSexy.protocol("WM_DELETE_WINDOW", on_closing) 
 FrameSelectionWindowImportant.protocol("WM_DELETE_WINDOW", on_closing) 
 
+#Get all  of the names of the trailers in the movie trailer folder
 def getTrailers():
     tempList = glob.glob("./Movie-Trailers/*.avi")
 
@@ -110,7 +116,7 @@ def getTrailers():
 
 getTrailers()
 
-#Generate frames for each section for each trailer
+#Generate frames for each section for each trailer (by calling another Python script)
 def generateFrames():
     print()
     tempList = glob.glob("./Movie-Trailers/*")
@@ -137,29 +143,65 @@ def generateFrames():
 
 generateFrames()
 
+#Open the results csv file and enter all of the data generated from the program
 def SaveData():
+    allRows = []
     print("User: " + userID)
     print("Movie Trailer: " + MovieTrailerList[currentMovieNumber])
 
+    funnyString = ""
+    funny2 = ""
+    funny3 = ""
+
+    scaryString = ""
+    scary2 = ""
+    scary3 = ""
+
+    sexyString = ""
+    sexy2 = ""
+    sexy3 = ""
     if(isFunny.get() == 1):
         print("Funny: YES, " + " " + str(funnyRating) + " out of 10")
         print("Funny Sections: " + str(funnySections))
+        funnyString = "YES"
+        funny2 = str(funnyRating)
+        funny3 = str(funnySections)
     else:
         print("Funny: NO")
+        funnyString = "NO"
+        funny2 = "N/A"
+        funny3 = "N/A"
 
     if(isScary.get() == 1):
         print("Scary: YES, " + str(scaryRating) + " out of 10")
         print("Scary Sections: " + str(scarySections))
+        scaryString = "YES"
+        scary2 = str(scaryRating)
+        scary3 = str(scarySections)
     else:
         print("Scary: NO")
+        scaryString = "NO"
+        scary2 = "N/A"
+        scary3 = "N/A"
 
     if(isSexy.get() == 1):
         print("Sexy: YES, " + str(sexyRating) + " out of 10")
         print("Sexy Sections: " + str(sexySections))
+        sexyString = "YES"
+        sexy2 = str(sexyRating)
+        sexy3 = str(sexySections)
     else:
         print("Sexy: NO")
+        sexyString = "NO"
+        sexy2 = "N/A"
+        sexy3 = "N/A"
     print("Important Sections: " + str(importantSections))
     print("")
+    allRows.append([userID, MovieTrailerList[currentMovieNumber], funnyString, funny2, funny3, scaryString, scary2, scary3, sexyString, sexy2, sexy3, str(importantSections)])
+
+    with open('.\Output-Logs\Results.csv','a') as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerows(allRows)
     
 
 def SayThankYou():
@@ -178,6 +220,7 @@ def SayThankYou():
     lbl.config(anchor=CENTER)
     lbl.pack(padx=0, pady=0)
 
+#Get all of the GUI's ready for the next trailer (i.e. change the images/frames), and reset all of the variables so old data is not passed forward unintentionally 																																								   
 def GetNextTrailer():
     FrameSelectionWindowImportant.withdraw()
     global currentMovieNumber
@@ -341,6 +384,7 @@ def sexyClick():
     FrameSelectionWindowSexy.withdraw()
     ShowIndividualFrames()
 
+#Show each of the windows based on prior user input												   
 def ShowIndividualFrames():
     global hasBeenToFunny
     global hasBeenToScary
@@ -1079,4 +1123,5 @@ btn2 = Button(mainWindow, text="Start", command=CreateuserIDWindow, font=(25))
 btn2.config(anchor=CENTER)
 btn2.pack(padx=0, pady=15)
 
+#Start the program				  
 mainWindow.mainloop()
