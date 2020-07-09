@@ -63,7 +63,7 @@ hasBeenToSexy = False
 
 #Global variables 
 funnyRating = 0
-currentFunny = 0
+currentFunny = 1
 funnySections = []
 funnyListBoxCount = 1
 
@@ -143,6 +143,18 @@ def generateFrames():
 
 generateFrames()
 
+
+#This function allows for an array of tuples to be passed in, and for all of the values to be modified by a certain amount
+#If there are 2 frames per second, divide frame by 2 to get the time that the selected frame is at
+def getFrameTimes(inputArray):
+    newArray = []
+    for x in inputArray:
+        tempFirst = (x[0])/2
+        tempSecond = (x[1])/2
+        newArray.append([tempFirst, tempSecond])
+
+    return newArray
+
 #Open the results csv file and enter all of the data generated from the program
 def SaveData():
     allRows = []
@@ -160,12 +172,13 @@ def SaveData():
     sexyString = ""
     sexy2 = ""
     sexy3 = ""
+
     if(isFunny.get() == 1):
         print("Funny: YES, " + " " + str(funnyRating) + " out of 10")
-        print("Funny Sections: " + str(funnySections))
+        print("Funny Sections: " + str(getFrameTimes(funnySections)))
         funnyString = "YES"
         funny2 = str(funnyRating)
-        funny3 = str(funnySections)
+        funny3 = str(getFrameTimes(funnySections))
     else:
         print("Funny: NO")
         funnyString = "NO"
@@ -174,10 +187,10 @@ def SaveData():
 
     if(isScary.get() == 1):
         print("Scary: YES, " + str(scaryRating) + " out of 10")
-        print("Scary Sections: " + str(scarySections))
+        print("Scary Sections: " + str(getFrameTimes(scarySections)))
         scaryString = "YES"
         scary2 = str(scaryRating)
-        scary3 = str(scarySections)
+        scary3 = str(getFrameTimes(scarySections))
     else:
         print("Scary: NO")
         scaryString = "NO"
@@ -186,18 +199,19 @@ def SaveData():
 
     if(isSexy.get() == 1):
         print("Sexy: YES, " + str(sexyRating) + " out of 10")
-        print("Sexy Sections: " + str(sexySections))
+        print("Sexy Sections: " + str(getFrameTimes(sexySections)))
         sexyString = "YES"
         sexy2 = str(sexyRating)
-        sexy3 = str(sexySections)
+        sexy3 = str(getFrameTimes(sexySections))
     else:
         print("Sexy: NO")
         sexyString = "NO"
         sexy2 = "N/A"
         sexy3 = "N/A"
-    print("Important Sections: " + str(importantSections))
+
+    print("Important Sections: " + str(getFrameTimes(importantSections)))
     print("")
-    allRows.append([userID, MovieTrailerList[currentMovieNumber], funnyString, funny2, funny3, scaryString, scary2, scary3, sexyString, sexy2, sexy3, str(importantSections)])
+    allRows.append([userID, MovieTrailerList[currentMovieNumber], funnyString, funny2, funny3, scaryString, scary2, scary3, sexyString, sexy2, sexy3, str(getFrameTimes(importantSections))])
 
     with open('.\Output-Logs\Results.csv','a') as csvfile:
         writer = csv.writer(csvfile)

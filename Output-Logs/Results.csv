@@ -1,1 +1,4 @@
-User ID	Movie Trailer	Funny	Funny Rating	Funny Sections	Scary	Scary Rating	Scary Sections	Sexy	Sexy Rating	Sexy Sections	Important Sections
+User ID,Movie Trailer,Funny,Funny Rating,Funny Sections,Scary,Scary Rating,Scary Sections,Sexy,Sexy Rating,Sexy Sections,Important Sections
+123456789,1917,YES,3,"[[0.5, 64.0], [64.0, 93.0]]",NO,N/A,N/A,NO,N/A,N/A,[]
+,,,,,,,,,,,
+987654321,THE_THINNING,NO,N/A,N/A,YES,6,"[[24.0, 94.5]]",NO,N/A,N/A,"[[0.5, 142.5]]"
