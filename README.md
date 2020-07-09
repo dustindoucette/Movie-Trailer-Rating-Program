@@ -17,8 +17,6 @@ This Python program was created by Dustin Doucette, a 4th year undergraduate Com
       -OpenCV-Python
     
       -Pyglet
-      
-      -Keyboard
 
 ## Installation
 
@@ -37,8 +35,6 @@ This Python program was created by Dustin Doucette, a 4th year undergraduate Com
     `pip install opencv-python`
     
     `pip install pyglet`
-    
-    `pip install keyboard`
 
 ## Program Set-Up
 
@@ -66,13 +62,13 @@ This Python program was created by Dustin Doucette, a 4th year undergraduate Com
 
 8. Adjust the sliders to reflect your ratings (scale of 1-10), then press `Next`.
 
-9. Select all of the relevant movie trailer frames which encompass the specified content. You will be given a new window for each box you selected in step 6 (if no boxes were selected, skip to step 10). Press `Finished`.
+9. Select all of the relevant frame sections which contain the specified content. 
 
-    **Note:** you can select multiple frames at once by first selecting the start frame, then holding the shift key and selecting the last frame (all of the frames will be selected if the first frame was selected, or will become un-selected if the first frame was not selected).
+    **E.g.** If you want to select a scene from frame 10 to 20, first drag the slider to frame 10 and select `Begion Selection`. Then drag the slider to frame 20 and select `End Selection`. This will add that frame selection to a box below. If you made a mistake, simply click the selection and press `Remove Selection`. Once all frame sections are selected, press `Finished`.
+
+    **Note:** You will be given a new window for each box you selected in step 7 (if no boxes were selected, skip to step 10).
 
 10. Select all of the relevant movie trailer frames which encompass the important scenes. Press `Finished`.
-
-    **Note:** you can select multiple frames at once by first selecting the start frame, then holding the shift key and selecting the last frame (all of the frames will be selected if the first frame was selected, or will become un-selected if the first frame was not selected).
 
 11. If there are more movie trailers to be reviewed, the name of the next movie trailer will be displayed. Press `Start Trailer`. This will bring the user back to step 6.
 
