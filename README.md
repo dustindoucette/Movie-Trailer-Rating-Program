@@ -56,7 +56,7 @@ This Python program was created by Dustin Doucette, a 4th year undergraduate Com
 
 5. Select `Start Trailer` to begin viewing the next trailer.
 
-6. After the movie trailer has finished, close the video aplication and press `Continue` on the program window.
+6. After the movie trailer has finished, close the video application and press `Continue` on the program window.
 
 7. Select all of the relevant boxes (if the movie trailer had funny, scary and/or sexy content), then press `Next`.
 
@@ -64,7 +64,7 @@ This Python program was created by Dustin Doucette, a 4th year undergraduate Com
 
 9. Select all of the relevant frame sections which contain the specified content. 
 
-    **E.g.** If you want to select a scene from frame 10 to 20, first drag the slider to frame 10 and select `Begion Selection`. Then drag the slider to frame 20 and select `End Selection`. This will add that frame selection to a box below. If you made a mistake, simply click the selection and press `Remove Selection`. Once all frame sections are selected, press `Finished`.
+    **E.g.** If you want to select a scene from frame 10 to 20, first drag the slider to frame 10 and select `Begin Selection`. Then drag the slider to frame 20 and select `End Selection`. This will add that frame selection to a box below. If you made a mistake, simply click the selection and press `Remove Selection`. Once all frame sections are selected, press `Finished`.
 
     **Note:** You will be given a new window for each box you selected in step 7 (if no boxes were selected, skip to step 10).
 
