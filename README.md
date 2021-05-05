@@ -13,9 +13,9 @@ This Python program was created by Dustin Doucette, a 4th year undergraduate Com
 * External Python Modules:
 
       -Pillow
-    
+        
       -OpenCV-Python
-    
+        
       -Pyglet
 
 ## Installation
@@ -23,7 +23,7 @@ This Python program was created by Dustin Doucette, a 4th year undergraduate Com
 1. Click `Clone or download` then `Download ZIP` on the main repository page.
 
 2. Unzip the downloaded file into a directory which contains no spaces. 
-    
+   
     `C:\User\JohnDoe\Projects`    ~**GOOD**    
     
     `C:\User\John Doe\Projects`   ~**BAD**
@@ -82,7 +82,7 @@ This Python program was created by Dustin Doucette, a 4th year undergraduate Com
 
 * After each individual completion of step 10 is completed, a new line is added to the excel output file named `Results.csv` located within the `Output-Logs` folder.
 
-* The `Results.csv` file will have the following columns (one new line of data added after every inidividual test):
+* The `Results.csv` file will have the following columns (one new line of data is added after every individual test):
 
 | User ID | Movie Trailer | Funny | Funny Rating | Funny Sections | Scary | Scary Rating | Scary Sections | Sexy | Sexy Rating |  Sexy Sections  |  Important Sections  |
 |---------|---------------|-------|--------------|----------------|-------|--------------|----------------|------|-------------|-----------------|----------------------|
@@ -90,24 +90,24 @@ This Python program was created by Dustin Doucette, a 4th year undergraduate Com
 |987654321| The Thinning  |  NO   |     N/A      |       N/A      |  YES  |     5/10     |    (34,38)     |  YES |    3/10     |(12,21), (26,35) |   (12,21), (26,35)   |
 |187462945|   Peter Pan   |  YES  |     6/10     | (0,5), (23,30) |  NO   |     N/A      |      N/A       |  NO  |    N/A      |       N/A       |         N/A          |
 
-|           Column      | Description of Data                                                                                                                                          |
-|-----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
-|       **User ID**     | Displays the User ID of the participant                                                                                                                      |
-|  **Movie Trailer**    | Displays the name of the movie trailer that the participant is reviewing                                                                                     |
-|       **Funny**       | Displays whether or not the participant thinks the movie trailer contains funny content                                                                      |
-|   **Funny Rating**    | Displays a number between 1-10, where the participant decides how funny the movie trailer content was                                                        |
-|  **Funny Sections**   | Displays comma seperated tuples, where the first value is the start time (in seconds) and the second value is the end time (in seconds) of the funy content  |
-|       **Scary**       | Displays whether or not the participant thinks the movie trailer contains Scary content                                                                      |
-|   **Scary Rating**    | Displays a number between 1-10, where the participant decides how Scary the movie trailer content was                                                        |
-|  **Scary Sections**   | Displays comma seperated tuples, where the first value is the start time (in seconds) and the second value is the end time (in seconds) of the Scary content |
-|       **Sexy**        | Displays whether or not the participant thinks the movie trailer contains Sexy content                                                                       |
-|    **Sexy Rating**    | Displays a number between 1-10, where the participant decides how Sexy the movie trailer content was                                                         |
-|   **Sexy Sections**   | Displays comma seperated tuples, where the first value is the start time (in seconds) and the second value is the end time (in seconds) of the Sexy content  |
-|**Important Sections** | Displays comma seperated tuples, where the first value is the start time (in seconds) and the second value is the end time (in seconds) of the Sexy content  |
+| Column                 | Description of Data                                          |
+| ---------------------- | ------------------------------------------------------------ |
+| **User ID**            | Displays the User ID of the participant                      |
+| **Movie Trailer**      | Displays the name of the movie trailer that the participant is reviewing |
+| **Funny**              | Displays whether or not the participant thinks the movie trailer contains funny content |
+| **Funny Rating**       | Displays a number between 1-10, where the participant decides how funny the movie trailer content was |
+| **Funny Sections**     | Displays comma separated tuples, where the first value is the start time (in seconds) and the second value is the end time (in seconds) of the funny content |
+| **Scary**              | Displays whether or not the participant thinks the movie trailer contains Scary content |
+| **Scary Rating**       | Displays a number between 1-10, where the participant decides how Scary the movie trailer content was |
+| **Scary Sections**     | Displays comma separated tuples, where the first value is the start time (in seconds) and the second value is the end time (in seconds) of the Scary content |
+| **Sexy**               | Displays whether or not the participant thinks the movie trailer contains Sexy content |
+| **Sexy Rating**        | Displays a number between 1-10, where the participant decides how Sexy the movie trailer content was |
+| **Sexy Sections**      | Displays comma separated tuples, where the first value is the start time (in seconds) and the second value is the end time (in seconds) of the Sexy content |
+| **Important Sections** | Displays comma separated tuples, where the first value is the start time (in seconds) and the second value is the end time (in seconds) of the Sexy content |
 
   **Note:** If there is a single second displayed in any of the "Sections", it is because the user selected that one frame without any other frames before and/or immediately after it.
     
-  **Note:** Ensure the `Results.csv` file is not open during program execution. If the file is open when the program tries to write new data to it, the write will fail and that data will be lost.
+  **Note:** Ensure the `Results.csv` file is not open during program execution. If the file is open when the program tries to write new data to it, the write operation will fail and that data will be lost.
 
 ## Project Files
 
@@ -128,5 +128,4 @@ By default, the project contains the following file and directory layout:
     └───Output-Logs
         |   Results.csv (Contains the results from testing)
     ```
-
 
