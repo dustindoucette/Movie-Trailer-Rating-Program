@@ -4,7 +4,7 @@
 #**NOTE** This program must reside in a directory with no spaces in any names
 #**NOTE** The Movie Trailer names must not contain any special characters (it also cannot have spaces)
 
-#C:\User\ddouce\Program\Files           GOOD
+#C:\User\Frank\Program\Files           GOOD
 #C:\User\Tim Johns\Progam\Files         BAD **
 
 from tkinter import *
