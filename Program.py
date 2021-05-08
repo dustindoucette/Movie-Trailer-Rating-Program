@@ -259,7 +259,7 @@ def SayThankYou():
     ThankYouWindow.title("Trailer Viewer Program")
     ThankYouWindow.geometry('500x100')
     ThankYouWindow.minsize(500, 100)
-    location = os.getcwd() + "\\Images\\uottawa_ver_black.ico"
+    location = os.getcwd() + "\\Images\\uOttawa_icon.ico"
     ThankYouWindow.iconbitmap(location)
 
     lbl = Label(ThankYouWindow, text="\nThank you for your participation in \nthe experiment, your results are greatly appreciated.\n You may now exit the program.", font=(25))
@@ -561,7 +561,7 @@ def CreateuserIDWindow():
 mainWindow.title("Trailer Viewer Program")
 mainWindow.geometry('350x250')
 mainWindow.minsize(375, 250)
-location = os.getcwd() + "\\Images\\uottawa_ver_black.ico"
+location = os.getcwd() + "\\Images\\uOttawa_icon.ico"
 mainWindow.iconbitmap(location)
 mainWindow.resizable(False, False)
 
@@ -587,7 +587,7 @@ center(mainWindow)
 userIDWindow.title("Trailer Viewer Program")
 userIDWindow.geometry('275x100')
 userIDWindow.minsize(275, 100)
-userIDWindow.iconbitmap('./Images/uottawa_ver_black.ico')
+userIDWindow.iconbitmap('./Images/uOttawa_icon.ico')
 userIDWindow.resizable(False, False)
 
 userIDlbl = Label(userIDWindow, text="User ID: ", font=(20))
@@ -614,7 +614,7 @@ userIDWindow.grid_columnconfigure(1, weight=1)
 SelectVideoWindow.title("Trailer Viewer Program")
 SelectVideoWindow.geometry('350x175')
 SelectVideoWindow.minsize(350, 175)
-SelectVideoWindow.iconbitmap('./Images/uottawa_ver_black.ico')
+SelectVideoWindow.iconbitmap('./Images/uOttawa_icon.ico')
 SelectVideoWindow.resizable(False, False)
 
 firstNamelbl = Label(SelectVideoWindow, text="Next Movie Trailer:", font=(20))
@@ -637,7 +637,7 @@ btn3.pack(padx=0, pady=10)
 VideoWindow.title("Trailer Viewer Program")
 VideoWindow.geometry('450x100')
 VideoWindow.minsize(450, 100)
-VideoWindow.iconbitmap('./Images/uottawa_ver_black.ico')
+VideoWindow.iconbitmap('./Images/uOttawa_icon.ico')
 VideoWindow.resizable(False, False)
 
 lbl4 = Label(VideoWindow, text="When trailer is finished, please press continue", font=(25))
@@ -656,7 +656,7 @@ btn4.pack(padx=0, pady=15)
 RatingsWindow.title("Trailer Viewer Program")
 RatingsWindow.geometry('300x275')
 RatingsWindow.minsize(300, 275)
-RatingsWindow.iconbitmap('./Images/uottawa_ver_black.ico')
+RatingsWindow.iconbitmap('./Images/uOttawa_icon.ico')
 RatingsWindow.resizable(False, False)
 
 lbl5 = Label(RatingsWindow, text="Did the video content contain any\n of the following?", font=(25))
@@ -689,7 +689,7 @@ RatingsWindow.grid_columnconfigure(0, weight=1)
 SpecificRatingsWindow.title("Trailer Viewer Program")
 SpecificRatingsWindow.geometry('300x275')
 SpecificRatingsWindow.minsize(300, 275)
-SpecificRatingsWindow.iconbitmap('./Images/uottawa_ver_black.ico')
+SpecificRatingsWindow.iconbitmap('./Images/uOttawa_icon.ico')
 SpecificRatingsWindow.resizable(False, False)
 
 lbl6 = Label(SpecificRatingsWindow, text="Please rate the content presence\n on a scale of 1-10?", font=(25))
@@ -797,7 +797,7 @@ def funnyRemove():
 FrameSelectionWindowFunny.title("Trailer Viewer Program")
 FrameSelectionWindowFunny.geometry('500x775')
 FrameSelectionWindowFunny.minsize(500, 775)
-FrameSelectionWindowFunny.iconbitmap('./Images/uottawa_ver_black.ico')
+FrameSelectionWindowFunny.iconbitmap('./Images/uOttawa_icon.ico')
 FrameSelectionWindowFunny.resizable(False, False)
 
 FrameSelectionWindowTitleFunnylbl = Label(FrameSelectionWindowFunny, text="Please select the frames that contain funny content", font=(25))
@@ -913,7 +913,7 @@ def scaryRemove():
 FrameSelectionWindowScary.title("Trailer Viewer Program")
 FrameSelectionWindowScary.geometry('500x775')
 FrameSelectionWindowScary.minsize(500, 775)
-FrameSelectionWindowScary.iconbitmap('./Images/uottawa_ver_black.ico')
+FrameSelectionWindowScary.iconbitmap('./Images/uOttawa_icon.ico')
 FrameSelectionWindowScary.resizable(False, False)
 
 FrameSelectionWindowTitleScarylbl = Label(FrameSelectionWindowScary, text="Please select the frames that contain scary content", font=(25))
@@ -1029,7 +1029,7 @@ def sexyRemove():
 FrameSelectionWindowSexy.title("Trailer Viewer Program")
 FrameSelectionWindowSexy.geometry('500x775')
 FrameSelectionWindowSexy.minsize(500, 775)
-FrameSelectionWindowSexy.iconbitmap('./Images/uottawa_ver_black.ico')
+FrameSelectionWindowSexy.iconbitmap('./Images/uOttawa_icon.ico')
 FrameSelectionWindowSexy.resizable(False, False)
 
 FrameSelectionWindowTitleSexylbl = Label(FrameSelectionWindowSexy, text="Please select the frames that contain sexy content", font=(25))
@@ -1146,7 +1146,7 @@ def importantRemove():
 FrameSelectionWindowImportant.title("Trailer Viewer Program")
 FrameSelectionWindowImportant.geometry('500x775')
 FrameSelectionWindowImportant.minsize(500, 775)
-FrameSelectionWindowImportant.iconbitmap('./Images/uottawa_ver_black.ico')
+FrameSelectionWindowImportant.iconbitmap('./Images/uOttawa_icon.ico')
 FrameSelectionWindowImportant.resizable(False, False)
 
 FrameSelectionWindowTitleImportantlbl = Label(FrameSelectionWindowImportant, text="Please select the frames that contain important content", font=(25))
@@ -1209,7 +1209,7 @@ FrameSelectionWindowImportant.grid_columnconfigure(1, weight=1)
 userLikageWindow
 userLikageWindow.title("Trailer Viewer Program")
 userLikageWindow.geometry('300x200')
-userLikageWindow.iconbitmap('./Images/uottawa_ver_black.ico')
+userLikageWindow.iconbitmap('./Images/uOttawa_icon.ico')
 userLikageWindow.resizable(False, False)
 
 userLikageWindowlbl1 = Label(userLikageWindow, text="How much did you like the trailer?", font=(25))
