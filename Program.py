@@ -431,6 +431,8 @@ def GetImportantParts():
     FrameSelectionWindowImportant.update()
     FrameSelectionWindowImportant.deiconify()
 
+    center(FrameSelectionWindowImportant)
+
 def funnyClick():
     FrameSelectionWindowFunny.withdraw()
     ShowIndividualFrames()
@@ -453,14 +455,17 @@ def ShowIndividualFrames():
         FrameSelectionWindowFunny.update()
         FrameSelectionWindowFunny.deiconify()
         hasBeenToFunny = True
+        center(FrameSelectionWindowFunny)
     elif((isScary.get() == 1) and (hasBeenToScary == False)):
         FrameSelectionWindowScary.update()
         FrameSelectionWindowScary.deiconify()
         hasBeenToScary = True
+        center(FrameSelectionWindowScary)
     elif((isSexy.get() == 1) and (hasBeenToSexy == False)):
         FrameSelectionWindowSexy.update()
         FrameSelectionWindowSexy.deiconify()
         hasBeenToSexy = True
+        center(FrameSelectionWindowSexy)
     else:
         GetImportantParts()
 
@@ -495,6 +500,8 @@ def CreateSpecificRatingsWindow():
         SpecificRatingsWindow.update()
         SpecificRatingsWindow.deiconify()
 
+        center(SpecificRatingsWindow)
+
         if(isFunny.get() == 0):
             lbl7.config(state=DISABLED)
             s1.config(state=DISABLED)
@@ -511,16 +518,19 @@ def CreateRatingsWindow():
     userLikageWindow.withdraw()
     RatingsWindow.update()
     RatingsWindow.deiconify()
+    center(RatingsWindow)
 
 def CreateUserLikageWindow():
     VideoWindow.withdraw()
     userLikageWindow.update()
     userLikageWindow.deiconify()
+    center(userLikageWindow)
 
 def CreateVideoWindow():
     SelectVideoWindow.withdraw()
     VideoWindow.update()
     VideoWindow.deiconify()
+    center(VideoWindow)
 
     #Movie titles cannot have any spaces and/or special characters
     movieLocation = os.getcwd() + "\\Movie-Trailers\\" + MovieTrailerList[currentMovieNumber] + ".avi"
@@ -532,6 +542,7 @@ def CreateSelectVideoWindow():
     userIDWindow.withdraw()
     SelectVideoWindow.update()
     SelectVideoWindow.deiconify()
+    center(SelectVideoWindow)
 
     nextMovieTrailerlbl.config(text=MovieTrailerList[currentMovieNumber])
 
@@ -541,6 +552,7 @@ def CreateuserIDWindow():
     mainWindow.withdraw()
     userIDWindow.update()
     userIDWindow.deiconify()
+    center(userIDWindow)
 
 
 #Main Menu Window -----------------------------
@@ -593,9 +605,6 @@ userIDWindow.grid_rowconfigure(2, weight=1)
 userIDWindow.grid_columnconfigure(0, weight=1)
 userIDWindow.grid_columnconfigure(1, weight=1)
 
-center(userIDWindow)
-userIDWindow.withdraw()
-
 #-----------------------------------------
 
 
@@ -619,9 +628,6 @@ nextMovieTrailerlbl.pack(padx=0, pady=10)
 btn3 = Button(SelectVideoWindow, text="Start Trailer", command=CreateVideoWindow, font=(25))
 btn3.pack(padx=0, pady=10)
 
-center(SelectVideoWindow)
-SelectVideoWindow.withdraw()
-
 #-----------------------------------------
 
 
@@ -641,9 +647,6 @@ lbl4.pack(padx=0, pady=10)
 btn4 = Button(VideoWindow, text="Continue", command=CreateUserLikageWindow, font=(25))
 btn4.config(anchor=CENTER)
 btn4.pack(padx=0, pady=15)
-
-center(VideoWindow)
-VideoWindow.withdraw()
 
 #-----------------------------------------
 
@@ -677,9 +680,6 @@ RatingsWindow.grid_rowconfigure(2, weight=1)
 RatingsWindow.grid_rowconfigure(3, weight=1)
 RatingsWindow.grid_rowconfigure(4, weight=1)
 RatingsWindow.grid_columnconfigure(0, weight=1)
-
-center(RatingsWindow)
-RatingsWindow.withdraw()
 
 #-----------------------------------------
 
@@ -729,9 +729,6 @@ SpecificRatingsWindow.grid_rowconfigure(5, weight=1)
 SpecificRatingsWindow.grid_rowconfigure(6, weight=1)
 SpecificRatingsWindow.grid_columnconfigure(0, weight=1)
 SpecificRatingsWindow.grid_columnconfigure(1, weight=1)
-
-center(SpecificRatingsWindow)
-SpecificRatingsWindow.withdraw()
 
 #-----------------------------------------
 
@@ -854,9 +851,6 @@ FrameSelectionWindowFunny.grid_rowconfigure(9, weight=1)
 FrameSelectionWindowFunny.grid_columnconfigure(0, weight=1)
 FrameSelectionWindowFunny.grid_columnconfigure(1, weight=1)
 
-center(FrameSelectionWindowFunny)
-FrameSelectionWindowFunny.withdraw()
-
 #-----------------------------------------
 
 def scarySpecificFrame(val):
@@ -973,9 +967,6 @@ FrameSelectionWindowScary.grid_rowconfigure(9, weight=1)
 FrameSelectionWindowScary.grid_columnconfigure(0, weight=1)
 FrameSelectionWindowScary.grid_columnconfigure(1, weight=1)
 
-center(FrameSelectionWindowScary)
-FrameSelectionWindowScary.withdraw()
-
 #-----------------------------------------
 
 def sexySpecificFrame(val):
@@ -1091,9 +1082,6 @@ FrameSelectionWindowSexy.grid_rowconfigure(8, weight=1)
 FrameSelectionWindowSexy.grid_rowconfigure(9, weight=1)
 FrameSelectionWindowSexy.grid_columnconfigure(0, weight=1)
 FrameSelectionWindowSexy.grid_columnconfigure(1, weight=1)
-
-center(FrameSelectionWindowSexy)
-FrameSelectionWindowSexy.withdraw()
 
 #-----------------------------------------
 
@@ -1212,9 +1200,6 @@ FrameSelectionWindowImportant.grid_rowconfigure(9, weight=1)
 FrameSelectionWindowImportant.grid_columnconfigure(0, weight=1)
 FrameSelectionWindowImportant.grid_columnconfigure(1, weight=1)
 
-center(FrameSelectionWindowImportant)
-FrameSelectionWindowImportant.withdraw()
-
 #-----------------------------------------
 
 #User Likage Window ----------------------------
@@ -1240,9 +1225,6 @@ userLikageWindow.grid_rowconfigure(0, weight=1)
 userLikageWindow.grid_rowconfigure(1, weight=1)
 userLikageWindow.grid_rowconfigure(2, weight=1)
 userLikageWindow.grid_columnconfigure(0, weight=1)
-
-center(userLikageWindow)
-userLikageWindow.withdraw()
 
 #-----------------------------------------
 
