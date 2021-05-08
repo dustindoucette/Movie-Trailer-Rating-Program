@@ -1,4 +1,4 @@
-# Movie-Trailer-Program
+# Movie-Trailer-Rating-Program
 
 This project is intended to be used within the Cassidy Lab (The Royal’s Institute of Mental Health Research, affiliated with uOttawa) for experiments conducted to study users interpretations of Movie Trailers.
 
