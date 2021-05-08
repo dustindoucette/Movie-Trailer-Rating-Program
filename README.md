@@ -2,7 +2,7 @@
 
 This project is intended to be used within the Cassidy Lab (The Royal’s Institute of Mental Health Research, affiliated with uOttawa) for experiments conducted to study users interpretations of Movie Trailers.
 
-This Python program was created by Dustin Doucette, a 4th year undergraduate Computer Science student at Carleton University.
+This Python program was created by Dustin Doucette, a Computer Science graduate from Carleton University.
 
 ## Program Requirements
 
