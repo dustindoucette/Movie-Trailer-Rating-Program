@@ -123,12 +123,12 @@ By default, the project contains the following file and directory layout:
     |   README.md (This guide)
     │
     └───Images
-    │   │   uottawa_ver_black.ico (UOttawa icon used as the favicon for each window)
+    │   │   uOttawa_icon.ico (UOttawa icon used as the favicon for each window)
     │   │   uottawa_ver_black.png (UOttawa icon used in the main menu)
     │
     └───Movie-Trailers
     │
     └───Output-Logs
-        |   Results.csv (Contains the results from testing)
+        |   Results.csv (Contains the result(s) from the experiment(s))
     ```
 
