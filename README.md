@@ -68,9 +68,9 @@ This Python program was created by Dustin Doucette, a 4th year undergraduate Com
 
     **E.g.** If you want to select a scene from frame 10 to 20, first drag the slider to frame 10 and select `Begin Selection`. Then drag the slider to frame 20 and select `End Selection`. This will add that frame selection to a box below. If you made a mistake, simply click the selection and press `Remove Selection`. Once all frame sections are selected, press `Finished`.
 
-    **Note:** You will be given a new window for each box you selected in step 7 (if no boxes were selected, skip to step 10).
+    **Note:** You will be given a new window for each box you selected in step 8 (if no boxes were selected, skip to step 11).
 
-11. Select all of the relevant movie trailer frames which encompass the important scenes. Press `Finished`.
+11. Select all of the relevant movie trailer frames which encompass the important scenes (the text will display "your favourite scene(s)" if you chose a number between 0 and +5 [inclusive] in step 7). Press `Finished`.
 
 12. If there are more movie trailers to be reviewed, the name of the next movie trailer will be displayed. Press `Start Trailer`. This will bring the user back to step 6.
 
@@ -82,7 +82,7 @@ This Python program was created by Dustin Doucette, a 4th year undergraduate Com
 
 ## Program Output
 
-* After each individual completion of step 10 is completed, a new line is added to the excel output file named `Results.csv` located within the `Output-Logs` folder.
+* After each individual completion of step 11 is completed, a new line is added to the excel output file named `Results.csv` located within the `Output-Logs` folder.
 
 * The `Results.csv` file will have the following columns (one new line of data is added after every individual test):
 
