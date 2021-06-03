@@ -541,6 +541,7 @@ def CreateVideoWindow():
 
     os.system(movieLocation)
 
+    #Send a signal to the BIOPAC so it knows when the movie trailer has begun
     #biopacConnection.setData(5, 'big', -6700)
 
 def CreateSelectVideoWindow():
