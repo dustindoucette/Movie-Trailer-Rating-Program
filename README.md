@@ -6,9 +6,11 @@ This Python program was created by Dustin Doucette, a Computer Science graduate 
 
 ## Program Requirements
 
-* Python 3 ([download](https://www.python.org/downloads/))
+* Latest version of Python 3 ([download](https://www.python.org/downloads/))
 
     **Note:** For ease of use, ensure Python gets added to the PATH environment variable during installation
+
+* LabJack UD Driver ([download](https://labjack.com/support/software/installers/ud))
 
 * External Python Modules:
 
@@ -17,6 +19,8 @@ This Python program was created by Dustin Doucette, a Computer Science graduate 
       -OpenCV-Python
         
       -Pyglet
+      
+      -LabJackPython
 
 ## Installation
 
@@ -30,11 +34,13 @@ This Python program was created by Dustin Doucette, a Computer Science graduate 
     
 2. Open a command prompt (cmd.exe) and enter the following commands to install the required Python modules:
 
-    `pip install pillow`
+    `pip install pillow --user`
     
-    `pip install opencv-python`
+    `pip install opencv-python --user`
     
-    `pip install pyglet`
+    `pip install pyglet --user`
+    
+    `pip install LabJackPython --user`
 
 ## Program Set-Up
 

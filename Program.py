@@ -19,6 +19,7 @@ import cv2
 import sys
 import csv
 import glob
+import u3
 
 import pyglet
 
@@ -71,6 +72,9 @@ ThankYouWindow.withdraw()
 
 #User Details
 userID = ''
+
+#Connection to BIOPAC
+#biopacConnection = u3.U3(localId = 0)
 
 #A list containing all of the movie trailer names
 MovieTrailerList = []
@@ -536,6 +540,8 @@ def CreateVideoWindow():
     movieLocation = os.getcwd() + "\\Movie-Trailers\\" + MovieTrailerList[currentMovieNumber] + ".avi"
 
     os.system(movieLocation)
+
+    #biopacConnection.setData(5, 'big', -6700)
 
 def CreateSelectVideoWindow():
     global userID
