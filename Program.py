@@ -74,7 +74,8 @@ ThankYouWindow.withdraw()
 userID = ''
 
 #Connection to BIOPAC
-#biopacConnection = u3.U3(localId = 0)
+#biopacConnectionPort0 = u3.U3(localId = 0)
+#biopacConnectionPort1 = u3.U3(localId = 1)
 
 #A list containing all of the movie trailer names
 MovieTrailerList = []
@@ -525,6 +526,9 @@ def CreateRatingsWindow():
     center(RatingsWindow)
 
 def CreateUserLikageWindow():
+    #Send a signal to the BIOPAC so it knows when the movie trailer has finished (over port FIO1)
+    #biopacConnectionPort1.setData(5, 'big', -6700)
+
     VideoWindow.withdraw()
     userLikageWindow.update()
     userLikageWindow.deiconify()
@@ -541,8 +545,8 @@ def CreateVideoWindow():
 
     os.system(movieLocation)
 
-    #Send a signal to the BIOPAC so it knows when the movie trailer has begun
-    #biopacConnection.setData(5, 'big', -6700)
+    #Send a signal to the BIOPAC so it knows when the movie trailer has begun (over port FIO0)
+    #biopacConnectionPort0.setData(5, 'big', -6700)
 
 def CreateSelectVideoWindow():
     global userID
