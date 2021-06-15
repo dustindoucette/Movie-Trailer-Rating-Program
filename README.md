@@ -2,7 +2,7 @@
 
 This project is intended to be used within the Cassidy Lab (The Royal’s Institute of Mental Health Research, affiliated with uOttawa) for experiments conducted to study users interpretations of Movie Trailers.
 
-This Python program was created by Dustin Doucette (B.C.S), a Computer Science graduate from Carleton University.
+This Python program was created by Dustin Doucette (B.C.S.), a Computer Science graduate from Carleton University.
 
 ## Program Requirements
 
@@ -28,22 +28,24 @@ This Python program was created by Dustin Doucette (B.C.S), a Computer Science g
 
 2. Unzip the downloaded file into a directory which contains no spaces. 
    
-    `./User/JohnDoe/Projects`    ~**GOOD**    
+    `./usr/johndoe/Projects`    ~**GOOD**    
     
-    `./User/John Doe/Projects`   ~**BAD**
+    `./usr/john doe/Projects`   ~**BAD**
     
-2. Open a terminal and enter the following commands to install the required Python modules:
+3. Open a terminal and enter the following commands to install the required Python modules:
 
     `pip install pillow --user`
-    
+
     `pip install opencv-python --user`
-    
+
     `pip install pyglet --user`
-    
+
     `pip install LabJackPython --user`
-    
+
+4. Open a terminal and enter the following commands to install the required program dependencies:
+
     `sudo apt-get install python3-pil python3-pil.imagetk`
-    
+
     `sudo snap install vlc`
 
 ## Program Set-Up
@@ -54,7 +56,7 @@ This Python program was created by Dustin Doucette (B.C.S), a Computer Science g
 
 ## Program Use Instructions
 
-1. Open a terminal and traverse to the directory which contains the downloaded program (e.g. `C:/MovieTrailerProgram/`).
+1. Open a terminal and traverse to the directory which contains the downloaded program (e.g., `johndoe/Documents/MovieTrailerProgram/`).
 
 2. Execute the command `python3 ./Program.py`.
 
