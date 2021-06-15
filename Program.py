@@ -538,7 +538,7 @@ def CreateVideoWindow():
     center(VideoWindow)
 
     #Movie titles cannot have any spaces and/or special characters
-    movieLocation = "vlc " + os.getcwd() + "/Movie-Trailers/" + MovieTrailerList[currentMovieNumber] + ".avi"
+    movieLocation = "vlc " + os.getcwd() + "/Movie-Trailers/" + MovieTrailerList[currentMovieNumber] + ".avi > /dev/null 2>&1"
 
     os.system(movieLocation)
 
