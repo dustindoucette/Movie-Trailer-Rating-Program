@@ -41,6 +41,8 @@ This Python program was created by Dustin Doucette, a Computer Science graduate 
     `pip install pyglet --user`
     
     `pip install LabJackPython --user`
+    
+    **Note:** If on Linux, also run the following command: `sudo apt-get install python3-tk`
 
 ## Program Set-Up
 
