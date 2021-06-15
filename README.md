@@ -24,13 +24,13 @@ This Python program was created by Dustin Doucette, a Computer Science graduate 
 
 ## Installation
 
-1. Click `Clone or download` then `Download ZIP` on the main repository page.
+1. Click `Clone or download` then `Download ZIP` on the main repository page (under the 'Linux-Version' branch).
 
 2. Unzip the downloaded file into a directory which contains no spaces. 
    
-    `C:\User\JohnDoe\Projects`    ~**GOOD**    
+    `C:/User/JohnDoe/Projects`    ~**GOOD**    
     
-    `C:\User\John Doe\Projects`   ~**BAD**
+    `C:/User/John Doe/Projects`   ~**BAD**
     
 2. Open a command prompt (cmd.exe) and enter the following commands to install the required Python modules:
 
@@ -42,7 +42,11 @@ This Python program was created by Dustin Doucette, a Computer Science graduate 
     
     `pip install LabJackPython --user`
     
-    **Note:** If on Linux, also run the following command: `sudo apt-get install python3-tk`
+    **Note:** If on Linux, also run the following commands: 
+    
+    ​	`sudo apt-get install python3-pil python3-pil.imagetk`
+    
+    ​	`sudo snap install vlc`
 
 ## Program Set-Up
 
@@ -52,9 +56,9 @@ This Python program was created by Dustin Doucette, a Computer Science graduate 
 
 ## Program Use Instructions
 
-1. Open a command prompt (cmd.exe) and traverse to the directory which contains the downloaded program (e.g. `C:\MovieTrailerProgram\`).
+1. Open a command prompt (cmd.exe) and traverse to the directory which contains the downloaded program (e.g. `C:/MovieTrailerProgram/`).
 
-2. Execute the command `python .\Program.py`.
+2. Execute the command `python3 ./Program.py`.
 
     **Note:** The first startup after placing new trailers in the movie trailer program will take longer to start the first GUI. This is because the program is taking individual frames out of the trailers for later use in the program.
 
