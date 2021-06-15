@@ -2,7 +2,7 @@
 
 This project is intended to be used within the Cassidy Lab (The Royal’s Institute of Mental Health Research, affiliated with uOttawa) for experiments conducted to study users interpretations of Movie Trailers.
 
-This Python program was created by Dustin Doucette, a Computer Science graduate from Carleton University.
+This Python program was created by Dustin Doucette (B.C.S), a Computer Science graduate from Carleton University.
 
 ## Program Requirements
 
@@ -28,11 +28,11 @@ This Python program was created by Dustin Doucette, a Computer Science graduate 
 
 2. Unzip the downloaded file into a directory which contains no spaces. 
    
-    `C:/User/JohnDoe/Projects`    ~**GOOD**    
+    `./User/JohnDoe/Projects`    ~**GOOD**    
     
-    `C:/User/John Doe/Projects`   ~**BAD**
+    `./User/John Doe/Projects`   ~**BAD**
     
-2. Open a command prompt (cmd.exe) and enter the following commands to install the required Python modules:
+2. Open a terminal and enter the following commands to install the required Python modules:
 
     `pip install pillow --user`
     
@@ -42,11 +42,9 @@ This Python program was created by Dustin Doucette, a Computer Science graduate 
     
     `pip install LabJackPython --user`
     
-    **Note:** If on Linux, also run the following commands: 
+    `sudo apt-get install python3-pil python3-pil.imagetk`
     
-    ​	`sudo apt-get install python3-pil python3-pil.imagetk`
-    
-    ​	`sudo snap install vlc`
+    `sudo snap install vlc`
 
 ## Program Set-Up
 
@@ -56,7 +54,7 @@ This Python program was created by Dustin Doucette, a Computer Science graduate 
 
 ## Program Use Instructions
 
-1. Open a command prompt (cmd.exe) and traverse to the directory which contains the downloaded program (e.g. `C:/MovieTrailerProgram/`).
+1. Open a terminal and traverse to the directory which contains the downloaded program (e.g. `C:/MovieTrailerProgram/`).
 
 2. Execute the command `python3 ./Program.py`.
 
@@ -66,7 +64,7 @@ This Python program was created by Dustin Doucette, a Computer Science graduate 
 
 4. Enter your user ID and press `Begin Testing`.
 
-5. Select `Start Trailer` to begin viewing the next trailer.
+5. Select `Start Trailer` to begin viewing the next trailer (a VLC window will pop-up and play the trailer).
 
 6. After the movie trailer has finished, close the video application and press `Continue` on the program window.
 
