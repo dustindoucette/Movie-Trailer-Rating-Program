@@ -260,7 +260,7 @@ def SayThankYou():
     ThankYouWindow.update()
     ThankYouWindow.deiconify()
 
-    ThankYouWindow.title("Trailer Viewer Program")
+    ThankYouWindow.title("Movie Trailer Rating Program")
     ThankYouWindow.geometry('500x100')
     ThankYouWindow.minsize(500, 100)
 
@@ -566,8 +566,8 @@ def CreateuserIDWindow():
 #Main Menu Window -----------------------------
 #This window states the program name and allows the user to begin the experiment
 
-mainWindow.title("Trailer Viewer Program")
-mainWindow.geometry('350x250')
+mainWindow.title("Movie Trailer Rating Program")
+mainWindow.geometry('375x250')
 mainWindow.minsize(375, 250)
 mainWindow.resizable(False, False)
 
@@ -590,7 +590,7 @@ center(mainWindow)
 #UserID Entry Window -----------------------------
 #This window allows the user to enter their user ID for statistical purposes
 
-userIDWindow.title("Trailer Viewer Program")
+userIDWindow.title("Movie Trailer Rating Program")
 userIDWindow.geometry('275x100')
 userIDWindow.minsize(275, 100)
 userIDWindow.resizable(False, False)
@@ -616,7 +616,7 @@ userIDWindow.grid_columnconfigure(1, weight=1)
 #Preview Name of Video Trailer Window ----------------------------
 #This window allows the user to view what the title of the next movie trailer is, and allows them to take a break before playing the next trailer
 
-SelectVideoWindow.title("Trailer Viewer Program")
+SelectVideoWindow.title("Movie Trailer Rating Program")
 SelectVideoWindow.geometry('350x175')
 SelectVideoWindow.minsize(350, 175)
 SelectVideoWindow.resizable(False, False)
@@ -638,7 +638,7 @@ btn3.pack(padx=0, pady=10)
 #Video Player Window ----------------------------
 #This window allows the user to press continue once the movie trailer is finished
 
-VideoWindow.title("Trailer Viewer Program")
+VideoWindow.title("Movie Trailer Rating Program")
 VideoWindow.geometry('450x100')
 VideoWindow.minsize(450, 100)
 VideoWindow.resizable(False, False)
@@ -656,7 +656,7 @@ btn4.pack(padx=0, pady=15)
 #Trailer Rating Window ----------------------------
 #This window allows the user to select if the trailer contained any funny, scary or sexy content
 
-RatingsWindow.title("Trailer Viewer Program")
+RatingsWindow.title("Movie Trailer Rating Program")
 RatingsWindow.geometry('300x275')
 RatingsWindow.minsize(300, 275)
 RatingsWindow.resizable(False, False)
@@ -688,7 +688,7 @@ RatingsWindow.grid_columnconfigure(0, weight=1)
 #Specific Ratings Window ----------------------------
 #This window will allow for the user to rate (on a scale of 1-10), how much of each selected content there was in the Movie Trailer
 
-SpecificRatingsWindow.title("Trailer Viewer Program")
+SpecificRatingsWindow.title("Movie Trailer Rating Program")
 SpecificRatingsWindow.geometry('300x275')
 SpecificRatingsWindow.minsize(300, 275)
 SpecificRatingsWindow.resizable(False, False)
@@ -795,7 +795,7 @@ def funnyRemove():
 #Frame Selection Window Funny ----------------------------
 #This window will allow for the user to select which frame(s) contain the specified content 
 
-FrameSelectionWindowFunny.title("Trailer Viewer Program")
+FrameSelectionWindowFunny.title("Movie Trailer Rating Program")
 FrameSelectionWindowFunny.geometry('500x775')
 FrameSelectionWindowFunny.minsize(500, 775)
 FrameSelectionWindowFunny.resizable(False, False)
@@ -910,7 +910,7 @@ def scaryRemove():
 #Frame Selection Window Scary ----------------------------
 #This window will allow for the user to select which frame(s) contain the specified content 
 
-FrameSelectionWindowScary.title("Trailer Viewer Program")
+FrameSelectionWindowScary.title("Movie Trailer Rating Program")
 FrameSelectionWindowScary.geometry('500x775')
 FrameSelectionWindowScary.minsize(500, 775)
 FrameSelectionWindowScary.resizable(False, False)
@@ -1025,7 +1025,7 @@ def sexyRemove():
 #Frame Selection Window Sexy ----------------------------
 #This window will allow for the user to select which frame(s) contain the specified content 
 
-FrameSelectionWindowSexy.title("Trailer Viewer Program")
+FrameSelectionWindowSexy.title("Movie Trailer Rating Program")
 FrameSelectionWindowSexy.geometry('500x775')
 FrameSelectionWindowSexy.minsize(500, 775)
 FrameSelectionWindowSexy.resizable(False, False)
@@ -1141,7 +1141,7 @@ def importantRemove():
 #Frame Selection Window Important ----------------------------
 #This window will allow for the user to select which frame(s) contain the specified content 
 
-FrameSelectionWindowImportant.title("Trailer Viewer Program")
+FrameSelectionWindowImportant.title("Movie Trailer Rating Program")
 FrameSelectionWindowImportant.geometry('500x775')
 FrameSelectionWindowImportant.minsize(500, 775)
 FrameSelectionWindowImportant.resizable(False, False)
@@ -1204,7 +1204,7 @@ FrameSelectionWindowImportant.grid_columnconfigure(1, weight=1)
 #If the rating is in the range of 0 to +5 (inclusive), the wording of the FrameSelectionWindowImportant window will be modified from "important part" to "your favourite part"
 
 userLikageWindow
-userLikageWindow.title("Trailer Viewer Program")
+userLikageWindow.title("Movie Trailer Rating Program")
 userLikageWindow.geometry('300x200')
 userLikageWindow.resizable(False, False)
 
