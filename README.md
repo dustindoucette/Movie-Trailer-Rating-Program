@@ -28,19 +28,19 @@ This Python program was created by Dustin Doucette (BCS), a Computer Science gra
 
 2. Unzip the downloaded file into a directory which contains no spaces. 
    
-    `./usr/johndoe/Projects`    ~**GOOD**    
+    `./user/johndoe/Projects`    ~**GOOD**    
     
-    `./usr/john doe/Projects`   ~**BAD**
+    `./user/john doe/Projects`   ~**BAD**
     
 3. Open a terminal and enter the following commands to install the required Python modules:
 
-    `pip install pillow --user`
+    `pip3 install pillow --user`
 
-    `pip install opencv-python --user`
+    `pip3 install opencv-python --user`
 
-    `pip install pyglet --user`
+    `pip3 install pyglet --user`
 
-    `pip install LabJackPython --user`
+    `pip3 install LabJackPython --user`
 
 4. Open a terminal and enter the following commands to install the required program dependencies:
 
