@@ -19,6 +19,7 @@ import sys
 import csv
 import glob
 import u3
+import time
 
 import pyglet
 
@@ -73,8 +74,7 @@ ThankYouWindow.withdraw()
 userID = ''
 
 #Connection to BIOPAC
-#biopacConnectionPort0 = u3.U3(localId = 0)
-#biopacConnectionPort1 = u3.U3(localId = 1)
+biopacConnectionPort0 = u3.U3()
 
 #A list containing all of the movie trailer names
 MovieTrailerList = []
@@ -524,7 +524,11 @@ def CreateRatingsWindow():
 
 def CreateUserLikageWindow():
     #Send a signal to the BIOPAC so it knows when the movie trailer has finished (over port FIO1)
-    #biopacConnectionPort1.setData(5, 'big', -6700)
+    biopacConnectionPort0.setFIOState(1, 1)
+    time.sleep(0.2)
+    biopacConnectionPort0.setFIOState(1, 0)
+    time.sleep(0.2)
+    biopacConnectionPort0.setFIOState(1, 1)
 
     VideoWindow.withdraw()
     userLikageWindow.update()
@@ -537,13 +541,17 @@ def CreateVideoWindow():
     VideoWindow.deiconify()
     center(VideoWindow)
 
+    #Send a signal to the BIOPAC so it knows when the movie trailer has begun (over port FIO0)
+    biopacConnectionPort0.setFIOState(0, 1)
+    time.sleep(0.2)
+    biopacConnectionPort0.setFIOState(0, 0)
+    time.sleep(0.2)
+    biopacConnectionPort0.setFIOState(0, 1)
+
     #Movie titles cannot have any spaces and/or special characters
     movieLocation = "vlc " + os.getcwd() + "/Movie-Trailers/" + MovieTrailerList[currentMovieNumber] + ".avi > /dev/null 2>&1"
 
     os.system(movieLocation)
-
-    #Send a signal to the BIOPAC so it knows when the movie trailer has begun (over port FIO0)
-    #biopacConnectionPort0.setData(5, 'big', -6700)
 
 def CreateSelectVideoWindow():
     global userID
@@ -567,7 +575,7 @@ def CreateuserIDWindow():
 #This window states the program name and allows the user to begin the experiment
 
 mainWindow.title("Movie Trailer Rating Program")
-mainWindow.geometry('375x250')
+mainWindow.geometry('425x250')
 mainWindow.minsize(375, 250)
 mainWindow.resizable(False, False)
 
@@ -591,7 +599,7 @@ center(mainWindow)
 #This window allows the user to enter their user ID for statistical purposes
 
 userIDWindow.title("Movie Trailer Rating Program")
-userIDWindow.geometry('275x100')
+userIDWindow.geometry('300x100')
 userIDWindow.minsize(275, 100)
 userIDWindow.resizable(False, False)
 
@@ -796,8 +804,7 @@ def funnyRemove():
 #This window will allow for the user to select which frame(s) contain the specified content 
 
 FrameSelectionWindowFunny.title("Movie Trailer Rating Program")
-FrameSelectionWindowFunny.geometry('500x775')
-FrameSelectionWindowFunny.minsize(500, 775)
+FrameSelectionWindowFunny.geometry('500x700')
 FrameSelectionWindowFunny.resizable(False, False)
 
 FrameSelectionWindowTitleFunnylbl = Label(FrameSelectionWindowFunny, text="Please select the frames that contain funny content", font=(25))
@@ -833,10 +840,8 @@ funnyListBox.grid(column=0, row=6, columnspan=2, pady=10)
 FrameSelectionWindowFunnybutton3 = Button(FrameSelectionWindowFunny, text="Remove Selection", command=funnyRemove, font=(25))
 FrameSelectionWindowFunnybutton3.grid(column=0, row=7, pady=10)
 
-seperator2 = ttk.Separator(FrameSelectionWindowFunny, orient=HORIZONTAL).grid(row=8, columnspan=2, sticky="ew", pady=10)
-
 FrameSelectionWindowFunnybutton = Button(FrameSelectionWindowFunny, text="Finished", command=funnyClick, font=(25))
-FrameSelectionWindowFunnybutton.grid(column=0, row=9, columnspan=2, pady=10)
+FrameSelectionWindowFunnybutton.grid(column=1, row=7, pady=10)
 
 FrameSelectionWindowFunny.grid_rowconfigure(0, weight=1)
 FrameSelectionWindowFunny.grid_rowconfigure(1, weight=1)
@@ -846,8 +851,6 @@ FrameSelectionWindowFunny.grid_rowconfigure(4, weight=1)
 FrameSelectionWindowFunny.grid_rowconfigure(5, weight=1)
 FrameSelectionWindowFunny.grid_rowconfigure(6, weight=1)
 FrameSelectionWindowFunny.grid_rowconfigure(7, weight=1)
-FrameSelectionWindowFunny.grid_rowconfigure(8, weight=1)
-FrameSelectionWindowFunny.grid_rowconfigure(9, weight=1)
 FrameSelectionWindowFunny.grid_columnconfigure(0, weight=1)
 FrameSelectionWindowFunny.grid_columnconfigure(1, weight=1)
 
@@ -911,8 +914,7 @@ def scaryRemove():
 #This window will allow for the user to select which frame(s) contain the specified content 
 
 FrameSelectionWindowScary.title("Movie Trailer Rating Program")
-FrameSelectionWindowScary.geometry('500x775')
-FrameSelectionWindowScary.minsize(500, 775)
+FrameSelectionWindowScary.geometry('500x700')
 FrameSelectionWindowScary.resizable(False, False)
 
 FrameSelectionWindowTitleScarylbl = Label(FrameSelectionWindowScary, text="Please select the frames that contain scary content", font=(25))
@@ -948,10 +950,8 @@ scaryListBox.grid(column=0, row=6, columnspan=2, pady=10)
 FrameSelectionWindowScarybutton3 = Button(FrameSelectionWindowScary, text="Remove Selection", command=scaryRemove, font=(25))
 FrameSelectionWindowScarybutton3.grid(column=0, row=7, pady=10)
 
-seperator2 = ttk.Separator(FrameSelectionWindowScary, orient=HORIZONTAL).grid(row=8, columnspan=2, sticky="ew", pady=10)
-
 FrameSelectionWindowScarybutton = Button(FrameSelectionWindowScary, text="Finished", command=scaryClick, font=(25))
-FrameSelectionWindowScarybutton.grid(column=0, row=9, columnspan=2, pady=10)
+FrameSelectionWindowScarybutton.grid(column=1, row=7, pady=10)
 
 FrameSelectionWindowScary.grid_rowconfigure(0, weight=1)
 FrameSelectionWindowScary.grid_rowconfigure(1, weight=1)
@@ -961,8 +961,6 @@ FrameSelectionWindowScary.grid_rowconfigure(4, weight=1)
 FrameSelectionWindowScary.grid_rowconfigure(5, weight=1)
 FrameSelectionWindowScary.grid_rowconfigure(6, weight=1)
 FrameSelectionWindowScary.grid_rowconfigure(7, weight=1)
-FrameSelectionWindowScary.grid_rowconfigure(8, weight=1)
-FrameSelectionWindowScary.grid_rowconfigure(9, weight=1)
 FrameSelectionWindowScary.grid_columnconfigure(0, weight=1)
 FrameSelectionWindowScary.grid_columnconfigure(1, weight=1)
 
@@ -1026,8 +1024,7 @@ def sexyRemove():
 #This window will allow for the user to select which frame(s) contain the specified content 
 
 FrameSelectionWindowSexy.title("Movie Trailer Rating Program")
-FrameSelectionWindowSexy.geometry('500x775')
-FrameSelectionWindowSexy.minsize(500, 775)
+FrameSelectionWindowSexy.geometry('500x700')
 FrameSelectionWindowSexy.resizable(False, False)
 
 FrameSelectionWindowTitleSexylbl = Label(FrameSelectionWindowSexy, text="Please select the frames that contain sexy content", font=(25))
@@ -1063,10 +1060,8 @@ sexyListBox.grid(column=0, row=6, columnspan=2, pady=10)
 FrameSelectionWindowSexybutton3 = Button(FrameSelectionWindowSexy, text="Remove Selection", command=sexyRemove, font=(25))
 FrameSelectionWindowSexybutton3.grid(column=0, row=7, pady=10)
 
-seperator2 = ttk.Separator(FrameSelectionWindowSexy, orient=HORIZONTAL).grid(row=8, columnspan=2, sticky="ew", pady=10)
-
 FrameSelectionWindowSexybutton = Button(FrameSelectionWindowSexy, text="Finished", command=sexyClick, font=(25))
-FrameSelectionWindowSexybutton.grid(column=0, row=9, columnspan=2, pady=10)
+FrameSelectionWindowSexybutton.grid(column=1, row=7, pady=10)
 
 FrameSelectionWindowSexy.grid_rowconfigure(0, weight=1)
 FrameSelectionWindowSexy.grid_rowconfigure(1, weight=1)
@@ -1076,8 +1071,6 @@ FrameSelectionWindowSexy.grid_rowconfigure(4, weight=1)
 FrameSelectionWindowSexy.grid_rowconfigure(5, weight=1)
 FrameSelectionWindowSexy.grid_rowconfigure(6, weight=1)
 FrameSelectionWindowSexy.grid_rowconfigure(7, weight=1)
-FrameSelectionWindowSexy.grid_rowconfigure(8, weight=1)
-FrameSelectionWindowSexy.grid_rowconfigure(9, weight=1)
 FrameSelectionWindowSexy.grid_columnconfigure(0, weight=1)
 FrameSelectionWindowSexy.grid_columnconfigure(1, weight=1)
 
@@ -1142,8 +1135,7 @@ def importantRemove():
 #This window will allow for the user to select which frame(s) contain the specified content 
 
 FrameSelectionWindowImportant.title("Movie Trailer Rating Program")
-FrameSelectionWindowImportant.geometry('500x775')
-FrameSelectionWindowImportant.minsize(500, 775)
+FrameSelectionWindowImportant.geometry('600x700')
 FrameSelectionWindowImportant.resizable(False, False)
 
 FrameSelectionWindowTitleImportantlbl = Label(FrameSelectionWindowImportant, text="Please select the frames that contain important content", font=(25))
@@ -1179,10 +1171,8 @@ importantListBox.grid(column=0, row=6, columnspan=2, pady=10)
 FrameSelectionWindowImportantbutton3 = Button(FrameSelectionWindowImportant, text="Remove Selection", command=importantRemove, font=(25))
 FrameSelectionWindowImportantbutton3.grid(column=0, row=7, pady=10)
 
-seperator2 = ttk.Separator(FrameSelectionWindowImportant, orient=HORIZONTAL).grid(row=8, columnspan=2, sticky="ew", pady=10)
-
 FrameSelectionWindowImportantbutton = Button(FrameSelectionWindowImportant, text="Finished", command=GetNextTrailer, font=(25))
-FrameSelectionWindowImportantbutton.grid(column=0, row=9, columnspan=2, pady=10)
+FrameSelectionWindowImportantbutton.grid(column=1, row=7, pady=10)
 
 FrameSelectionWindowImportant.grid_rowconfigure(0, weight=1)
 FrameSelectionWindowImportant.grid_rowconfigure(1, weight=1)
@@ -1192,8 +1182,6 @@ FrameSelectionWindowImportant.grid_rowconfigure(4, weight=1)
 FrameSelectionWindowImportant.grid_rowconfigure(5, weight=1)
 FrameSelectionWindowImportant.grid_rowconfigure(6, weight=1)
 FrameSelectionWindowImportant.grid_rowconfigure(7, weight=1)
-FrameSelectionWindowImportant.grid_rowconfigure(8, weight=1)
-FrameSelectionWindowImportant.grid_rowconfigure(9, weight=1)
 FrameSelectionWindowImportant.grid_columnconfigure(0, weight=1)
 FrameSelectionWindowImportant.grid_columnconfigure(1, weight=1)
 
