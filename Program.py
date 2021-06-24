@@ -202,7 +202,6 @@ MovieTrailerList[5].sort()
 
 #Generate frames for each section for each trailer (by calling another Python script)
 def generateFramesBlock1():
-    print()
     tempList = glob.glob("./Movie-Trailers/Block_1/*")
     movies = []
 
@@ -225,11 +224,10 @@ def generateFramesBlock1():
     for x in movieList:
         os.system('python3 GenerateFrames.py ' + "Block_1/" + x)
 
-print("Generating Frames for Block 1 Trailers ...\n")
+print("Generating Frames for Block 1 Trailers, Please Wait\n")
 generateFramesBlock1()
 
 def generateFramesBlock2():
-    print()
     tempList = glob.glob("./Movie-Trailers/Block_2/*")
     movies = []
 
@@ -252,11 +250,10 @@ def generateFramesBlock2():
     for x in movieList:
         os.system('python3 GenerateFrames.py ' + "Block_2/" + x)
 
-print("Generating Frames for Block 2 Trailers ...\n")
+print("Generating Frames for Block 2 Trailers, Please Wait\n")
 generateFramesBlock2()
 
 def generateFramesBlock3():
-    print()
     tempList = glob.glob("./Movie-Trailers/Block_3/*")
     movies = []
 
@@ -279,11 +276,10 @@ def generateFramesBlock3():
     for x in movieList:
         os.system('python3 GenerateFrames.py ' + "Block_3/" + x)
 
-print("Generating Frames for Block 3 Trailers ...\n")
+print("Generating Frames for Block 3 Trailers, Please Wait\n")
 generateFramesBlock3()
 
 def generateFramesBlock4():
-    print()
     tempList = glob.glob("./Movie-Trailers/Block_4/*")
     movies = []
 
@@ -306,11 +302,10 @@ def generateFramesBlock4():
     for x in movieList:
         os.system('python3 GenerateFrames.py ' + "Block_4/" + x)
 
-print("Generating Frames for Block 4 Trailers ...\n")
+print("Generating Frames for Block 4 Trailers, Please Wait\n")
 generateFramesBlock4()
 
 def generateFramesBlock5():
-    print()
     tempList = glob.glob("./Movie-Trailers/Block_5/*")
     movies = []
 
@@ -333,9 +328,9 @@ def generateFramesBlock5():
     for x in movieList:
         os.system('python3 GenerateFrames.py ' + "Block_5/" + x)
 
-print("Generating Frames for Block 5 Trailers ...\n")
+print("Generating Frames for Block 5 Trailers, Please Wait\n")
 generateFramesBlock5()
-print("All Frames Generated\n")
+print("All Frames Generated, Program Starting\n\n")
 
 
 #This function allows for an array of tuples to be passed in, and for all of the values to be modified by a certain amount
