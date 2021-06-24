@@ -50,7 +50,7 @@ This Python program was created by Dustin Doucette (BCS), a Computer Science gra
 
 ## Program Set-Up
 
-* Place pre-downloaded AVI Movie Trailers into the folder `./Movie-Trailers`.
+* Place pre-downloaded AVI Movie Trailers into the folders `./Movie-Trailers/Block_1`, `./Movie-Trailers/Block_2`,`./Movie-Trailers/Block_3`, `./Movie-Trailers/Block_4`, and `./Movie-Trailers/Block_5`. Place 18 Movie Trailers in each folder so that there is a total of 90.
 
     **Note:** Movie Trailer filenames cannot have any special characters (including spaces). Instead replace spaces with underscores, and also remove any special characters entirely.
 
@@ -66,27 +66,29 @@ This Python program was created by Dustin Doucette (BCS), a Computer Science gra
 
 4. Enter your user ID and press `Begin Testing`.
 
-5. Select `Start Trailer` to begin viewing the next trailer (a VLC window will pop-up and play the trailer).
+5. Adjust the slider to select which Movie Trailer Block to use for the current session, then press `Continue`.
 
-6. After the movie trailer has finished, close the video application and press `Continue` on the program window.
+6. Select `Start Trailer` to begin viewing the next trailer (a VLC window will pop-up and play the trailer).
 
-7. Adjust the slider to reflect how much you liked the trailer (scale of -5 to +5), then press `Continue`.
+7. After the movie trailer has finished, close the video application and press `Continue` on the program window.
 
-8. Select all of the relevant boxes (if the movie trailer had funny, scary and/or sexy content), then press `Next`.
+8. Adjust the slider to reflect how much you liked the trailer (scale of -5 to +5), then press `Continue`.
 
-9. Adjust the sliders to reflect your ratings (scale of 1-10), then press `Next`.
+9. Select all of the relevant boxes (if the movie trailer had funny, scary and/or sexy content), then press `Next`.
 
-10. Select all of the relevant frame sections which contain the specified content. 
+10. Adjust the sliders to reflect your ratings (scale of 1-10), then press `Next`.
 
-    **E.g.** If you want to select a scene from frame 10 to 20, first drag the slider to frame 10 and select `Begin Selection`. Then drag the slider to frame 20 and select `End Selection`. This will add that frame selection to a box below. If you made a mistake, simply click the selection and press `Remove Selection`. Once all frame sections are selected, press `Finished`.
+11. Select all of the relevant frame sections which contain the specified content. 
 
-    **Note:** You will be given a new window for each box you selected in step 8 (if no boxes were selected, skip to step 11).
+     **E.g.** If you want to select a scene from frame 10 to 20, first drag the slider to frame 10 and select `Begin Selection`. Then drag the slider to frame 20 and select `End Selection`. This will add that frame selection to a box below. If you made a mistake, simply click the selection and press `Remove Selection`. Once all frame sections are selected, press `Finished`.
 
-11. Select all of the relevant movie trailer frames which encompass the important scenes (the text will display "your favourite scene(s)" if you chose a number between 0 and +5 [inclusive] in step 7). Press `Finished`.
+     **Note:** You will be given a new window for each box you selected in step 8 (if no boxes were selected, skip to step 11).
 
-12. If there are more movie trailers to be reviewed, the name of the next movie trailer will be displayed. Press `Start Trailer`. This will bring the user back to step 6.
+12. Select all of the relevant movie trailer frames which encompass the important scenes (the text will display "your favourite scene(s)" if you chose a number between 0 and +5 [inclusive] in step 7). Press `Finished`.
 
-13. If there are no more movie trailers to be reviewed, a thank you message is displayed, and you can now close the window (terminating the program).
+13. If there are more movie trailers to be reviewed, the name of the next movie trailer will be displayed. Press `Start Trailer`. This will bring the user back to step 6.
+
+14. If there are no more movie trailers to be reviewed, a thank you message is displayed, and you can now close the window (terminating the program).
 
 ## Program Considerations
 
@@ -132,7 +134,7 @@ By default, the project contains the following file and directory layout:
     ```
     Movie_Trailer_Program
     │   Program.py (Main Python Program)
-    |   GenerateFrames.py (Generates individual frames for each movie trailer)
+    |   GenerateFrames.py (Generates individual frames for each movie trailer given to it)
     |   README.md (This guide)
     │
     └───Images
@@ -140,7 +142,12 @@ By default, the project contains the following file and directory layout:
     │   │   uottawa_ver_black.png (UOttawa icon used in the main menu)
     │
     └───Movie-Trailers
-    │
+    │	|	Block_1
+    |	|	Block_2
+    │	|	Block_3
+    |	|	Block_4
+    │	|	Block_5
+    |
     └───Output-Logs
         |   Results.csv (Contains the result(s) from the experiment(s))
     ```
