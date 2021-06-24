@@ -98,16 +98,17 @@ This Python program was created by Dustin Doucette (BCS), a Computer Science gra
 
 * The `Results.csv` file will have the following columns (one new line of data is added after every individual test):
 
-| User ID   | Movie Trailer | Likage | Funny | Funny Rating | Funny Sections | Scary | Scary Rating | Scary Sections | Sexy | Sexy Rating | Sexy Sections    | Important Sections |
-| --------- | ------------- | ------ | ----- | ------------ | -------------- | ----- | ------------ | -------------- | ---- | ----------- | ---------------- | ------------------ |
-| 123456789 | 1917          | -3     | NO    | N/A          | N/A            | YES   | 8/10         | (14,19)        | NO   | N/A         | N/A              | N/A                |
-| 987654321 | The Thinning  | 4      | NO    | N/A          | N/A            | YES   | 5/10         | (34,38)        | YES  | 3/10        | (12,21), (26,35) | (12,21), (26,35)   |
-| 187462945 | Peter Pan     | 0      | YES   | 6/10         | (0,5), (23,30) | NO    | N/A          | N/A            | NO   | N/A         | N/A              | N/A                |
+| User ID   | Movie Trailer | Trailer Block | Likage | Funny | Funny Rating | Funny Sections | Scary | Scary Rating | Scary Sections | Sexy | Sexy Rating | Sexy Sections    | Important Sections |
+| --------- | ------------- | ------------- | ------ | ----- | ------------ | -------------- | ----- | ------------ | -------------- | ---- | ----------- | ---------------- | ------------------ |
+| 123456789 | 1917          | 1             | -3     | NO    | N/A          | N/A            | YES   | 8/10         | (14,19)        | NO   | N/A         | N/A              | N/A                |
+| 987654321 | The Thinning  | 4             | 4      | NO    | N/A          | N/A            | YES   | 5/10         | (34,38)        | YES  | 3/10        | (12,21), (26,35) | (12,21), (26,35)   |
+| 187462945 | Peter Pan     | 2             | 0      | YES   | 6/10         | (0,5), (23,30) | NO    | N/A          | N/A            | NO   | N/A         | N/A              | N/A                |
 
 | Column                 | Description of Data                                          |
 | ---------------------- | ------------------------------------------------------------ |
 | **User ID**            | Displays the User ID of the participant                      |
 | **Movie Trailer**      | Displays the name of the movie trailer that the participant is reviewing |
+| **Trailer Block**      | Displays a number between 1 and 5, where the number corresponds to the Movie Trailer Block that the user has selected |
 | **Likage**             | Displays a number between -5 and +5, where the participant decides how much they liked the movie trailer |
 | **Funny**              | Displays whether or not the participant thinks the movie trailer contains funny content |
 | **Funny Rating**       | Displays a number between 1-10, where the participant decides how funny the movie trailer content was |

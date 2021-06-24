@@ -200,8 +200,6 @@ MovieTrailerList[3].sort()
 MovieTrailerList[4].sort()
 MovieTrailerList[5].sort()
 
-print(str(MovieTrailerList))
-
 #Generate frames for each section for each trailer (by calling another Python script)
 def generateFramesBlock1():
     print()
@@ -227,7 +225,7 @@ def generateFramesBlock1():
     for x in movieList:
         os.system('python3 GenerateFrames.py ' + "Block_1/" + x)
 
-print("Generating Frames for Block 1 Trailers ...", end="\r")
+print("Generating Frames for Block 1 Trailers ...\n")
 generateFramesBlock1()
 
 def generateFramesBlock2():
@@ -254,7 +252,7 @@ def generateFramesBlock2():
     for x in movieList:
         os.system('python3 GenerateFrames.py ' + "Block_2/" + x)
 
-print("Generating Frames for Block 2 Trailers ...", end="\r")
+print("Generating Frames for Block 2 Trailers ...\n")
 generateFramesBlock2()
 
 def generateFramesBlock3():
@@ -281,7 +279,7 @@ def generateFramesBlock3():
     for x in movieList:
         os.system('python3 GenerateFrames.py ' + "Block_3/" + x)
 
-print("Generating Frames for Block 3 Trailers ...", end="\r")
+print("Generating Frames for Block 3 Trailers ...\n")
 generateFramesBlock3()
 
 def generateFramesBlock4():
@@ -308,7 +306,7 @@ def generateFramesBlock4():
     for x in movieList:
         os.system('python3 GenerateFrames.py ' + "Block_4/" + x)
 
-print("Generating Frames for Block 4 Trailers ...", end="\r")
+print("Generating Frames for Block 4 Trailers ...\n")
 generateFramesBlock4()
 
 def generateFramesBlock5():
@@ -335,10 +333,9 @@ def generateFramesBlock5():
     for x in movieList:
         os.system('python3 GenerateFrames.py ' + "Block_5/" + x)
 
-print("Generating Frames for Block 5 Trailers ...", end="\r")
+print("Generating Frames for Block 5 Trailers ...\n")
 generateFramesBlock5()
-
-print("All Frames Generated", end="\r")
+print("All Frames Generated\n")
 
 
 #This function allows for an array of tuples to be passed in, and for all of the values to be modified by a certain amount
