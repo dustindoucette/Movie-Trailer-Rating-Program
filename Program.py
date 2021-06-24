@@ -18,7 +18,7 @@ import cv2
 import sys
 import csv
 import glob
-import u3
+#import u3	#UNCOMMENT
 import time
 
 import pyglet
@@ -67,6 +67,9 @@ FrameSelectionWindowImportant.withdraw()
 userLikageWindow = Toplevel(mainWindow)
 userLikageWindow.withdraw()
 
+trailerBlockWindow = Toplevel(mainWindow)
+trailerBlockWindow.withdraw()
+
 ThankYouWindow = Toplevel(mainWindow)
 ThankYouWindow.withdraw()
 
@@ -74,10 +77,11 @@ ThankYouWindow.withdraw()
 userID = ''
 
 #Connection to BIOPAC
-biopacConnectionPort = u3.U3()
+#biopacConnectionPort = u3.U3() #UNCOMMENT
 
 #A list containing all of the movie trailer names
-MovieTrailerList = []
+MovieTrailerList = [[],[],[],[],[],[]]
+
 currentMovieNumber = 0
 
 #use isFunny.get() to get if it is pressed or not (1 = it is selected, 0 = it is not selected)
@@ -91,6 +95,8 @@ hasBeenToSexy = False
 
 #Global variables 
 likageRating = 0
+
+trailerBlock = 1
 
 funnyRating = 0
 currentFunny = 1
@@ -135,26 +141,75 @@ FrameSelectionWindowScary.protocol("WM_DELETE_WINDOW", on_closing)
 FrameSelectionWindowSexy.protocol("WM_DELETE_WINDOW", on_closing) 
 FrameSelectionWindowImportant.protocol("WM_DELETE_WINDOW", on_closing) 
 userLikageWindow.protocol("WM_DELETE_WINDOW", on_closing) 
+trailerBlockWindow.protocol("WM_DELETE_WINDOW", on_closing) 
 
 #Get all  of the names of the trailers in the movie trailer folder
-def getTrailers():
-    tempList = glob.glob("./Movie-Trailers/*.avi")
+def getTrailersBlock1():
+    tempList = glob.glob("./Movie-Trailers/Block_1/*.avi")
 
     for x in tempList:
-        x = x.replace("./Movie-Trailers/","") 
+        x = x.replace("./Movie-Trailers/Block_1/","") 
         x = x.replace(".avi", "")
-        MovieTrailerList.append(x)
+        MovieTrailerList[1].append(x)
 
-getTrailers()
+getTrailersBlock1()
+
+def getTrailersBlock2():
+    tempList = glob.glob("./Movie-Trailers/Block_2/*.avi")
+
+    for x in tempList:
+        x = x.replace("./Movie-Trailers/Block_2/","") 
+        x = x.replace(".avi", "")
+        MovieTrailerList[2].append(x)
+
+getTrailersBlock2()
+
+def getTrailersBlock3():
+    tempList = glob.glob("./Movie-Trailers/Block_3/*.avi")
+
+    for x in tempList:
+        x = x.replace("./Movie-Trailers/Block_3/","") 
+        x = x.replace(".avi", "")
+        MovieTrailerList[3].append(x)
+
+getTrailersBlock3()
+
+def getTrailersBlock4():
+    tempList = glob.glob("./Movie-Trailers/Block_4/*.avi")
+
+    for x in tempList:
+        x = x.replace("./Movie-Trailers/Block_4/","") 
+        x = x.replace(".avi", "")
+        MovieTrailerList[4].append(x)
+
+getTrailersBlock4()
+
+def getTrailersBlock5():
+    tempList = glob.glob("./Movie-Trailers/Block_5/*.avi")
+
+    for x in tempList:
+        x = x.replace("./Movie-Trailers/Block_5/","") 
+        x = x.replace(".avi", "")
+        MovieTrailerList[5].append(x)
+
+getTrailersBlock5()
+
+MovieTrailerList[1].sort()
+MovieTrailerList[2].sort()
+MovieTrailerList[3].sort()
+MovieTrailerList[4].sort()
+MovieTrailerList[5].sort()
+
+print(str(MovieTrailerList))
 
 #Generate frames for each section for each trailer (by calling another Python script)
-def generateFrames():
+def generateFramesBlock1():
     print()
-    tempList = glob.glob("./Movie-Trailers/*")
+    tempList = glob.glob("./Movie-Trailers/Block_1/*")
     movies = []
 
     for x in tempList:
-        x = x.replace("./Movie-Trailers/","") 
+        x = x.replace("./Movie-Trailers/Block_1/","") 
         x = x.replace(".avi","") 
         movies.append(x)
 
@@ -167,12 +222,123 @@ def generateFrames():
             movieList.append(name)
 
     for x in movieList:
-        os.mkdir("./Movie-Trailers/"+x)
+        os.mkdir("./Movie-Trailers/Block_1/"+x)
 
     for x in movieList:
-        os.system('python3 GenerateFrames.py ' + x)
+        os.system('python3 GenerateFrames.py ' + "Block_1/" + x)
 
-generateFrames()
+print("Generating Frames for Block 1 Trailers ...", end="\r")
+generateFramesBlock1()
+
+def generateFramesBlock2():
+    print()
+    tempList = glob.glob("./Movie-Trailers/Block_2/*")
+    movies = []
+
+    for x in tempList:
+        x = x.replace("./Movie-Trailers/Block_2/","") 
+        x = x.replace(".avi","") 
+        movies.append(x)
+
+    my_dict = {i:movies.count(i) for i in movies}
+
+    movieList = []
+
+    for name, number in my_dict.items():
+        if number == 1:
+            movieList.append(name)
+
+    for x in movieList:
+        os.mkdir("./Movie-Trailers/Block_2/"+x)
+
+    for x in movieList:
+        os.system('python3 GenerateFrames.py ' + "Block_2/" + x)
+
+print("Generating Frames for Block 2 Trailers ...", end="\r")
+generateFramesBlock2()
+
+def generateFramesBlock3():
+    print()
+    tempList = glob.glob("./Movie-Trailers/Block_3/*")
+    movies = []
+
+    for x in tempList:
+        x = x.replace("./Movie-Trailers/Block_3/","") 
+        x = x.replace(".avi","") 
+        movies.append(x)
+
+    my_dict = {i:movies.count(i) for i in movies}
+
+    movieList = []
+
+    for name, number in my_dict.items():
+        if number == 1:
+            movieList.append(name)
+
+    for x in movieList:
+        os.mkdir("./Movie-Trailers/Block_3/"+x)
+
+    for x in movieList:
+        os.system('python3 GenerateFrames.py ' + "Block_3/" + x)
+
+print("Generating Frames for Block 3 Trailers ...", end="\r")
+generateFramesBlock3()
+
+def generateFramesBlock4():
+    print()
+    tempList = glob.glob("./Movie-Trailers/Block_4/*")
+    movies = []
+
+    for x in tempList:
+        x = x.replace("./Movie-Trailers/Block_4/","") 
+        x = x.replace(".avi","") 
+        movies.append(x)
+
+    my_dict = {i:movies.count(i) for i in movies}
+
+    movieList = []
+
+    for name, number in my_dict.items():
+        if number == 1:
+            movieList.append(name)
+
+    for x in movieList:
+        os.mkdir("./Movie-Trailers/Block_4/"+x)
+
+    for x in movieList:
+        os.system('python3 GenerateFrames.py ' + "Block_4/" + x)
+
+print("Generating Frames for Block 4 Trailers ...", end="\r")
+generateFramesBlock4()
+
+def generateFramesBlock5():
+    print()
+    tempList = glob.glob("./Movie-Trailers/Block_5/*")
+    movies = []
+
+    for x in tempList:
+        x = x.replace("./Movie-Trailers/Block_5/","") 
+        x = x.replace(".avi","") 
+        movies.append(x)
+
+    my_dict = {i:movies.count(i) for i in movies}
+
+    movieList = []
+
+    for name, number in my_dict.items():
+        if number == 1:
+            movieList.append(name)
+
+    for x in movieList:
+        os.mkdir("./Movie-Trailers/Block_5/"+x)
+
+    for x in movieList:
+        os.system('python3 GenerateFrames.py ' + "Block_5/" + x)
+
+print("Generating Frames for Block 5 Trailers ...", end="\r")
+generateFramesBlock5()
+
+print("All Frames Generated", end="\r")
 
 
 #This function allows for an array of tuples to be passed in, and for all of the values to be modified by a certain amount
@@ -190,7 +356,7 @@ def getFrameTimes(inputArray):
 def SaveData():
     allRows = []
     print("User: " + userID)
-    print("Movie Trailer: " + MovieTrailerList[currentMovieNumber])
+    print("Movie Trailer: " + MovieTrailerList[trailerBlock][currentMovieNumber])
 
     likageString = ""
 
@@ -205,6 +371,9 @@ def SaveData():
     sexyString = ""
     sexy2 = ""
     sexy3 = ""
+
+    print("Trailer Block: " + str(trailerBlock))
+    trailerBlockString = str(trailerBlock)
 
     print("Likage: " + str(likageRating))
     likageString = str(likageRating)
@@ -247,7 +416,7 @@ def SaveData():
 
     print("Important/Favourite Section(s): " + str(getFrameTimes(importantSections)))
     print("")
-    allRows.append([userID, MovieTrailerList[currentMovieNumber], likageString, funnyString, funny2, funny3, scaryString, scary2, scary3, sexyString, sexy2, sexy3, str(getFrameTimes(importantSections))])
+    allRows.append([userID, MovieTrailerList[trailerBlock][currentMovieNumber], trailerBlockString, likageString, funnyString, funny2, funny3, scaryString, scary2, scary3, sexyString, sexy2, sexy3, str(getFrameTimes(importantSections))])
 
     with open('./Output-Logs/Results.csv','a') as csvfile:
         writer = csv.writer(csvfile)
@@ -305,7 +474,7 @@ def GetNextTrailer():
     #This is where the output data for the last trailer will be saved to the excel file ******
     SaveData()
 
-    if (len(MovieTrailerList) == (currentMovieNumber + 1)):
+    if (len(MovieTrailerList[trailerBlock]) == (currentMovieNumber + 1)):
         #print("No More Trailers")
         SayThankYou()
     else:
@@ -359,7 +528,7 @@ def GetNextTrailer():
         s3.config(state=NORMAL)
 
         #Funny Frames
-        im = Image.open("./Movie-Trailers/"+ MovieTrailerList[currentMovieNumber] + "/image1.jpg")
+        im = Image.open("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image1.jpg")
         resized = im.resize((400, 225), Image.ANTIALIAS)
         tkimage = ImageTk.PhotoImage(resized)
         myvar = Label(FrameSelectionWindowFunny, image=tkimage)
@@ -368,13 +537,13 @@ def GetNextTrailer():
 
         scaleFunny.set(1)
         
-        tempNumber = glob.glob("./Movie-Trailers/"+ MovieTrailerList[currentMovieNumber] + "/image*")
+        tempNumber = glob.glob("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image*")
         scaleFunny.config(to=len(tempNumber))
 
         funnyListBox.delete(0,'end')
 
         #Scary Frames
-        im = Image.open("./Movie-Trailers/"+ MovieTrailerList[currentMovieNumber] + "/image1.jpg")
+        im = Image.open("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image1.jpg")
         resized = im.resize((400, 225), Image.ANTIALIAS)
         tkimage = ImageTk.PhotoImage(resized)
         myvar = Label(FrameSelectionWindowScary, image=tkimage)
@@ -383,13 +552,13 @@ def GetNextTrailer():
 
         scaleScary.set(1)
         
-        tempNumber = glob.glob("./Movie-Trailers/"+ MovieTrailerList[currentMovieNumber] + "/image*")
+        tempNumber = glob.glob("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image*")
         scaleScary.config(to=len(tempNumber))
 
         scaryListBox.delete(0,'end')
 
         #Sexy Frames
-        im = Image.open("./Movie-Trailers/"+ MovieTrailerList[currentMovieNumber] + "/image1.jpg")
+        im = Image.open("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image1.jpg")
         resized = im.resize((400, 225), Image.ANTIALIAS)
         tkimage = ImageTk.PhotoImage(resized)
         myvar = Label(FrameSelectionWindowSexy, image=tkimage)
@@ -398,13 +567,13 @@ def GetNextTrailer():
 
         scaleSexy.set(1)
         
-        tempNumber = glob.glob("./Movie-Trailers/"+ MovieTrailerList[currentMovieNumber] + "/image*")
+        tempNumber = glob.glob("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image*")
         scaleSexy.config(to=len(tempNumber))
 
         sexyListBox.delete(0,'end')
 
         #Important Frames
-        im = Image.open("./Movie-Trailers/"+ MovieTrailerList[currentMovieNumber] + "/image1.jpg")
+        im = Image.open("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image1.jpg")
         resized = im.resize((400, 225), Image.ANTIALIAS)
         tkimage = ImageTk.PhotoImage(resized)
         myvar = Label(FrameSelectionWindowImportant, image=tkimage)
@@ -413,7 +582,7 @@ def GetNextTrailer():
 
         scaleImportant.set(1)
         
-        tempNumber = glob.glob("./Movie-Trailers/"+ MovieTrailerList[currentMovieNumber] + "/image*")
+        tempNumber = glob.glob("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image*")
         scaleImportant.config(to=len(tempNumber))
 
         importantListBox.delete(0,'end')
@@ -492,6 +661,10 @@ def setLikageRating(val):
     global likageRating
     likageRating = val
 
+def setTrailerBlock(val):
+    global trailerBlock
+    trailerBlock = int(val)
+
 def CreateSpecificRatingsWindow():
     if((isFunny.get() == 0) and (isScary.get() == 0) and (isSexy.get() == 0)):
         #Skip to the window which will allow user to select the important parts of the movie trailer
@@ -522,13 +695,22 @@ def CreateRatingsWindow():
     RatingsWindow.deiconify()
     center(RatingsWindow)
 
+def CreateTrailerBlockWindow():
+    global userID
+    userIDWindow.withdraw()
+    trailerBlockWindow.update()
+    trailerBlockWindow.deiconify()
+    center(trailerBlockWindow)
+    
+    userID = userIDInput.get()
+
 def CreateUserLikageWindow():
     #Send a signal to the BIOPAC so it knows when the movie trailer has finished (over port FIO1)
-    biopacConnectionPort.setFIOState(1, 1)
-    time.sleep(0.2)
-    biopacConnectionPort.setFIOState(1, 0)
-    time.sleep(0.2)
-    biopacConnectionPort.setFIOState(1, 1)
+    #biopacConnectionPort.setFIOState(1, 1)	#UNCOMMENT
+    #time.sleep(0.2)				#UNCOMMENT
+    #biopacConnectionPort.setFIOState(1, 0)	#UNCOMMENT
+    #time.sleep(0.2)				#UNCOMMENT
+    #biopacConnectionPort.setFIOState(1, 1)	#UNCOMMENT
 
     VideoWindow.withdraw()
     userLikageWindow.update()
@@ -542,27 +724,56 @@ def CreateVideoWindow():
     center(VideoWindow)
 
     #Send a signal to the BIOPAC so it knows when the movie trailer has begun (over port FIO0)
-    biopacConnectionPort.setFIOState(0, 1)
-    time.sleep(0.2)
-    biopacConnectionPort.setFIOState(0, 0)
-    time.sleep(0.2)
-    biopacConnectionPort.setFIOState(0, 1)
+    #biopacConnectionPort.setFIOState(0, 1)	#UNCOMMENT
+    #time.sleep(0.2)				#UNCOMMENT
+    #biopacConnectionPort.setFIOState(0, 0)	#UNCOMMENT
+    #time.sleep(0.2)				#UNCOMMENT
+    #biopacConnectionPort.setFIOState(0, 1)	#UNCOMMENT
 
     #Movie titles cannot have any spaces and/or special characters
-    movieLocation = "vlc " + os.getcwd() + "/Movie-Trailers/" + MovieTrailerList[currentMovieNumber] + ".avi > /dev/null 2>&1"
+    movieLocation = "vlc " + os.getcwd() + "/Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + ".avi > /dev/null 2>&1"
 
     os.system(movieLocation)
 
 def CreateSelectVideoWindow():
-    global userID
-    userIDWindow.withdraw()
+    trailerBlockWindow.withdraw()
     SelectVideoWindow.update()
     SelectVideoWindow.deiconify()
     center(SelectVideoWindow)
 
-    nextMovieTrailerlbl.config(text=MovieTrailerList[currentMovieNumber])
+    #Funny Frames
+    im = Image.open("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image1.jpg")
+    resized = im.resize((400, 225), Image.ANTIALIAS)
+    tkimage = ImageTk.PhotoImage(resized)
+    myvar = Label(FrameSelectionWindowFunny, image=tkimage)
+    myvar.image = tkimage
+    myvar.grid(row=1, column=0, columnspan=2)
 
-    userID = userIDInput.get()
+    #Scary Frames
+    im = Image.open("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image1.jpg")
+    resized = im.resize((400, 225), Image.ANTIALIAS)
+    tkimage = ImageTk.PhotoImage(resized)
+    myvar = Label(FrameSelectionWindowScary, image=tkimage)
+    myvar.image = tkimage
+    myvar.grid(row=1, column=0, columnspan=2)
+
+    #Sexy Frames
+    im = Image.open("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image1.jpg")
+    resized = im.resize((400, 225), Image.ANTIALIAS)
+    tkimage = ImageTk.PhotoImage(resized)
+    myvar = Label(FrameSelectionWindowSexy, image=tkimage)
+    myvar.image = tkimage
+    myvar.grid(row=1, column=0, columnspan=2)
+
+    #Important Frames
+    im = Image.open("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image1.jpg")
+    resized = im.resize((400, 225), Image.ANTIALIAS)
+    tkimage = ImageTk.PhotoImage(resized)
+    myvar = Label(FrameSelectionWindowImportant, image=tkimage)
+    myvar.image = tkimage
+    myvar.grid(row=1, column=0, columnspan=2)
+
+    nextMovieTrailerlbl.config(text=MovieTrailerList[trailerBlock][currentMovieNumber])
 
 def CreateuserIDWindow():
     mainWindow.withdraw()
@@ -609,7 +820,7 @@ userIDlbl.grid(column=0, row=0)
 userIDInput = Entry(userIDWindow, width=20, font=(20))
 userIDInput.grid(column=1, row=0)
 
-btn = Button(userIDWindow, text="Begin Testing", command=CreateSelectVideoWindow, font=(25))
+btn = Button(userIDWindow, text="Begin Testing", command=CreateTrailerBlockWindow, font=(25))
 btn.grid(column=0, row=2, columnspan=2, pady=10)
 
 userIDWindow.grid_rowconfigure(0, weight=1)
@@ -744,7 +955,7 @@ SpecificRatingsWindow.grid_columnconfigure(1, weight=1)
 def funnySpecificFrame(val):
     global currentFunny
     currentFunny = int(val)
-    im = Image.open("./Movie-Trailers/" + MovieTrailerList[currentMovieNumber] + "/image" + val + ".jpg")
+    im = Image.open("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image" + val + ".jpg")
     resized = im.resize((400, 225), Image.ANTIALIAS)
     tkimage = ImageTk.PhotoImage(resized)
     myvar = Label(FrameSelectionWindowFunny, image=tkimage)
@@ -811,14 +1022,14 @@ FrameSelectionWindowTitleFunnylbl = Label(FrameSelectionWindowFunny, text="Pleas
 FrameSelectionWindowTitleFunnylbl.grid(column=0, row=0, columnspan=2, pady=10)
 
 #Add image section here (bookmarked page on web)
-im = Image.open("./Movie-Trailers/"+ MovieTrailerList[currentMovieNumber] + "/image1.jpg")
+im = Image.open("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image1.jpg")
 resized = im.resize((400, 225), Image.ANTIALIAS)
 tkimage = ImageTk.PhotoImage(resized)
 myvar = Label(FrameSelectionWindowFunny, image=tkimage)
 myvar.image = tkimage
 myvar.grid(row=1, column=0, columnspan=2)
 
-tempNumber = glob.glob("./Movie-Trailers/"+ MovieTrailerList[currentMovieNumber] + "/image*")
+tempNumber = glob.glob("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image*")
 
 scaleFunny = Scale(FrameSelectionWindowFunny, from_=1, to=len(tempNumber), orient=HORIZONTAL, command=funnySpecificFrame, length=450)
 scaleFunny.grid(column=0, row=2, columnspan=2, pady=10)
@@ -859,7 +1070,7 @@ FrameSelectionWindowFunny.grid_columnconfigure(1, weight=1)
 def scarySpecificFrame(val):
     global currentScary
     currentScary = int(val)
-    im = Image.open("./Movie-Trailers/" + MovieTrailerList[currentMovieNumber] + "/image" + val + ".jpg")
+    im = Image.open("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image" + val + ".jpg")
     resized = im.resize((400, 225), Image.ANTIALIAS)
     tkimage = ImageTk.PhotoImage(resized)
     myvar = Label(FrameSelectionWindowScary, image=tkimage)
@@ -921,14 +1132,14 @@ FrameSelectionWindowTitleScarylbl = Label(FrameSelectionWindowScary, text="Pleas
 FrameSelectionWindowTitleScarylbl.grid(column=0, row=0, columnspan=2, pady=10)
 
 #Add image section here (bookmarked page on web)
-im = Image.open("./Movie-Trailers/"+ MovieTrailerList[currentMovieNumber] + "/image1.jpg")
+im = Image.open("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image1.jpg")
 resized = im.resize((400, 225), Image.ANTIALIAS)
 tkimage = ImageTk.PhotoImage(resized)
 myvar = Label(FrameSelectionWindowScary, image=tkimage)
 myvar.image = tkimage
 myvar.grid(row=1, column=0, columnspan=2)
 
-tempNumber = glob.glob("./Movie-Trailers/"+ MovieTrailerList[currentMovieNumber] + "/image*")
+tempNumber = glob.glob("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image*")
 
 scaleScary = Scale(FrameSelectionWindowScary, from_=1, to=len(tempNumber), orient=HORIZONTAL, command=scarySpecificFrame, length=450)
 scaleScary.grid(column=0, row=2, columnspan=2, pady=10)
@@ -969,7 +1180,7 @@ FrameSelectionWindowScary.grid_columnconfigure(1, weight=1)
 def sexySpecificFrame(val):
     global currentSexy
     currentSexy = int(val)
-    im = Image.open("./Movie-Trailers/" + MovieTrailerList[currentMovieNumber] + "/image" + val + ".jpg")
+    im = Image.open("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image" + val + ".jpg")
     resized = im.resize((400, 225), Image.ANTIALIAS)
     tkimage = ImageTk.PhotoImage(resized)
     myvar = Label(FrameSelectionWindowSexy, image=tkimage)
@@ -1031,14 +1242,14 @@ FrameSelectionWindowTitleSexylbl = Label(FrameSelectionWindowSexy, text="Please 
 FrameSelectionWindowTitleSexylbl.grid(column=0, row=0, columnspan=2, pady=10)
 
 #Add image section here (bookmarked page on web)
-im = Image.open("./Movie-Trailers/"+ MovieTrailerList[currentMovieNumber] + "/image1.jpg")
+im = Image.open("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image1.jpg")
 resized = im.resize((400, 225), Image.ANTIALIAS)
 tkimage = ImageTk.PhotoImage(resized)
 myvar = Label(FrameSelectionWindowSexy, image=tkimage)
 myvar.image = tkimage
 myvar.grid(row=1, column=0, columnspan=2)
 
-tempNumber = glob.glob("./Movie-Trailers/"+ MovieTrailerList[currentMovieNumber] + "/image*")
+tempNumber = glob.glob("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image*")
 
 scaleSexy = Scale(FrameSelectionWindowSexy, from_=1, to=len(tempNumber), orient=HORIZONTAL, command=sexySpecificFrame, length=450)
 scaleSexy.grid(column=0, row=2, columnspan=2, pady=10)
@@ -1079,7 +1290,7 @@ FrameSelectionWindowSexy.grid_columnconfigure(1, weight=1)
 def importantSpecificFrame(val):
     global currentImportant
     currentImportant = int(val)
-    im = Image.open("./Movie-Trailers/" + MovieTrailerList[currentMovieNumber] + "/image" + val + ".jpg")
+    im = Image.open("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image" + val + ".jpg")
     resized = im.resize((400, 225), Image.ANTIALIAS)
     tkimage = ImageTk.PhotoImage(resized)
     myvar = Label(FrameSelectionWindowImportant, image=tkimage)
@@ -1142,14 +1353,14 @@ FrameSelectionWindowTitleImportantlbl = Label(FrameSelectionWindowImportant, tex
 FrameSelectionWindowTitleImportantlbl.grid(column=0, row=0, columnspan=2, pady=10)
 
 #Add image section here (bookmarked page on web)
-im = Image.open("./Movie-Trailers/"+ MovieTrailerList[currentMovieNumber] + "/image1.jpg")
+im = Image.open("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image1.jpg")
 resized = im.resize((400, 225), Image.ANTIALIAS)
 tkimage = ImageTk.PhotoImage(resized)
 myvar = Label(FrameSelectionWindowImportant, image=tkimage)
 myvar.image = tkimage
 myvar.grid(row=1, column=0, columnspan=2)
 
-tempNumber = glob.glob("./Movie-Trailers/"+ MovieTrailerList[currentMovieNumber] + "/image*")
+tempNumber = glob.glob("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image*")
 
 scaleImportant = Scale(FrameSelectionWindowImportant, from_=1, to=len(tempNumber), orient=HORIZONTAL, command=importantSpecificFrame, length=450)
 scaleImportant.grid(column=0, row=2, columnspan=2, pady=10)
@@ -1191,7 +1402,6 @@ FrameSelectionWindowImportant.grid_columnconfigure(1, weight=1)
 #This window will allow for the user to select (from -5 to +5) how much they liked the trailer
 #If the rating is in the range of 0 to +5 (inclusive), the wording of the FrameSelectionWindowImportant window will be modified from "important part" to "your favourite part"
 
-userLikageWindow
 userLikageWindow.title("Movie Trailer Rating Program")
 userLikageWindow.geometry('300x200')
 userLikageWindow.resizable(False, False)
@@ -1209,6 +1419,30 @@ userLikageWindow.grid_rowconfigure(0, weight=1)
 userLikageWindow.grid_rowconfigure(1, weight=1)
 userLikageWindow.grid_rowconfigure(2, weight=1)
 userLikageWindow.grid_columnconfigure(0, weight=1)
+
+#-----------------------------------------
+
+#Trailer Block Window ----------------------------
+#This window will allow for the user to select (from 1 to 5 inclusive) which trailer block they want to view trailers from
+
+trailerBlockWindow.title("Movie Trailer Rating Program")
+trailerBlockWindow.geometry('300x200')
+trailerBlockWindow.resizable(False, False)
+
+trailerBlockWindowlbl1 = Label(trailerBlockWindow, text="Which Movie Trailer Block would\n you like to select?", font=(25))
+trailerBlockWindowlbl1.grid(column=0, row=0, pady=10)
+
+trailerBlockWindowSlider = Scale(trailerBlockWindow, from_=1, to=5, length=250, tickinterval=1, orient=HORIZONTAL, command=setTrailerBlock)
+trailerBlockWindowSlider.set(1)
+trailerBlockWindowSlider.grid(column=0, row=1, pady=10)
+
+trailerBlockWindowbtn = Button(trailerBlockWindow, text="Continue", command=CreateSelectVideoWindow, font=(25))
+trailerBlockWindowbtn.grid(column=0, row=2, pady=10)
+
+trailerBlockWindow.grid_rowconfigure(0, weight=1)
+trailerBlockWindow.grid_rowconfigure(1, weight=1)
+trailerBlockWindow.grid_rowconfigure(2, weight=1)
+trailerBlockWindow.grid_columnconfigure(0, weight=1)
 
 #-----------------------------------------
 
