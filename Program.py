@@ -77,7 +77,7 @@ ThankYouWindow.withdraw()
 userID = ''
 
 #Connection to BIOPAC
-#biopacConnectionPort = u3.U3() #UNCOMMENT
+biopacConnectionPort = u3.U3()
 
 #A list containing all of the movie trailer names
 MovieTrailerList = [[],[],[],[],[],[]]
@@ -698,11 +698,11 @@ def CreateTrailerBlockWindow():
 
 def CreateUserLikageWindow():
     #Send a signal to the BIOPAC so it knows when the movie trailer has finished (over port FIO1)
-    #biopacConnectionPort.setFIOState(1, 1)	#UNCOMMENT
-    #time.sleep(0.2)				#UNCOMMENT
-    #biopacConnectionPort.setFIOState(1, 0)	#UNCOMMENT
-    #time.sleep(0.2)				#UNCOMMENT
-    #biopacConnectionPort.setFIOState(1, 1)	#UNCOMMENT
+    biopacConnectionPort.setFIOState(1, 1)
+    time.sleep(0.2)
+    biopacConnectionPort.setFIOState(1, 0)
+    time.sleep(0.2)
+    biopacConnectionPort.setFIOState(1, 1)
 
     VideoWindow.withdraw()
     userLikageWindow.update()
@@ -716,11 +716,11 @@ def CreateVideoWindow():
     center(VideoWindow)
 
     #Send a signal to the BIOPAC so it knows when the movie trailer has begun (over port FIO0)
-    #biopacConnectionPort.setFIOState(0, 1)	#UNCOMMENT
-    #time.sleep(0.2)				#UNCOMMENT
-    #biopacConnectionPort.setFIOState(0, 0)	#UNCOMMENT
-    #time.sleep(0.2)				#UNCOMMENT
-    #biopacConnectionPort.setFIOState(0, 1)	#UNCOMMENT
+    biopacConnectionPort.setFIOState(0, 1)
+    time.sleep(0.2)
+    biopacConnectionPort.setFIOState(0, 0)
+    time.sleep(0.2)
+    biopacConnectionPort.setFIOState(0, 1)
 
     #Movie titles cannot have any spaces and/or special characters
     movieLocation = "vlc " + os.getcwd() + "/Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + ".avi > /dev/null 2>&1"
