@@ -77,7 +77,7 @@ ThankYouWindow.withdraw()
 userID = ''
 
 #Connection to BIOPAC
-#biopacConnectionPort = u3.U3() #UNCOMMENT
+biopacConnectionPort = u3.U3()
 
 #A list containing all of the movie trailer names
 MovieTrailerList = [[],[],[],[],[],[]]
@@ -150,15 +150,13 @@ for blockNumber in range(1,6):
     for x in tempList:
         x = x.replace("./Movie-Trailers/Block_" + str(blockNumber) +"/","") 
         x = x.replace(".avi", "")
-        MovieTrailerList[x].append(x)
+        MovieTrailerList[blockNumber].append(x)
 
 MovieTrailerList[1].sort()
 MovieTrailerList[2].sort()
 MovieTrailerList[3].sort()
 MovieTrailerList[4].sort()
 MovieTrailerList[5].sort()
-
-print(MovieTrailerList)
 
 #Generate frames for each section of every trailer (by calling another Python script)
 for blockNumber in range(1,6):
@@ -552,11 +550,11 @@ def CreateTrailerBlockWindow():
 
 def CreateUserLikageWindow():
     #Send a signal to the BIOPAC so it knows when the movie trailer has finished (over port FIO1)
-    #biopacConnectionPort.setFIOState(1, 1) #UNCOMMENT
-    #time.sleep(0.2)                        #UNCOMMENT
-    #biopacConnectionPort.setFIOState(1, 0) #UNCOMMENT
-    #time.sleep(0.2)                        #UNCOMMENT
-    #biopacConnectionPort.setFIOState(1, 1) #UNCOMMENT
+    biopacConnectionPort.setFIOState(1, 1)
+    time.sleep(0.2)
+    biopacConnectionPort.setFIOState(1, 0)
+    time.sleep(0.2)
+    biopacConnectionPort.setFIOState(1, 1)
 
     VideoWindow.withdraw()
     userLikageWindow.update()
@@ -570,11 +568,11 @@ def CreateVideoWindow():
     center(VideoWindow)
 
     #Send a signal to the BIOPAC so it knows when the movie trailer has begun (over port FIO0)
-    #biopacConnectionPort.setFIOState(0, 1)  #UNCOMMENT
-    #time.sleep(0.2)                         #UNCOMMENT
-    #biopacConnectionPort.setFIOState(0, 0)  #UNCOMMENT
-    #time.sleep(0.2)                         #UNCOMMENT
-    #biopacConnectionPort.setFIOState(0, 1)  #UNCOMMENT
+    biopacConnectionPort.setFIOState(0, 1)
+    time.sleep(0.2)
+    biopacConnectionPort.setFIOState(0, 0)
+    time.sleep(0.2)
+    biopacConnectionPort.setFIOState(0, 1)
 
     #Movie titles cannot have any spaces and/or special characters
     movieLocation = "vlc " + os.getcwd() + "/Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + ".avi > /dev/null 2>&1"
