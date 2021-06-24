@@ -77,7 +77,7 @@ ThankYouWindow.withdraw()
 userID = ''
 
 #Connection to BIOPAC
-biopacConnectionPort = u3.U3()
+#biopacConnectionPort = u3.U3() #UNCOMMENT
 
 #A list containing all of the movie trailer names
 MovieTrailerList = [[],[],[],[],[],[]]
@@ -143,56 +143,14 @@ FrameSelectionWindowImportant.protocol("WM_DELETE_WINDOW", on_closing)
 userLikageWindow.protocol("WM_DELETE_WINDOW", on_closing) 
 trailerBlockWindow.protocol("WM_DELETE_WINDOW", on_closing) 
 
-#Get all  of the names of the trailers in the movie trailer folder
-def getTrailersBlock1():
-    tempList = glob.glob("./Movie-Trailers/Block_1/*.avi")
+#Get all  of the names of the trailers in the movie trailer block folders
+for blockNumber in range(1,6):
+    tempList = glob.glob("./Movie-Trailers/Block_" + str(blockNumber) +"/*.avi")
 
     for x in tempList:
-        x = x.replace("./Movie-Trailers/Block_1/","") 
+        x = x.replace("./Movie-Trailers/Block_" + str(blockNumber) +"/","") 
         x = x.replace(".avi", "")
-        MovieTrailerList[1].append(x)
-
-getTrailersBlock1()
-
-def getTrailersBlock2():
-    tempList = glob.glob("./Movie-Trailers/Block_2/*.avi")
-
-    for x in tempList:
-        x = x.replace("./Movie-Trailers/Block_2/","") 
-        x = x.replace(".avi", "")
-        MovieTrailerList[2].append(x)
-
-getTrailersBlock2()
-
-def getTrailersBlock3():
-    tempList = glob.glob("./Movie-Trailers/Block_3/*.avi")
-
-    for x in tempList:
-        x = x.replace("./Movie-Trailers/Block_3/","") 
-        x = x.replace(".avi", "")
-        MovieTrailerList[3].append(x)
-
-getTrailersBlock3()
-
-def getTrailersBlock4():
-    tempList = glob.glob("./Movie-Trailers/Block_4/*.avi")
-
-    for x in tempList:
-        x = x.replace("./Movie-Trailers/Block_4/","") 
-        x = x.replace(".avi", "")
-        MovieTrailerList[4].append(x)
-
-getTrailersBlock4()
-
-def getTrailersBlock5():
-    tempList = glob.glob("./Movie-Trailers/Block_5/*.avi")
-
-    for x in tempList:
-        x = x.replace("./Movie-Trailers/Block_5/","") 
-        x = x.replace(".avi", "")
-        MovieTrailerList[5].append(x)
-
-getTrailersBlock5()
+        MovieTrailerList[x].append(x)
 
 MovieTrailerList[1].sort()
 MovieTrailerList[2].sort()
@@ -200,13 +158,16 @@ MovieTrailerList[3].sort()
 MovieTrailerList[4].sort()
 MovieTrailerList[5].sort()
 
-#Generate frames for each section for each trailer (by calling another Python script)
-def generateFramesBlock1():
-    tempList = glob.glob("./Movie-Trailers/Block_1/*")
+print(MovieTrailerList)
+
+#Generate frames for each section of every trailer (by calling another Python script)
+for blockNumber in range(1,6):
+    print("Generating Frames for Block " + str(blockNumber) +" Trailers, Please Wait\n")
+    tempList = glob.glob("./Movie-Trailers/Block_" + str(blockNumber) + "/*")
     movies = []
 
     for x in tempList:
-        x = x.replace("./Movie-Trailers/Block_1/","") 
+        x = x.replace("./Movie-Trailers/Block_" + str(blockNumber) + "/","") 
         x = x.replace(".avi","") 
         movies.append(x)
 
@@ -219,119 +180,12 @@ def generateFramesBlock1():
             movieList.append(name)
 
     for x in movieList:
-        os.mkdir("./Movie-Trailers/Block_1/"+x)
+        os.mkdir("./Movie-Trailers/Block_" + str(blockNumber) + "/" + x)
 
     for x in movieList:
-        os.system('python3 GenerateFrames.py ' + "Block_1/" + x)
+        os.system('python3 GenerateFrames.py ' + "Block_" + str(blockNumber) + "/" + x)
 
-print("Generating Frames for Block 1 Trailers, Please Wait\n")
-generateFramesBlock1()
-
-def generateFramesBlock2():
-    tempList = glob.glob("./Movie-Trailers/Block_2/*")
-    movies = []
-
-    for x in tempList:
-        x = x.replace("./Movie-Trailers/Block_2/","") 
-        x = x.replace(".avi","") 
-        movies.append(x)
-
-    my_dict = {i:movies.count(i) for i in movies}
-
-    movieList = []
-
-    for name, number in my_dict.items():
-        if number == 1:
-            movieList.append(name)
-
-    for x in movieList:
-        os.mkdir("./Movie-Trailers/Block_2/"+x)
-
-    for x in movieList:
-        os.system('python3 GenerateFrames.py ' + "Block_2/" + x)
-
-print("Generating Frames for Block 2 Trailers, Please Wait\n")
-generateFramesBlock2()
-
-def generateFramesBlock3():
-    tempList = glob.glob("./Movie-Trailers/Block_3/*")
-    movies = []
-
-    for x in tempList:
-        x = x.replace("./Movie-Trailers/Block_3/","") 
-        x = x.replace(".avi","") 
-        movies.append(x)
-
-    my_dict = {i:movies.count(i) for i in movies}
-
-    movieList = []
-
-    for name, number in my_dict.items():
-        if number == 1:
-            movieList.append(name)
-
-    for x in movieList:
-        os.mkdir("./Movie-Trailers/Block_3/"+x)
-
-    for x in movieList:
-        os.system('python3 GenerateFrames.py ' + "Block_3/" + x)
-
-print("Generating Frames for Block 3 Trailers, Please Wait\n")
-generateFramesBlock3()
-
-def generateFramesBlock4():
-    tempList = glob.glob("./Movie-Trailers/Block_4/*")
-    movies = []
-
-    for x in tempList:
-        x = x.replace("./Movie-Trailers/Block_4/","") 
-        x = x.replace(".avi","") 
-        movies.append(x)
-
-    my_dict = {i:movies.count(i) for i in movies}
-
-    movieList = []
-
-    for name, number in my_dict.items():
-        if number == 1:
-            movieList.append(name)
-
-    for x in movieList:
-        os.mkdir("./Movie-Trailers/Block_4/"+x)
-
-    for x in movieList:
-        os.system('python3 GenerateFrames.py ' + "Block_4/" + x)
-
-print("Generating Frames for Block 4 Trailers, Please Wait\n")
-generateFramesBlock4()
-
-def generateFramesBlock5():
-    tempList = glob.glob("./Movie-Trailers/Block_5/*")
-    movies = []
-
-    for x in tempList:
-        x = x.replace("./Movie-Trailers/Block_5/","") 
-        x = x.replace(".avi","") 
-        movies.append(x)
-
-    my_dict = {i:movies.count(i) for i in movies}
-
-    movieList = []
-
-    for name, number in my_dict.items():
-        if number == 1:
-            movieList.append(name)
-
-    for x in movieList:
-        os.mkdir("./Movie-Trailers/Block_5/"+x)
-
-    for x in movieList:
-        os.system('python3 GenerateFrames.py ' + "Block_5/" + x)
-
-print("Generating Frames for Block 5 Trailers, Please Wait\n")
-generateFramesBlock5()
 print("All Frames Generated, Program Starting\n\n")
-
 
 #This function allows for an array of tuples to be passed in, and for all of the values to be modified by a certain amount
 #If there are 2 frames per second, divide frame by 2 to get the time that the selected frame is at
@@ -698,11 +552,11 @@ def CreateTrailerBlockWindow():
 
 def CreateUserLikageWindow():
     #Send a signal to the BIOPAC so it knows when the movie trailer has finished (over port FIO1)
-    biopacConnectionPort.setFIOState(1, 1)
-    time.sleep(0.2)
-    biopacConnectionPort.setFIOState(1, 0)
-    time.sleep(0.2)
-    biopacConnectionPort.setFIOState(1, 1)
+    #biopacConnectionPort.setFIOState(1, 1) #UNCOMMENT
+    #time.sleep(0.2)                        #UNCOMMENT
+    #biopacConnectionPort.setFIOState(1, 0) #UNCOMMENT
+    #time.sleep(0.2)                        #UNCOMMENT
+    #biopacConnectionPort.setFIOState(1, 1) #UNCOMMENT
 
     VideoWindow.withdraw()
     userLikageWindow.update()
@@ -716,11 +570,11 @@ def CreateVideoWindow():
     center(VideoWindow)
 
     #Send a signal to the BIOPAC so it knows when the movie trailer has begun (over port FIO0)
-    biopacConnectionPort.setFIOState(0, 1)
-    time.sleep(0.2)
-    biopacConnectionPort.setFIOState(0, 0)
-    time.sleep(0.2)
-    biopacConnectionPort.setFIOState(0, 1)
+    #biopacConnectionPort.setFIOState(0, 1)  #UNCOMMENT
+    #time.sleep(0.2)                         #UNCOMMENT
+    #biopacConnectionPort.setFIOState(0, 0)  #UNCOMMENT
+    #time.sleep(0.2)                         #UNCOMMENT
+    #biopacConnectionPort.setFIOState(0, 1)  #UNCOMMENT
 
     #Movie titles cannot have any spaces and/or special characters
     movieLocation = "vlc " + os.getcwd() + "/Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + ".avi > /dev/null 2>&1"
@@ -733,7 +587,7 @@ def CreateSelectVideoWindow():
     SelectVideoWindow.deiconify()
     center(SelectVideoWindow)
 
-    #Funny Frames
+    #Set Funny Frames
     im = Image.open("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image1.jpg")
     resized = im.resize((400, 225), Image.ANTIALIAS)
     tkimage = ImageTk.PhotoImage(resized)
@@ -741,7 +595,7 @@ def CreateSelectVideoWindow():
     myvar.image = tkimage
     myvar.grid(row=1, column=0, columnspan=2)
 
-    #Scary Frames
+    #Set Scary Frames
     im = Image.open("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image1.jpg")
     resized = im.resize((400, 225), Image.ANTIALIAS)
     tkimage = ImageTk.PhotoImage(resized)
@@ -749,7 +603,7 @@ def CreateSelectVideoWindow():
     myvar.image = tkimage
     myvar.grid(row=1, column=0, columnspan=2)
 
-    #Sexy Frames
+    #Set Sexy Frames
     im = Image.open("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image1.jpg")
     resized = im.resize((400, 225), Image.ANTIALIAS)
     tkimage = ImageTk.PhotoImage(resized)
@@ -757,7 +611,7 @@ def CreateSelectVideoWindow():
     myvar.image = tkimage
     myvar.grid(row=1, column=0, columnspan=2)
 
-    #Important Frames
+    #Set Important Frames
     im = Image.open("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image1.jpg")
     resized = im.resize((400, 225), Image.ANTIALIAS)
     tkimage = ImageTk.PhotoImage(resized)
