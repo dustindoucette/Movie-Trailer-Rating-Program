@@ -142,11 +142,11 @@ By default, the project contains the following file and directory layout:
     │   │   uottawa_ver_black.png (UOttawa icon used in the main menu)
     │
     └───Movie-Trailers
-    │	|	Block_1
-    |	|	Block_2
-    │	|	Block_3
-    |	|	Block_4
-    │	|	Block_5
+    │   |   Block_1
+    |   |   Block_2
+    │   |   Block_3
+    |   |   Block_4
+    │   |   Block_5
     |
     └───Output-Logs
         |   Results.csv (Contains the result(s) from the experiment(s))
