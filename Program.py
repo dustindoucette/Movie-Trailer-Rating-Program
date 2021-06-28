@@ -61,12 +61,6 @@ FrameSelectionWindowScary.withdraw()
 FrameSelectionWindowSexy = Toplevel(mainWindow)
 FrameSelectionWindowSexy.withdraw()
 
-FrameSelectionWindowImportant = Toplevel(mainWindow)
-FrameSelectionWindowImportant.withdraw()
-
-userLikageWindow = Toplevel(mainWindow)
-userLikageWindow.withdraw()
-
 trailerBlockWindow = Toplevel(mainWindow)
 trailerBlockWindow.withdraw()
 
@@ -77,7 +71,7 @@ ThankYouWindow.withdraw()
 userID = ''
 
 #Connection to BIOPAC
-biopacConnectionPort = u3.U3()
+#biopacConnectionPort = u3.U3() #UNCOMMENT
 
 #A list containing all of the movie trailer names
 MovieTrailerList = [[],[],[],[],[],[]]
@@ -94,8 +88,6 @@ hasBeenToScary = False
 hasBeenToSexy = False
 
 #Global variables 
-likageRating = 0
-
 trailerBlock = 1
 
 funnyRating = 0
@@ -112,10 +104,6 @@ sexyRating = 0
 currentSexy = 1
 sexySections = []
 sexyListBoxCount = 1
-
-currentImportant = 1
-importantSections = []
-importantListBoxCount = 1
 
 startFrame = 1
 endFrame = 1
@@ -139,8 +127,6 @@ ThankYouWindow.protocol("WM_DELETE_WINDOW", endProgram)
 FrameSelectionWindowFunny.protocol("WM_DELETE_WINDOW", on_closing) 
 FrameSelectionWindowScary.protocol("WM_DELETE_WINDOW", on_closing) 
 FrameSelectionWindowSexy.protocol("WM_DELETE_WINDOW", on_closing) 
-FrameSelectionWindowImportant.protocol("WM_DELETE_WINDOW", on_closing) 
-userLikageWindow.protocol("WM_DELETE_WINDOW", on_closing) 
 trailerBlockWindow.protocol("WM_DELETE_WINDOW", on_closing) 
 
 #Get all  of the names of the trailers in the movie trailer block folders
@@ -202,8 +188,6 @@ def SaveData():
     print("User: " + userID)
     print("Movie Trailer: " + MovieTrailerList[trailerBlock][currentMovieNumber])
 
-    likageString = ""
-
     funnyString = ""
     funny2 = ""
     funny3 = ""
@@ -218,9 +202,6 @@ def SaveData():
 
     print("Trailer Block: " + str(trailerBlock))
     trailerBlockString = str(trailerBlock)
-
-    print("Likage: " + str(likageRating))
-    likageString = str(likageRating)
 
     if(isFunny.get() == 1):
         print("Funny: YES, " + " " + str(funnyRating) + " out of 10")
@@ -258,9 +239,8 @@ def SaveData():
         sexy2 = "N/A"
         sexy3 = "N/A"
 
-    print("Important/Favourite Section(s): " + str(getFrameTimes(importantSections)))
     print("")
-    allRows.append([userID, MovieTrailerList[trailerBlock][currentMovieNumber], trailerBlockString, likageString, funnyString, funny2, funny3, scaryString, scary2, scary3, sexyString, sexy2, sexy3, str(getFrameTimes(importantSections))])
+    allRows.append([userID, MovieTrailerList[trailerBlock][currentMovieNumber], trailerBlockString, funnyString, funny2, funny3, scaryString, scary2, scary3, sexyString, sexy2, sexy3])
 
     with open('./Output-Logs/Results.csv','a') as csvfile:
         writer = csv.writer(csvfile)
@@ -285,13 +265,10 @@ def SayThankYou():
 
 #Get all of the GUI's ready for the next trailer (i.e. change the images/frames), and reset all of the variables so old data is not passed forward unintentionally 																																								   
 def GetNextTrailer():
-    FrameSelectionWindowImportant.withdraw()
     global currentMovieNumber
     global hasBeenToFunny
     global hasBeenToScary
     global hasBeenToSexy
-
-    global likageRating
 
     global funnyRating
     global currentFunny
@@ -307,10 +284,6 @@ def GetNextTrailer():
     global currentSexy
     global sexySections
     global sexyListBoxCount
-
-    global currentImportant
-    global importantSections
-    global importantListBoxCount
 
     global startFrame
     global endFrame
@@ -330,8 +303,6 @@ def GetNextTrailer():
         hasBeenToScary = False
         hasBeenToSexy = False
 
-        likageRating = 0
-
         funnyRating = 0
         currentFunny = 0
         funnySections = []
@@ -346,10 +317,6 @@ def GetNextTrailer():
         currentSexy = 0
         sexySections = []
         sexyListBoxCount = 1
-
-        currentImportant = 0
-        importantSections = []
-        importantListBoxCount = 1
 
         isFunny.set(0) 
         isScary.set(0) 
@@ -416,37 +383,7 @@ def GetNextTrailer():
 
         sexyListBox.delete(0,'end')
 
-        #Important Frames
-        im = Image.open("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image1.jpg")
-        resized = im.resize((400, 225), Image.ANTIALIAS)
-        tkimage = ImageTk.PhotoImage(resized)
-        myvar = Label(FrameSelectionWindowImportant, image=tkimage)
-        myvar.image = tkimage
-        myvar.grid(row=1, column=0, columnspan=2)
-
-        scaleImportant.set(1)
-        
-        tempNumber = glob.glob("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image*")
-        scaleImportant.config(to=len(tempNumber))
-
-        importantListBox.delete(0,'end')
-
-        userLikageWindowSlider.set(0)
-
         CreateSelectVideoWindow()
-
-
-def GetImportantParts():
-    #This is where another window will pop up, which will ask which part(s) of the movie trailer was the user's favourite
-    if(int(likageRating) < 0):
-        FrameSelectionWindowTitleImportantlbl.config(text='Please select the frames that contain important content')
-    else:
-        FrameSelectionWindowTitleImportantlbl.config(text='Please select the frames that contain your favourite part(s) of the trailer')
-
-    FrameSelectionWindowImportant.update()
-    FrameSelectionWindowImportant.deiconify()
-
-    center(FrameSelectionWindowImportant)
 
 def funnyClick():
     FrameSelectionWindowFunny.withdraw()
@@ -482,11 +419,10 @@ def ShowIndividualFrames():
         hasBeenToSexy = True
         center(FrameSelectionWindowSexy)
     else:
-        GetImportantParts()
+        GetNextTrailer()
 
 def GetIndividualFrames():
     SpecificRatingsWindow.withdraw()
-    
     ShowIndividualFrames()
 
 def setFunnyRating(val):
@@ -501,19 +437,15 @@ def setSexyRating(val):
     global sexyRating
     sexyRating = val
 
-def setLikageRating(val):
-    global likageRating
-    likageRating = val
-
 def setTrailerBlock(val):
     global trailerBlock
     trailerBlock = int(val)
 
 def CreateSpecificRatingsWindow():
     if((isFunny.get() == 0) and (isScary.get() == 0) and (isSexy.get() == 0)):
-        #Skip to the window which will allow user to select the important parts of the movie trailer
+        #Skip to the next trailer
         RatingsWindow.withdraw()
-        GetImportantParts()
+        GetNextTrailer()
     else:
         RatingsWindow.withdraw()
         SpecificRatingsWindow.update()
@@ -534,7 +466,14 @@ def CreateSpecificRatingsWindow():
             s3.config(state=DISABLED)
 
 def CreateRatingsWindow():
-    userLikageWindow.withdraw()
+    #Send a signal to the BIOPAC so it knows when the movie trailer has finished (over port FIO1)
+    #biopacConnectionPort.setFIOState(1, 1) #UNCOMMENT
+    #time.sleep(0.2)                        #UNCOMMENT
+    #biopacConnectionPort.setFIOState(1, 0) #UNCOMMENT
+    #time.sleep(0.2)                        #UNCOMMENT
+    #biopacConnectionPort.setFIOState(1, 1) #UNCOMMENT
+
+    VideoWindow.withdraw()
     RatingsWindow.update()
     RatingsWindow.deiconify()
     center(RatingsWindow)
@@ -548,19 +487,6 @@ def CreateTrailerBlockWindow():
     
     userID = userIDInput.get()
 
-def CreateUserLikageWindow():
-    #Send a signal to the BIOPAC so it knows when the movie trailer has finished (over port FIO1)
-    biopacConnectionPort.setFIOState(1, 1)
-    time.sleep(0.2)
-    biopacConnectionPort.setFIOState(1, 0)
-    time.sleep(0.2)
-    biopacConnectionPort.setFIOState(1, 1)
-
-    VideoWindow.withdraw()
-    userLikageWindow.update()
-    userLikageWindow.deiconify()
-    center(userLikageWindow)
-
 def CreateVideoWindow():
     SelectVideoWindow.withdraw()
     VideoWindow.update()
@@ -568,11 +494,11 @@ def CreateVideoWindow():
     center(VideoWindow)
 
     #Send a signal to the BIOPAC so it knows when the movie trailer has begun (over port FIO0)
-    biopacConnectionPort.setFIOState(0, 1)
-    time.sleep(0.2)
-    biopacConnectionPort.setFIOState(0, 0)
-    time.sleep(0.2)
-    biopacConnectionPort.setFIOState(0, 1)
+    #biopacConnectionPort.setFIOState(0, 1) #UNCOMMENT
+    #time.sleep(0.2)                        #UNCOMMENT
+    #biopacConnectionPort.setFIOState(0, 0) #UNCOMMENT
+    #time.sleep(0.2)                        #UNCOMMENT
+    #biopacConnectionPort.setFIOState(0, 1) #UNCOMMENT
 
     #Movie titles cannot have any spaces and/or special characters
     movieLocation = "vlc " + os.getcwd() + "/Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + ".avi > /dev/null 2>&1"
@@ -606,14 +532,6 @@ def CreateSelectVideoWindow():
     resized = im.resize((400, 225), Image.ANTIALIAS)
     tkimage = ImageTk.PhotoImage(resized)
     myvar = Label(FrameSelectionWindowSexy, image=tkimage)
-    myvar.image = tkimage
-    myvar.grid(row=1, column=0, columnspan=2)
-
-    #Set Important Frames
-    im = Image.open("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image1.jpg")
-    resized = im.resize((400, 225), Image.ANTIALIAS)
-    tkimage = ImageTk.PhotoImage(resized)
-    myvar = Label(FrameSelectionWindowImportant, image=tkimage)
     myvar.image = tkimage
     myvar.grid(row=1, column=0, columnspan=2)
 
@@ -710,7 +628,7 @@ lbl4 = Label(VideoWindow, text="When trailer is finished, please press continue"
 lbl4.config(anchor=CENTER)
 lbl4.pack(padx=0, pady=10)
 
-btn4 = Button(VideoWindow, text="Continue", command=CreateUserLikageWindow, font=(25))
+btn4 = Button(VideoWindow, text="Continue", command=CreateRatingsWindow, font=(25))
 btn4.config(anchor=CENTER)
 btn4.pack(padx=0, pady=15)
 
@@ -1128,141 +1046,6 @@ FrameSelectionWindowSexy.grid_rowconfigure(6, weight=1)
 FrameSelectionWindowSexy.grid_rowconfigure(7, weight=1)
 FrameSelectionWindowSexy.grid_columnconfigure(0, weight=1)
 FrameSelectionWindowSexy.grid_columnconfigure(1, weight=1)
-
-#-----------------------------------------
-
-def importantSpecificFrame(val):
-    global currentImportant
-    currentImportant = int(val)
-    im = Image.open("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image" + val + ".jpg")
-    resized = im.resize((400, 225), Image.ANTIALIAS)
-    tkimage = ImageTk.PhotoImage(resized)
-    myvar = Label(FrameSelectionWindowImportant, image=tkimage)
-    myvar.image = tkimage
-    myvar.grid(row=1, column=0, columnspan=2)
-
-    FrameSelectionWindowImportant.update()
-    FrameSelectionWindowImportant.deiconify()
-
-def importantClickBegin():
-    global currentImportant
-    global startFrame
-    startFrame = currentImportant
-    FrameSelectionWindowImportantbutton2.config(state=NORMAL)
-
-
-def importantClickEnd():
-    global startFrame
-    global currentImportant
-    global endFrame
-    global importantListBoxCount
-    endFrame = currentImportant
-
-    if((startFrame > 0) and (startFrame is not endFrame) and (startFrame < endFrame)):
-        importantSections.append([startFrame, endFrame])
-
-        importantListBoxCount = importantListBoxCount + 1
-        importantListBox.insert(importantListBoxCount, "Frame: " + str(startFrame) + ", to Frame: " + str(endFrame))
-
-        startFrame = 0
-        endFrame = 0
-        FrameSelectionWindowImportantbutton2.config(state=DISABLED)
-
-def importantRemove():
-    #Add Try Catch Statment
-    try:
-        text = importantListBox.get(importantListBox.curselection())
-        importantListBox.delete(importantListBox.curselection())
-        first = text
-
-        temp = first.split(", to Frame")
-
-        first = temp[0].replace("Frame: ", "")
-        second = temp[1].replace(": ", "")
-
-        tempList = [int(first), int(second)]
-        importantSections.remove(tempList)
-    except:
-        messagebox.showerror("Error", "Please select a valid frame selection to delete")
-
-
-#Frame Selection Window Important ----------------------------
-#This window will allow for the user to select which frame(s) contain the specified content 
-
-FrameSelectionWindowImportant.title("Movie Trailer Rating Program")
-FrameSelectionWindowImportant.geometry('600x700')
-FrameSelectionWindowImportant.resizable(False, False)
-
-FrameSelectionWindowTitleImportantlbl = Label(FrameSelectionWindowImportant, text="Please select the frames that contain important content", font=(25))
-FrameSelectionWindowTitleImportantlbl.grid(column=0, row=0, columnspan=2, pady=10)
-
-#Add image section here (bookmarked page on web)
-im = Image.open("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image1.jpg")
-resized = im.resize((400, 225), Image.ANTIALIAS)
-tkimage = ImageTk.PhotoImage(resized)
-myvar = Label(FrameSelectionWindowImportant, image=tkimage)
-myvar.image = tkimage
-myvar.grid(row=1, column=0, columnspan=2)
-
-tempNumber = glob.glob("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image*")
-
-scaleImportant = Scale(FrameSelectionWindowImportant, from_=1, to=len(tempNumber), orient=HORIZONTAL, command=importantSpecificFrame, length=450)
-scaleImportant.grid(column=0, row=2, columnspan=2, pady=10)
-
-FrameSelectionWindowImportantbutton1 = Button(FrameSelectionWindowImportant, text="Begin Selection", command=importantClickBegin, font=(25))
-FrameSelectionWindowImportantbutton1.grid(column=0, row=3, pady=10)
-
-FrameSelectionWindowImportantbutton2 = Button(FrameSelectionWindowImportant, text="End Selection", command=importantClickEnd, font=(25))
-FrameSelectionWindowImportantbutton2.grid(column=1, row=3, pady=10)
-
-seperator1 = ttk.Separator(FrameSelectionWindowImportant, orient=HORIZONTAL).grid(row=4, columnspan=2, sticky="ew")
-
-FrameSelectionWindowTitleImportantlbl2 = Label(FrameSelectionWindowImportant, text="Selected Frame Sections:", font=(25))
-FrameSelectionWindowTitleImportantlbl2.grid(column=0, row=5, columnspan=2, pady=10)
-
-importantListBox = Listbox(FrameSelectionWindowImportant, width=60, selectmode=SINGLE)
-importantListBox.grid(column=0, row=6, columnspan=2, pady=10)
-
-FrameSelectionWindowImportantbutton3 = Button(FrameSelectionWindowImportant, text="Remove Selection", command=importantRemove, font=(25))
-FrameSelectionWindowImportantbutton3.grid(column=0, row=7, pady=10)
-
-FrameSelectionWindowImportantbutton = Button(FrameSelectionWindowImportant, text="Finished", command=GetNextTrailer, font=(25))
-FrameSelectionWindowImportantbutton.grid(column=1, row=7, pady=10)
-
-FrameSelectionWindowImportant.grid_rowconfigure(0, weight=1)
-FrameSelectionWindowImportant.grid_rowconfigure(1, weight=1)
-FrameSelectionWindowImportant.grid_rowconfigure(2, weight=1)
-FrameSelectionWindowImportant.grid_rowconfigure(3, weight=1)
-FrameSelectionWindowImportant.grid_rowconfigure(4, weight=1)
-FrameSelectionWindowImportant.grid_rowconfigure(5, weight=1)
-FrameSelectionWindowImportant.grid_rowconfigure(6, weight=1)
-FrameSelectionWindowImportant.grid_rowconfigure(7, weight=1)
-FrameSelectionWindowImportant.grid_columnconfigure(0, weight=1)
-FrameSelectionWindowImportant.grid_columnconfigure(1, weight=1)
-
-#-----------------------------------------
-
-#User Likage Window ----------------------------
-#This window will allow for the user to select (from -5 to +5) how much they liked the trailer
-#If the rating is in the range of 0 to +5 (inclusive), the wording of the FrameSelectionWindowImportant window will be modified from "important part" to "your favourite part"
-
-userLikageWindow.title("Movie Trailer Rating Program")
-userLikageWindow.geometry('300x200')
-userLikageWindow.resizable(False, False)
-
-userLikageWindowlbl1 = Label(userLikageWindow, text="How much did you like the trailer?", font=(25))
-userLikageWindowlbl1.grid(column=0, row=0, pady=10)
-
-userLikageWindowSlider = Scale(userLikageWindow, from_=-5, to=5, length=250, tickinterval=1, orient=HORIZONTAL, command=setLikageRating)
-userLikageWindowSlider.grid(column=0, row=1, pady=10)
-
-userLikageWindowbtn = Button(userLikageWindow, text="Continue", command=CreateRatingsWindow, font=(25))
-userLikageWindowbtn.grid(column=0, row=2, pady=10)
-
-userLikageWindow.grid_rowconfigure(0, weight=1)
-userLikageWindow.grid_rowconfigure(1, weight=1)
-userLikageWindow.grid_rowconfigure(2, weight=1)
-userLikageWindow.grid_columnconfigure(0, weight=1)
 
 #-----------------------------------------
 
