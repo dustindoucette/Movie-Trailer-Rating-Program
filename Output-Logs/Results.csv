@@ -1,3 +1,3 @@
-User ID,Movie Trailer,Trailer Block,Likage,Funny,Funny Rating,Funny Sections,Scary,Scary Rating,Scary Sections,Sexy,Sexy Rating,Sexy Sections,Important Sections
-123456789,1917,1,4,NO,N/A,N/A,YES,7,"[[25.0, 81.5], [97.0, 119.0]]",NO,N/A,N/A,"[[19.0, 42.5]]"
-987654321,Candyman,2,2,NO,N/A,N/A,YES,8,"[[44.5, 86.5]]",NO,N/A,N/A,"[[24.0, 133.5]]"
+User ID,Movie Trailer,Trailer Block,Funny,Funny Rating,Funny Sections,Scary,Scary Rating,Scary Sections,Sexy,Sexy Rating,Sexy Sections
+123456789,1917,1,NO,N/A,N/A,YES,7,"[[25.0, 81.5], [97.0, 119.0]]",NO,N/A,N/A
+987654321,Candyman,2,NO,N/A,N/A,YES,8,"[[44.5, 86.5]]",NO,N/A,N/A
