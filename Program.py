@@ -304,17 +304,17 @@ def GetNextTrailer():
         hasBeenToSexy = False
 
         funnyRating = 0
-        currentFunny = 0
+        currentFunny = 1
         funnySections = []
         funnyListBoxCount = 1
 
         scaryRating = 0
-        currentScary = 0
+        currentScary = 1
         scarySections = []
         scaryListBoxCount = 1
 
         sexyRating = 0
-        currentSexy = 0
+        currentSexy = 1
         sexySections = []
         sexyListBoxCount = 1
 

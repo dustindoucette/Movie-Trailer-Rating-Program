@@ -90,6 +90,7 @@ This Python program was created by Dustin Doucette (BCS), a Computer Science gra
 
 * The program needs to have at least **one** movie trailer placed inside the folder `Movie-Trailers` to function properly.
 * When the program is run for the first time after placing new trailers in the `Movie-Trailers` folder, allow the program to generate all of the frames (i.e., wait for the welcome GUI to pop-up) before terminating the program. If the program is terminated before all of the frames are created, the specific rating windows (funny, sexy, scary) will not display entire movie trailer(s), just the portion of which the frames were generated.
+  * If the program is terminated before all of the frames are generated, traverse to the `Movie-Trailers` folder and within each block, delete the folders that are named after movie trailers. By deleting these folders, the program will be able to regenerate the frames properly; if the folders are there (but empty), the program will presume that the frames are already in it.
 
 ## Program Output
 
