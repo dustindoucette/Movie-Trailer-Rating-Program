@@ -501,7 +501,7 @@ def CreateVideoWindow():
     biopacConnectionPort.setFIOState(0, 1)
 
     #Movie titles cannot have any spaces and/or special characters
-    movieLocation = "vlc " + os.getcwd() + "/Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + ".avi > /dev/null 2>&1"
+    movieLocation = "vlc " + os.getcwd() + "/Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + ".avi vlc://quit > /dev/null 2>&1"
 
     os.system(movieLocation)
 
