@@ -76,11 +76,13 @@ This Python program was created by Dustin Doucette (BCS), a Computer Science gra
 
 10. Adjust the sliders to reflect your ratings (scale of 1-10), then press `Next`.
 
-11. Select all of the relevant frame sections which contain the specified content. 
+10. Select all of the relevant frame sections which contain the specified content. 
 
-     **E.g.** If you want to select a scene from frame 10 to 20, first drag the slider to frame 10 and select `Begin Selection`. Then drag the slider to frame 20 and select `End Selection`. This will add that frame selection to a box below. If you made a mistake, simply click the selection and press `Remove Selection`. Once all frame sections are selected, press `Finished`.
+    **E.g.** If you want to select a scene from frame 10 to 20, first drag the slider to frame 10 and select `Begin Selection`. Then drag the slider to frame 20 and select `End Selection`. This will add that frame selection to a box below. If you made a mistake, simply click the selection and press `Remove Selection`. Once all frame sections are selected, press `Finished`.
 
-     **Note:** You will be given a new window for each box you selected in step 8 (if no boxes were selected, skip to step 11).
+    **Note:** You can also create a frame section by holding down the left Shift key and pressing the Left and Right arrow keys to adjust the frame selection. A new frame section will be created when you release the left Shift key.
+
+    **Note:** You will be given a new window for each box you selected in step 8 (if no boxes were selected, skip to step 11).
 
 13. If there are more movie trailers to be reviewed, the name of the next movie trailer will be displayed. Press `Start Trailer`. This will bring the user back to step 6.
 
