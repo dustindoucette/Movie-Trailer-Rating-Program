@@ -717,7 +717,7 @@ SpecificRatingsWindow.grid_columnconfigure(1, weight=1)
 def funnySpecificFrame(val):
     global currentFunny
     currentFunny = int(val)
-    im = Image.open("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image" + val + ".jpg")
+    im = Image.open("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image" + str(val) + ".jpg")
     resized = im.resize((400, 225), Image.ANTIALIAS)
     tkimage = ImageTk.PhotoImage(resized)
     myvar = Label(FrameSelectionWindowFunny, image=tkimage)
@@ -732,7 +732,6 @@ def funnyClickBegin(event=None):
     global startFrame
     startFrame = currentFunny
     FrameSelectionWindowFunnybutton2.config(state=NORMAL)
-
 
 def funnyClickEnd(event=None):
     global startFrame
@@ -769,7 +768,22 @@ def funnyRemove():
     except:
         messagebox.showerror("Error", "Please select a valid frame selection to delete")
 
+def funnyNextFrame(event=None):
+    global currentFunny
+    global currentMovieNumber
 
+    tempNumber = glob.glob("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image*")
+    
+    if(currentFunny + 1 <= len(tempNumber)):
+        funnySpecificFrame(currentFunny + 1)
+        scaleFunny.set(currentFunny)
+
+def funnyPreviousFrame(event=None):
+    global currentFunny
+
+    if(currentFunny - 1 >= 1):
+        funnySpecificFrame(currentFunny - 1)
+        scaleFunny.set(currentFunny)
 
 #-----------------------------------------
 
@@ -795,6 +809,9 @@ tempNumber = glob.glob("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" 
 
 scaleFunny = Scale(FrameSelectionWindowFunny, from_=1, to=len(tempNumber), orient=HORIZONTAL, command=funnySpecificFrame, length=450)
 scaleFunny.grid(column=0, row=2, columnspan=2, pady=10)
+
+FrameSelectionWindowFunny.bind("<Right>", funnyNextFrame)
+FrameSelectionWindowFunny.bind("<Left>", funnyPreviousFrame)
 
 FrameSelectionWindowFunnybutton1 = Button(FrameSelectionWindowFunny, text="Begin Selection", command=funnyClickBegin, font=(25))
 FrameSelectionWindowFunnybutton1.grid(column=0, row=3, pady=10)
@@ -836,7 +853,7 @@ FrameSelectionWindowFunny.grid_columnconfigure(1, weight=1)
 def scarySpecificFrame(val):
     global currentScary
     currentScary = int(val)
-    im = Image.open("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image" + val + ".jpg")
+    im = Image.open("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image" + str(val) + ".jpg")
     resized = im.resize((400, 225), Image.ANTIALIAS)
     tkimage = ImageTk.PhotoImage(resized)
     myvar = Label(FrameSelectionWindowScary, image=tkimage)
@@ -851,7 +868,6 @@ def scaryClickBegin(event=None):
     global startFrame
     startFrame = currentScary
     FrameSelectionWindowScarybutton2.config(state=NORMAL)
-
 
 def scaryClickEnd(event=None):
     global startFrame
@@ -887,6 +903,25 @@ def scaryRemove():
     except:
         messagebox.showerror("Error", "Please select a valid frame selection to delete")
 
+def scaryNextFrame(event=None):
+    global currentScary
+    global currentMovieNumber
+
+    tempNumber = glob.glob("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image*")
+    
+    if(currentScary + 1 <= len(tempNumber)):
+        scarySpecificFrame(currentScary + 1)
+        scaleScary.set(currentScary)
+
+def scaryPreviousFrame(event=None):
+    global currentScary
+
+    if(currentScary - 1 >= 1):
+        scarySpecificFrame(currentScary - 1)
+        scaleScary.set(currentScary)
+
+#-----------------------------------------
+
 #Frame Selection Window Scary ----------------------------
 #This window will allow for the user to select which frame(s) contain the specified content 
 
@@ -909,6 +944,9 @@ tempNumber = glob.glob("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" 
 
 scaleScary = Scale(FrameSelectionWindowScary, from_=1, to=len(tempNumber), orient=HORIZONTAL, command=scarySpecificFrame, length=450)
 scaleScary.grid(column=0, row=2, columnspan=2, pady=10)
+
+FrameSelectionWindowScary.bind("<Right>", scaryNextFrame)
+FrameSelectionWindowScary.bind("<Left>", scaryPreviousFrame)
 
 FrameSelectionWindowScarybutton1 = Button(FrameSelectionWindowScary, text="Begin Selection", command=scaryClickBegin, font=(25))
 FrameSelectionWindowScarybutton1.grid(column=0, row=3, pady=10)
@@ -950,7 +988,7 @@ FrameSelectionWindowScary.grid_columnconfigure(1, weight=1)
 def sexySpecificFrame(val):
     global currentSexy
     currentSexy = int(val)
-    im = Image.open("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image" + val + ".jpg")
+    im = Image.open("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image" + str(val) + ".jpg")
     resized = im.resize((400, 225), Image.ANTIALIAS)
     tkimage = ImageTk.PhotoImage(resized)
     myvar = Label(FrameSelectionWindowSexy, image=tkimage)
@@ -965,7 +1003,6 @@ def sexyClickBegin(event=None):
     global startFrame
     startFrame = currentSexy
     FrameSelectionWindowSexybutton2.config(state=NORMAL)
-
 
 def sexyClickEnd(event=None):
     global startFrame
@@ -1001,6 +1038,25 @@ def sexyRemove():
     except:
         messagebox.showerror("Error", "Please select a valid frame selection to delete")
 
+def sexyNextFrame(event=None):
+    global currentSexy
+    global currentMovieNumber
+
+    tempNumber = glob.glob("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image*")
+    
+    if(currentSexy + 1 <= len(tempNumber)):
+        sexySpecificFrame(currentSexy + 1)
+        scaleSexy.set(currentSexy)
+
+def sexyPreviousFrame(event=None):
+    global currentSexy
+
+    if(currentSexy - 1 >= 1):
+        sexySpecificFrame(currentSexy - 1)
+        scaleSexy.set(currentSexy)
+
+#-----------------------------------------
+
 #Frame Selection Window Sexy ----------------------------
 #This window will allow for the user to select which frame(s) contain the specified content 
 
@@ -1023,6 +1079,9 @@ tempNumber = glob.glob("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" 
 
 scaleSexy = Scale(FrameSelectionWindowSexy, from_=1, to=len(tempNumber), orient=HORIZONTAL, command=sexySpecificFrame, length=450)
 scaleSexy.grid(column=0, row=2, columnspan=2, pady=10)
+
+FrameSelectionWindowSexy.bind("<Right>", sexyNextFrame)
+FrameSelectionWindowSexy.bind("<Left>", sexyPreviousFrame)
 
 FrameSelectionWindowSexybutton1 = Button(FrameSelectionWindowSexy, text="Begin Selection", command=sexyClickBegin, font=(25))
 FrameSelectionWindowSexybutton1.grid(column=0, row=3, pady=10)
