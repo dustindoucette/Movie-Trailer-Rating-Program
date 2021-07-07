@@ -18,7 +18,7 @@ import cv2
 import sys
 import csv
 import glob
-import u3
+#import u3  #UNCOMMENT
 import time
 
 import pyglet
@@ -71,7 +71,7 @@ ThankYouWindow.withdraw()
 userID = ''
 
 #Connection to BIOPAC
-biopacConnectionPort = u3.U3()
+#biopacConnectionPort = u3.U3()  #UNCOMMENT
 
 #A list containing all of the movie trailer names
 MovieTrailerList = [[],[],[],[],[],[]]
@@ -467,11 +467,11 @@ def CreateSpecificRatingsWindow():
 
 def CreateRatingsWindow():
     #Send a signal to the BIOPAC so it knows when the movie trailer has finished (over port FIO1)
-    biopacConnectionPort.setFIOState(1, 1)
-    time.sleep(0.2)
-    biopacConnectionPort.setFIOState(1, 0)
-    time.sleep(0.2)
-    biopacConnectionPort.setFIOState(1, 1)
+    #biopacConnectionPort.setFIOState(1, 1) #UNCOMMENT
+    #time.sleep(0.2)                        #UNCOMMENT
+    #biopacConnectionPort.setFIOState(1, 0) #UNCOMMENT
+    #time.sleep(0.2)                        #UNCOMMENT
+    #biopacConnectionPort.setFIOState(1, 1) #UNCOMMENT
 
     VideoWindow.withdraw()
     RatingsWindow.update()
@@ -494,11 +494,11 @@ def CreateVideoWindow():
     center(VideoWindow)
 
     #Send a signal to the BIOPAC so it knows when the movie trailer has begun (over port FIO0)
-    biopacConnectionPort.setFIOState(0, 1)
-    time.sleep(0.2)
-    biopacConnectionPort.setFIOState(0, 0)
-    time.sleep(0.2)
-    biopacConnectionPort.setFIOState(0, 1)
+    #biopacConnectionPort.setFIOState(0, 1)  #UNCOMMENT
+    #time.sleep(0.2)                         #UNCOMMENT
+    #biopacConnectionPort.setFIOState(0, 0)  #UNCOMMENT
+    #time.sleep(0.2)                         #UNCOMMENT
+    #biopacConnectionPort.setFIOState(0, 1)  #UNCOMMENT
 
     #Movie titles cannot have any spaces and/or special characters
     movieLocation = "vlc " + os.getcwd() + "/Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + ".avi vlc://quit > /dev/null 2>&1"
@@ -727,14 +727,14 @@ def funnySpecificFrame(val):
     FrameSelectionWindowFunny.update()
     FrameSelectionWindowFunny.deiconify()
 
-def funnyClickBegin():
+def funnyClickBegin(event=None):
     global currentFunny
     global startFrame
     startFrame = currentFunny
     FrameSelectionWindowFunnybutton2.config(state=NORMAL)
 
 
-def funnyClickEnd():
+def funnyClickEnd(event=None):
     global startFrame
     global currentFunny
     global endFrame
@@ -799,8 +799,12 @@ scaleFunny.grid(column=0, row=2, columnspan=2, pady=10)
 FrameSelectionWindowFunnybutton1 = Button(FrameSelectionWindowFunny, text="Begin Selection", command=funnyClickBegin, font=(25))
 FrameSelectionWindowFunnybutton1.grid(column=0, row=3, pady=10)
 
+FrameSelectionWindowFunny.bind("<KeyPress-Shift_L>", funnyClickBegin)
+
 FrameSelectionWindowFunnybutton2 = Button(FrameSelectionWindowFunny, text="End Selection", command=funnyClickEnd, font=(25))
 FrameSelectionWindowFunnybutton2.grid(column=1, row=3, pady=10)
+
+FrameSelectionWindowFunny.bind("<KeyRelease-Shift_L>", funnyClickEnd)
 
 seperator1 = ttk.Separator(FrameSelectionWindowFunny, orient=HORIZONTAL).grid(row=4, columnspan=2, sticky="ew")
 
@@ -842,14 +846,14 @@ def scarySpecificFrame(val):
     FrameSelectionWindowScary.update()
     FrameSelectionWindowScary.deiconify()
 
-def scaryClickBegin():
+def scaryClickBegin(event=None):
     global currentScary
     global startFrame
     startFrame = currentScary
     FrameSelectionWindowScarybutton2.config(state=NORMAL)
 
 
-def scaryClickEnd():
+def scaryClickEnd(event=None):
     global startFrame
     global currentScary
     global endFrame
@@ -909,8 +913,12 @@ scaleScary.grid(column=0, row=2, columnspan=2, pady=10)
 FrameSelectionWindowScarybutton1 = Button(FrameSelectionWindowScary, text="Begin Selection", command=scaryClickBegin, font=(25))
 FrameSelectionWindowScarybutton1.grid(column=0, row=3, pady=10)
 
+FrameSelectionWindowScary.bind("<KeyPress-Shift_L>", scaryClickBegin)
+
 FrameSelectionWindowScarybutton2 = Button(FrameSelectionWindowScary, text="End Selection", command=scaryClickEnd, font=(25))
 FrameSelectionWindowScarybutton2.grid(column=1, row=3, pady=10)
+
+FrameSelectionWindowScary.bind("<KeyRelease-Shift_L>", scaryClickEnd)
 
 seperator1 = ttk.Separator(FrameSelectionWindowScary, orient=HORIZONTAL).grid(row=4, columnspan=2, sticky="ew")
 
@@ -952,14 +960,14 @@ def sexySpecificFrame(val):
     FrameSelectionWindowSexy.update()
     FrameSelectionWindowSexy.deiconify()
 
-def sexyClickBegin():
+def sexyClickBegin(event=None):
     global currentSexy
     global startFrame
     startFrame = currentSexy
     FrameSelectionWindowSexybutton2.config(state=NORMAL)
 
 
-def sexyClickEnd():
+def sexyClickEnd(event=None):
     global startFrame
     global currentSexy
     global endFrame
@@ -1019,8 +1027,12 @@ scaleSexy.grid(column=0, row=2, columnspan=2, pady=10)
 FrameSelectionWindowSexybutton1 = Button(FrameSelectionWindowSexy, text="Begin Selection", command=sexyClickBegin, font=(25))
 FrameSelectionWindowSexybutton1.grid(column=0, row=3, pady=10)
 
+FrameSelectionWindowSexy.bind("<KeyPress-Shift_L>", sexyClickBegin)
+
 FrameSelectionWindowSexybutton2 = Button(FrameSelectionWindowSexy, text="End Selection", command=sexyClickEnd, font=(25))
 FrameSelectionWindowSexybutton2.grid(column=1, row=3, pady=10)
+
+FrameSelectionWindowSexy.bind("<KeyRelease-Shift_L>", sexyClickEnd)
 
 seperator1 = ttk.Separator(FrameSelectionWindowSexy, orient=HORIZONTAL).grid(row=4, columnspan=2, sticky="ew")
 
