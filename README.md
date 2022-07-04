@@ -107,13 +107,13 @@ This Python program was created by Dustin Doucette (BCS), a Computer Science gra
 | **Trailer Block**  | Displays a number between 1 and 5, where the number corresponds to the Movie Trailer Block that the user has selected |
 | **Funny**          | Displays whether or not the participant thinks the movie trailer contains funny content |
 | **Funny Rating**   | Displays a number between 1-10, where the participant decides how funny the movie trailer content was |
-| **Funny Sections** | Displays comma separated tuples, where the first value is the start time (in seconds) and the second value is the end time (in seconds) of the funny content |
+| **Funny Sections** | Displays comma separated tuples, where the first value is the start time (in seconds) and the second value is the end time (in seconds) of the funny content. This section also outputs the filename of the frames that were selected |
 | **Scary**          | Displays whether or not the participant thinks the movie trailer contains Scary content |
 | **Scary Rating**   | Displays a number between 1-10, where the participant decides how Scary the movie trailer content was |
-| **Scary Sections** | Displays comma separated tuples, where the first value is the start time (in seconds) and the second value is the end time (in seconds) of the Scary content |
+| **Scary Sections** | Displays comma separated tuples, where the first value is the start time (in seconds) and the second value is the end time (in seconds) of the Scary content. This section also outputs the filename of the frames that were selected |
 | **Sexy**           | Displays whether or not the participant thinks the movie trailer contains Sexy content |
 | **Sexy Rating**    | Displays a number between 1-10, where the participant decides how Sexy the movie trailer content was |
-| **Sexy Sections**  | Displays comma separated tuples, where the first value is the start time (in seconds) and the second value is the end time (in seconds) of the Sexy content |
+| **Sexy Sections**  | Displays comma separated tuples, where the first value is the start time (in seconds) and the second value is the end time (in seconds) of the Sexy content. This section also outputs the filename of the frames that were selected |
     
   **Note:** Ensure the `Results.csv` file is not open during program execution. If the file is open when the program tries to write new data to it, the write operation will fail and that data will be lost.
 
