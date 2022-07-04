@@ -178,7 +178,7 @@ def getFrameTimes(inputArray):
     for x in inputArray:
         tempFirst = str((x[0])/2) + 'sec (image' + str(x[0]) + '.jpg)'
         tempSecond = str((x[1])/2) + 'sec (image' + str(x[1]) + '.jpg)'
-        newArray.append([tempFirst, tempSecond])
+        newArray.append([str(tempFirst) + ' to ' + str(tempSecond)])
 
     return newArray
 
