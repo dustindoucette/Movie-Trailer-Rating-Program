@@ -15,23 +15,23 @@ This Python program was created by Dustin Doucette (BCS), a Computer Science gra
 * External Python Modules:
 
       -Pillow
-        
+
       -OpenCV-Python
-        
+
       -Pyglet
-      
+
       -LabJackPython
 
 ## Installation
 
 1. Click `Clone or download` then `Download ZIP` on the main repository page (under the **'Linux-Version'** branch).
 
-2. Unzip the downloaded file into a directory which contains no spaces. 
-   
-    `./user/johndoe/Projects`    ~**GOOD**    
-    
+2. Unzip the downloaded file into a directory which contains no spaces.
+
+    `./user/johndoe/Projects`    ~**GOOD**
+
     `./user/john doe/Projects`   ~**BAD**
-    
+
 3. Open a terminal and enter the following commands to install the required Python modules:
 
     `pip3 install pillow --user`
@@ -76,7 +76,7 @@ This Python program was created by Dustin Doucette (BCS), a Computer Science gra
 
 10. Adjust the sliders to reflect your ratings (scale of 1-10), then press `Next`.
 
-10. Select all of the relevant frame sections which contain the specified content. 
+10. Select all of the relevant frame sections which contain the specified content.
 
     **E.g.** If you want to select a scene from frame 10 to 20, first drag the slider to frame 10 and select `Begin Selection`. Then drag the slider to frame 20 and select `End Selection`. This will add that frame selection to a box below. If you made a mistake, simply click the selection and press `Remove Selection`. Once all frame sections are selected, press `Finished`.
 
@@ -122,7 +122,7 @@ This Python program was created by Dustin Doucette (BCS), a Computer Science gra
 | **Sexy Sections**  | Displays comma separated tuples, where the first value is the start time (in seconds) and the second value is the end time (in seconds) of the Sexy content |
 
   **Note:** If there is a single second displayed in any of the "Sections", it is because the user selected that one frame without any other frames before and/or immediately after it.
-    
+
   **Note:** Ensure the `Results.csv` file is not open during program execution. If the file is open when the program tries to write new data to it, the write operation will fail and that data will be lost.
 
 ## Project Files
@@ -149,4 +149,3 @@ By default, the project contains the following file and directory layout:
     └───Output-Logs
         |   Results.csv (Contains the result(s) from the experiment(s))
     ```
-
