@@ -379,7 +379,7 @@ def GetNextTrailer():
         myvar.image = tkimage
         myvar.grid(row=1, column=0, columnspan=2)
 
-        scaleFunny.set(1)
+        scaleFunny.set(0)
 
         tempNumber = glob.glob(
             "./Movie-Trailers/"
@@ -408,7 +408,7 @@ def GetNextTrailer():
         myvar.image = tkimage
         myvar.grid(row=1, column=0, columnspan=2)
 
-        scaleScary.set(1)
+        scaleScary.set(0)
 
         tempNumber = glob.glob(
             "./Movie-Trailers/"
@@ -437,7 +437,7 @@ def GetNextTrailer():
         myvar.image = tkimage
         myvar.grid(row=1, column=0, columnspan=2)
 
-        scaleSexy.set(1)
+        scaleSexy.set(0)
 
         tempNumber = glob.glob(
             "./Movie-Trailers/"
