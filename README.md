@@ -40,7 +40,7 @@ This Python program was created by Dustin Doucette (BCS), a Computer Science gra
 
     `sudo chmod +x setup-script.sh`
 
-    `./setup-script.sh`
+    `sudo ./setup-script.sh`
 
 ## Program Set-Up
 
