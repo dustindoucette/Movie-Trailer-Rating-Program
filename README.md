@@ -125,7 +125,10 @@ By default, the project contains the following file and directory layout:
     Movie_Trailer_Program
     │   Program.py (Main Python Program)
     |   GenerateFrames.py (Generates individual frames for each movie trailer given to it)
+    |   setup-script.sh (Installs required dependencies and modules)
     |   README.md (This guide)
+    |   .gitignore (Tells Git what files should be ignored)
+    |   .pre-commit-config.yaml (Outlines the settings which should be used by the pre-commit hook)
     │
     └───Images
     │   │   uOttawa_icon.ico (UOttawa icon used as the favicon for each window)
