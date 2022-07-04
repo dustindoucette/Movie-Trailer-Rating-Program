@@ -91,22 +91,22 @@ hasBeenToSexy = False
 trailerBlock = 1
 
 funnyRating = 0
-currentFunny = 1
+currentFunny = 0
 funnySections = []
 funnyListBoxCount = 1
 
 scaryRating = 0
-currentScary = 1
+currentScary = 0
 scarySections = []
 scaryListBoxCount = 1
 
 sexyRating = 0
-currentSexy = 1
+currentSexy = 0
 sexySections = []
 sexyListBoxCount = 1
 
-startFrame = 1
-endFrame = 1
+startFrame = 0
+endFrame = 0
 
 #When the user presses the "X" on a GUI window, make sure they did not click it accidentally
 def on_closing():
@@ -304,17 +304,17 @@ def GetNextTrailer():
         hasBeenToSexy = False
 
         funnyRating = 0
-        currentFunny = 1
+        currentFunny = 0
         funnySections = []
         funnyListBoxCount = 1
 
         scaryRating = 0
-        currentScary = 1
+        currentScary = 0
         scarySections = []
         scaryListBoxCount = 1
 
         sexyRating = 0
-        currentSexy = 1
+        currentSexy = 0
         sexySections = []
         sexyListBoxCount = 1
 
@@ -326,8 +326,8 @@ def GetNextTrailer():
         s2.set(1)
         s3.set(1)
 
-        startFrame = 1
-        endFrame = 1
+        startFrame = 0
+        endFrame = 0
         
         lbl7.config(state=NORMAL)
         s1.config(state=NORMAL)
@@ -339,7 +339,7 @@ def GetNextTrailer():
         s3.config(state=NORMAL)
 
         #Funny Frames
-        im = Image.open("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image1.jpg")
+        im = Image.open("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image0.jpg")
         resized = im.resize((400, 225), Image.ANTIALIAS)
         tkimage = ImageTk.PhotoImage(resized)
         myvar = Label(FrameSelectionWindowFunny, image=tkimage)
@@ -354,7 +354,7 @@ def GetNextTrailer():
         funnyListBox.delete(0,'end')
 
         #Scary Frames
-        im = Image.open("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image1.jpg")
+        im = Image.open("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image0.jpg")
         resized = im.resize((400, 225), Image.ANTIALIAS)
         tkimage = ImageTk.PhotoImage(resized)
         myvar = Label(FrameSelectionWindowScary, image=tkimage)
@@ -369,7 +369,7 @@ def GetNextTrailer():
         scaryListBox.delete(0,'end')
 
         #Sexy Frames
-        im = Image.open("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image1.jpg")
+        im = Image.open("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image0.jpg")
         resized = im.resize((400, 225), Image.ANTIALIAS)
         tkimage = ImageTk.PhotoImage(resized)
         myvar = Label(FrameSelectionWindowSexy, image=tkimage)
@@ -512,7 +512,7 @@ def CreateSelectVideoWindow():
     center(SelectVideoWindow)
 
     #Set Funny Frames
-    im = Image.open("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image1.jpg")
+    im = Image.open("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image0.jpg")
     resized = im.resize((400, 225), Image.ANTIALIAS)
     tkimage = ImageTk.PhotoImage(resized)
     myvar = Label(FrameSelectionWindowFunny, image=tkimage)
@@ -520,7 +520,7 @@ def CreateSelectVideoWindow():
     myvar.grid(row=1, column=0, columnspan=2)
 
     #Set Scary Frames
-    im = Image.open("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image1.jpg")
+    im = Image.open("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image0.jpg")
     resized = im.resize((400, 225), Image.ANTIALIAS)
     tkimage = ImageTk.PhotoImage(resized)
     myvar = Label(FrameSelectionWindowScary, image=tkimage)
@@ -528,7 +528,7 @@ def CreateSelectVideoWindow():
     myvar.grid(row=1, column=0, columnspan=2)
 
     #Set Sexy Frames
-    im = Image.open("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image1.jpg")
+    im = Image.open("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image0.jpg")
     resized = im.resize((400, 225), Image.ANTIALIAS)
     tkimage = ImageTk.PhotoImage(resized)
     myvar = Label(FrameSelectionWindowSexy, image=tkimage)
@@ -740,7 +740,7 @@ def funnyClickEnd(event=None):
     global funnyListBoxCount
     endFrame = currentFunny
 
-    if((startFrame > 0) and (startFrame is not endFrame) and (startFrame < endFrame)):
+    if((startFrame > -1) and (startFrame is not endFrame) and (startFrame < endFrame)):
         funnySections.append([startFrame, endFrame])
 
         funnyListBoxCount = funnyListBoxCount + 1
@@ -798,7 +798,7 @@ FrameSelectionWindowTitleFunnylbl = Label(FrameSelectionWindowFunny, text="Pleas
 FrameSelectionWindowTitleFunnylbl.grid(column=0, row=0, columnspan=2, pady=10)
 
 #Add image section here (bookmarked page on web)
-im = Image.open("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image1.jpg")
+im = Image.open("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image0.jpg")
 resized = im.resize((400, 225), Image.ANTIALIAS)
 tkimage = ImageTk.PhotoImage(resized)
 myvar = Label(FrameSelectionWindowFunny, image=tkimage)
@@ -876,7 +876,7 @@ def scaryClickEnd(event=None):
     global scaryListBoxCount
     endFrame = currentScary
 
-    if((startFrame > 0) and (startFrame is not endFrame) and (startFrame < endFrame)):
+    if((startFrame > -1) and (startFrame is not endFrame) and (startFrame < endFrame)):
         scarySections.append([startFrame, endFrame])
 
         scaryListBoxCount = scaryListBoxCount + 1
@@ -933,7 +933,7 @@ FrameSelectionWindowTitleScarylbl = Label(FrameSelectionWindowScary, text="Pleas
 FrameSelectionWindowTitleScarylbl.grid(column=0, row=0, columnspan=2, pady=10)
 
 #Add image section here (bookmarked page on web)
-im = Image.open("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image1.jpg")
+im = Image.open("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image0.jpg")
 resized = im.resize((400, 225), Image.ANTIALIAS)
 tkimage = ImageTk.PhotoImage(resized)
 myvar = Label(FrameSelectionWindowScary, image=tkimage)
@@ -1011,7 +1011,7 @@ def sexyClickEnd(event=None):
     global sexyListBoxCount
     endFrame = currentSexy
 
-    if((startFrame > 0) and (startFrame is not endFrame) and (startFrame < endFrame)):
+    if((startFrame > -1) and (startFrame is not endFrame) and (startFrame < endFrame)):
         sexySections.append([startFrame, endFrame])
 
         sexyListBoxCount = sexyListBoxCount + 1
@@ -1068,7 +1068,7 @@ FrameSelectionWindowTitleSexylbl = Label(FrameSelectionWindowSexy, text="Please 
 FrameSelectionWindowTitleSexylbl.grid(column=0, row=0, columnspan=2, pady=10)
 
 #Add image section here (bookmarked page on web)
-im = Image.open("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image1.jpg")
+im = Image.open("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image0.jpg")
 resized = im.resize((400, 225), Image.ANTIALIAS)
 tkimage = ImageTk.PhotoImage(resized)
 myvar = Label(FrameSelectionWindowSexy, image=tkimage)
