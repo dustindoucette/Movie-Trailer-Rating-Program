@@ -21,6 +21,8 @@ This Python program was created by Dustin Doucette (BCS), a Computer Science gra
       -Pyglet
       
       -LabJackPython
+      
+      -ffmpeg
 
 ## Installation
 
@@ -32,21 +34,13 @@ This Python program was created by Dustin Doucette (BCS), a Computer Science gra
     
     `./user/john doe/Projects`   ~**BAD**
     
-3. Open a terminal and enter the following commands to install the required Python modules:
+3. Open a terminal and traverse to the directory which contains the downloaded program (e.g., `johndoe/Documents/MovieTrailerProgram/`).
 
-    `pip3 install pillow --user`
+4. Enter the following commands to install the required modules and dependencies:
 
-    `pip3 install opencv-python --user`
+    `chmod +x setup-script.sh`
 
-    `pip3 install pyglet --user`
-
-    `pip3 install LabJackPython --user`
-
-4. Open a terminal and enter the following commands to install the required program dependencies:
-
-    `sudo apt-get install python3-pil python3-pil.imagetk`
-
-    `sudo snap install vlc`
+    `./setup-script.sh`
 
 ## Program Set-Up
 
@@ -102,9 +96,9 @@ This Python program was created by Dustin Doucette (BCS), a Computer Science gra
 
 | User ID   | Movie Trailer | Trailer Block | Funny | Funny Rating | Funny Sections | Scary | Scary Rating | Scary Sections | Sexy | Sexy Rating | Sexy Sections    |
 | --------- | ------------- | ------------- | ----- | ------------ | -------------- | ----- | ------------ | -------------- | ---- | ----------- | ---------------- |
-| 123456789 | 1917          | 1             | NO    | N/A          | N/A            | YES   | 8/10         | (14,19)        | NO   | N/A         | N/A              |
-| 987654321 | The Thinning  | 4             | NO    | N/A          | N/A            | YES   | 5/10         | (34,38)        | YES  | 3/10        | (12,21), (26,35) |
-| 187462945 | Peter Pan     | 2             | YES   | 6/10         | (0,5), (23,30) | NO    | N/A          | N/A            | NO   | N/A         | N/A              |
+| 123456789 | 1917          | 1             | NO    | N/A          | N/A            | YES   | 8/10         | 14sec (image28.jpg) to 19sec (image38.jpg)        | NO   | N/A         | N/A              |
+| 987654321 | The Thinning  | 4             | NO    | N/A          | N/A            | YES   | 5/10         | 34sec (image68.jpg) to 38sec (image76.jpg)        | YES  | 3/10        | 12sec (image24.jpg) to 21sec (image42.jpg), 26sec (image52.jpg) to 35sec (image70.jpg) |
+| 187462945 | Peter Pan     | 2             | YES   | 6/10         | 0sec (image0.jpg) to 5sec (image10.jpg), 23sec (image46.jpg) to 30sec (image60.jpg) | NO    | N/A          | N/A            | NO   | N/A         | N/A              |
 
 | Column             | Description of Data                                          |
 | ------------------ | ------------------------------------------------------------ |
@@ -120,8 +114,6 @@ This Python program was created by Dustin Doucette (BCS), a Computer Science gra
 | **Sexy**           | Displays whether or not the participant thinks the movie trailer contains Sexy content |
 | **Sexy Rating**    | Displays a number between 1-10, where the participant decides how Sexy the movie trailer content was |
 | **Sexy Sections**  | Displays comma separated tuples, where the first value is the start time (in seconds) and the second value is the end time (in seconds) of the Sexy content |
-
-  **Note:** If there is a single second displayed in any of the "Sections", it is because the user selected that one frame without any other frames before and/or immediately after it.
     
   **Note:** Ensure the `Results.csv` file is not open during program execution. If the file is open when the program tries to write new data to it, the write operation will fail and that data will be lost.
 
