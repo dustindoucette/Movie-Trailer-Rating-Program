@@ -176,8 +176,8 @@ print("All Frames Generated, Program Starting\n\n")
 def getFrameTimes(inputArray):
     newArray = []
     for x in inputArray:
-        tempFirst = (x[0])/2
-        tempSecond = (x[1])/2
+        tempFirst = str((x[0])/2) + 'sec (image' + str(x[0]) + '.jpg)'
+        tempSecond = str((x[1])/2) + 'sec (image' + str(x[1]) + '.jpg)'
         newArray.append([tempFirst, tempSecond])
 
     return newArray
@@ -349,7 +349,7 @@ def GetNextTrailer():
         scaleFunny.set(1)
         
         tempNumber = glob.glob("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image*")
-        scaleFunny.config(to=len(tempNumber))
+        scaleFunny.config(to=len(tempNumber)-1)
 
         funnyListBox.delete(0,'end')
 
@@ -364,7 +364,7 @@ def GetNextTrailer():
         scaleScary.set(1)
         
         tempNumber = glob.glob("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image*")
-        scaleScary.config(to=len(tempNumber))
+        scaleScary.config(to=len(tempNumber)-1)
 
         scaryListBox.delete(0,'end')
 
@@ -379,7 +379,7 @@ def GetNextTrailer():
         scaleSexy.set(1)
         
         tempNumber = glob.glob("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image*")
-        scaleSexy.config(to=len(tempNumber))
+        scaleSexy.config(to=len(tempNumber)-1)
 
         sexyListBox.delete(0,'end')
 
@@ -807,7 +807,7 @@ myvar.grid(row=1, column=0, columnspan=2)
 
 tempNumber = glob.glob("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image*")
 
-scaleFunny = Scale(FrameSelectionWindowFunny, from_=1, to=len(tempNumber), orient=HORIZONTAL, command=funnySpecificFrame, length=450)
+scaleFunny = Scale(FrameSelectionWindowFunny, from_=0, to=len(tempNumber)-1, orient=HORIZONTAL, command=funnySpecificFrame, length=450)
 scaleFunny.grid(column=0, row=2, columnspan=2, pady=10)
 
 FrameSelectionWindowFunny.bind("<Right>", funnyNextFrame)
@@ -942,7 +942,7 @@ myvar.grid(row=1, column=0, columnspan=2)
 
 tempNumber = glob.glob("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image*")
 
-scaleScary = Scale(FrameSelectionWindowScary, from_=1, to=len(tempNumber), orient=HORIZONTAL, command=scarySpecificFrame, length=450)
+scaleScary = Scale(FrameSelectionWindowScary, from_=0, to=len(tempNumber)-1, orient=HORIZONTAL, command=scarySpecificFrame, length=450)
 scaleScary.grid(column=0, row=2, columnspan=2, pady=10)
 
 FrameSelectionWindowScary.bind("<Right>", scaryNextFrame)
@@ -1077,7 +1077,7 @@ myvar.grid(row=1, column=0, columnspan=2)
 
 tempNumber = glob.glob("./Movie-Trailers/" + "Block_" + str(trailerBlock) + "/" + MovieTrailerList[trailerBlock][currentMovieNumber] + "/image*")
 
-scaleSexy = Scale(FrameSelectionWindowSexy, from_=1, to=len(tempNumber), orient=HORIZONTAL, command=sexySpecificFrame, length=450)
+scaleSexy = Scale(FrameSelectionWindowSexy, from_=0, to=len(tempNumber)-1, orient=HORIZONTAL, command=sexySpecificFrame, length=450)
 scaleSexy.grid(column=0, row=2, columnspan=2, pady=10)
 
 FrameSelectionWindowSexy.bind("<Right>", sexyNextFrame)
