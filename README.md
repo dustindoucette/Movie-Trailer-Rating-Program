@@ -26,7 +26,7 @@ This Python program was created by Dustin Doucette (BCS), a Computer Science gra
 
 ## Installation
 
-1. Click `Clone or download` then `Download ZIP` on the main repository page (under the **'Linux-Version'** branch).
+1. Click `Clone or download` then `Download ZIP` on the main repository page (under the **'Main'** branch).
 
 2. Unzip the downloaded file into a directory which contains no spaces.
 
