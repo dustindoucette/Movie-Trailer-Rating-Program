@@ -38,7 +38,7 @@ This Python program was created by Dustin Doucette (BCS), a Computer Science gra
 
 4. Enter the following commands to install the required modules and dependencies:
 
-    `chmod +x setup-script.sh`
+    `sudo chmod +x setup-script.sh`
 
     `./setup-script.sh`
 
