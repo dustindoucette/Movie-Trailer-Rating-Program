@@ -94,11 +94,10 @@ This Python program was created by Dustin Doucette (BCS), a Computer Science gra
 
 * The `Results.csv` file will have the following columns (one new line of data is added after every individual test):
 
-| User ID   | Movie Trailer | Trailer Block | Funny | Funny Rating | Funny Sections | Scary | Scary Rating | Scary Sections | Sexy | Sexy Rating | Sexy Sections    |
-| --------- | ------------- | ------------- | ----- | ------------ | -------------- | ----- | ------------ | -------------- | ---- | ----------- | ---------------- |
-| 123456789 | 1917          | 1             | NO    | N/A          | N/A            | YES   | 8/10         | 14sec (image28.jpg) to 19sec (image38.jpg)        | NO   | N/A         | N/A              |
-| 987654321 | The Thinning  | 4             | NO    | N/A          | N/A            | YES   | 5/10         | 34sec (image68.jpg) to 38sec (image76.jpg)        | YES  | 3/10        | 12sec (image24.jpg) to 21sec (image42.jpg), 26sec (image52.jpg) to 35sec (image70.jpg) |
-| 187462945 | Peter Pan     | 2             | YES   | 6/10         | 0sec (image0.jpg) to 5sec (image10.jpg), 23sec (image46.jpg) to 30sec (image60.jpg) | NO    | N/A          | N/A            | NO   | N/A         | N/A              |
+| User ID   | Movie Trailer | Trailer Block | Funny | Funny Rating | Funny Sections (time) | Funny Sections (image #) | Scary | Scary Rating | Scary Sections (time)        | Scary Sections (image #)                                           | Sexy | Sexy Rating | Sexy Sections (time)        | Sexy Sections (image #)                                           |
+|-----------|---------------|---------------|-------|--------------|-----------------------|--------------------------|-------|--------------|------------------------------|--------------------------------------------------------------------|------|-------------|-----------------------------|-------------------------------------------------------------------|
+| 123456789 | 1917          | 1             | NO    | N/A          | N/A                   | N/A                      | YES   | 7            | [[12.5, 31.0], [54.0, 99.5]] | [['image25.jpg to image62.jpg'], ['image108.jpg to image199.jpg']] | NO   | N/A         | N/A                         | N/A                                                               |
+| 987654321 | Annette       | 2             | NO    | N/A          | N/A                   | N/A                      | NO    | N/A          | N/A                          | N/A                                                                | YES  | 8           | [[0.0, 27.0], [57.0, 80.5]] | [[‘image0.jpg to image54.jpg’], [‘image114.jpg to image161.jpg’]] |
 
 | Column             | Description of Data                                          |
 | ------------------ | ------------------------------------------------------------ |
@@ -107,13 +106,16 @@ This Python program was created by Dustin Doucette (BCS), a Computer Science gra
 | **Trailer Block**  | Displays a number between 1 and 5, where the number corresponds to the Movie Trailer Block that the user has selected |
 | **Funny**          | Displays whether or not the participant thinks the movie trailer contains funny content |
 | **Funny Rating**   | Displays a number between 1-10, where the participant decides how funny the movie trailer content was |
-| **Funny Sections** | Displays comma separated tuples, where the first value is the start time (in seconds) and the second value is the end time (in seconds) of the funny content. This section also outputs the filename of the frames that were selected |
+| **Funny Sections (time)** | Displays comma separated tuples, where the first value is the start time (in seconds) and the second value is the end time (in seconds) of the funny content |
+| **Funny Sections (image #)** | Displays the filenames for the first selected frame and last selected frame of each chosen funny section |
 | **Scary**          | Displays whether or not the participant thinks the movie trailer contains Scary content |
 | **Scary Rating**   | Displays a number between 1-10, where the participant decides how Scary the movie trailer content was |
-| **Scary Sections** | Displays comma separated tuples, where the first value is the start time (in seconds) and the second value is the end time (in seconds) of the Scary content. This section also outputs the filename of the frames that were selected |
+| **Scary Sections (time)** | Displays comma separated tuples, where the first value is the start time (in seconds) and the second value is the end time (in seconds) of the Scary content |
+| **Scary Sections (image #)** | Displays the filenames for the first selected frame and last selected frame of each chosen scary section |
 | **Sexy**           | Displays whether or not the participant thinks the movie trailer contains Sexy content |
 | **Sexy Rating**    | Displays a number between 1-10, where the participant decides how Sexy the movie trailer content was |
-| **Sexy Sections**  | Displays comma separated tuples, where the first value is the start time (in seconds) and the second value is the end time (in seconds) of the Sexy content. This section also outputs the filename of the frames that were selected |
+| **Sexy Sections (time)**  | Displays comma separated tuples, where the first value is the start time (in seconds) and the second value is the end time (in seconds) of the Sexy content |
+| **Sexy Sections (image #)** | Displays the filenames for the first selected frame and last selected frame of each chosen sexy section |
 
   **Note:** Ensure the `Results.csv` file is not open during program execution. If the file is open when the program tries to write new data to it, the write operation will fail and that data will be lost.
 
