@@ -181,9 +181,23 @@ print("All Frames Generated, Program Starting\n\n")
 def getFrameTimes(inputArray):
     newArray = []
     for x in inputArray:
-        tempFirst = str((x[0]) / 2) + "sec (image" + str(x[0]) + ".jpg)"
-        tempSecond = str((x[1]) / 2) + "sec (image" + str(x[1]) + ".jpg)"
-        newArray.append([str(tempFirst) + " to " + str(tempSecond)])
+        tempFirst = (x[0]) / 2
+        tempSecond = (x[1]) / 2
+
+        newArray.append([tempFirst, tempSecond])
+
+    return newArray
+
+
+# This function allows for an array of tuples to be passed in, and for all of the values to be modified by a certain amount
+# Record the image that the user clicked on (both the start frame and the end frame)
+def getImageNumbers(inputArray):
+    newArray = []
+    for x in inputArray:
+        tempStartImage = "image" + str(x[0]) + ".jpg"
+        tempEndImage = "image" + str(x[1]) + ".jpg"
+
+        newArray.append([tempStartImage + " to " + tempEndImage])
 
     return newArray
 
@@ -197,14 +211,17 @@ def SaveData():
     funnyString = ""
     funny2 = ""
     funny3 = ""
+    funny4 = ""
 
     scaryString = ""
     scary2 = ""
     scary3 = ""
+    scary4 = ""
 
     sexyString = ""
     sexy2 = ""
     sexy3 = ""
+    sexy4 = ""
 
     print("Trailer Block: " + str(trailerBlock))
     trailerBlockString = str(trailerBlock)
@@ -212,38 +229,47 @@ def SaveData():
     if isFunny.get() == 1:
         print("Funny: YES, " + " " + str(funnyRating) + " out of 10")
         print("Funny Section(s): " + str(getFrameTimes(funnySections)))
+        print("Funny Section(s): " + str(getImageNumbers(funnySections)))
         funnyString = "YES"
         funny2 = str(funnyRating)
         funny3 = str(getFrameTimes(funnySections))
+        funny4 = str(getImageNumbers(funnySections))
     else:
         print("Funny: NO")
         funnyString = "NO"
         funny2 = "N/A"
         funny3 = "N/A"
+        funny4 = "N/A"
 
     if isScary.get() == 1:
         print("Scary: YES, " + str(scaryRating) + " out of 10")
         print("Scary Section(s): " + str(getFrameTimes(scarySections)))
+        print("Scary Section(s): " + str(getImageNumbers(scarySections)))
         scaryString = "YES"
         scary2 = str(scaryRating)
         scary3 = str(getFrameTimes(scarySections))
+        scary4 = str(getImageNumbers(scarySections))
     else:
         print("Scary: NO")
         scaryString = "NO"
         scary2 = "N/A"
         scary3 = "N/A"
+        scary4 = "N/A"
 
     if isSexy.get() == 1:
         print("Sexy: YES, " + str(sexyRating) + " out of 10")
         print("Sexy Section(s): " + str(getFrameTimes(sexySections)))
+        print("Sexy Section(s): " + str(getImageNumbers(sexySections)))
         sexyString = "YES"
         sexy2 = str(sexyRating)
         sexy3 = str(getFrameTimes(sexySections))
+        sexy4 = str(getImageNumbers(sexySections))
     else:
         print("Sexy: NO")
         sexyString = "NO"
         sexy2 = "N/A"
         sexy3 = "N/A"
+        sexy4 = "N/A"
 
     print("")
     allRows.append(
@@ -254,12 +280,15 @@ def SaveData():
             funnyString,
             funny2,
             funny3,
+            funny4,
             scaryString,
             scary2,
             scary3,
+            scary4,
             sexyString,
             sexy2,
             sexy3,
+            sexy4,
         ]
     )
 
