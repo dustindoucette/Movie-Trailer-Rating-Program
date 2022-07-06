@@ -21,7 +21,7 @@ This Python program was created by Dustin Doucette (BCS), a Computer Science gra
       -Pyglet
 
       -LabJackPython
-      
+
       -ffmpeg
 
 ## Installation

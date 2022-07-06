@@ -1,3 +1,3 @@
-User ID,Movie Trailer,Trailer Block,Funny,Funny Rating,Funny Sections,Scary,Scary Rating,Scary Sections,Sexy,Sexy Rating,Sexy Sections
-123456789,1917,1,NO,N/A,N/A,YES,7,"[['12.5sec (image25.jpg) to 31.0sec (image62.jpg)'], ['54.0sec (image108.jpg) to 99.5sec (image199.jpg)']]",NO,N/A,N/A
-987654321,Annette,2,NO,N/A,N/A,NO,N/A,N/A,YES,8,"[['0.0sec (image0.jpg) to 27.0sec (image54.jpg)'], ['57.0sec (image114.jpg) to 80.5sec (image161.jpg)']]"
+User ID,Movie Trailer,Trailer Block,Funny,Funny Rating,Funny Sections (time),Funny Sections (image #),Scary,Scary Rating,Scary Sections (time),Scary Sections (image #),Sexy,Sexy Rating,Sexy Sections (time),Sexy Sections (image #)
+123456789,1917,1,NO,N/A,N/A,N/A,YES,7,"[[12.5, 31.0], [54.0, 99.5]]","[['image25.jpg to image62.jpg'], ['image108.jpg to image199.jpg']]",NO,N/A,N/A,N/A
+987654321,Annette,2,NO,N/A,N/A,N/A,NO,N/A,N/A,N/A,YES,8,"[[0.0, 27.0], [57.0, 80.5]]","[[‘image0.jpg to image54.jpg’], [‘image114.jpg to image161.jpg’]]"
