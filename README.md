@@ -119,6 +119,16 @@ This Python program was created by Dustin Doucette (BCS), a Computer Science gra
 
   **Note:** Ensure the `Results.csv` file is not open during program execution. If the file is open when the program tries to write new data to it, the write operation will fail and that data will be lost.
 
+## Frame Generation Check
+
+Before now, there was no straightforward way to see to see if the number of frames generated for each movie trailer was correct. You had to manually check the folders which contain the images, and then manually divide the number of images by 2 and see if it matched with the length of the trailer. This was very inefficient and was prone to human error. As such, a 'sanity check' python script was created to verify whether or not the correct number of frames has been generated for each trailer. To run it, complete the following steps:
+
+1. Open a terminal and traverse to the directory which contains the downloaded program (e.g., `johndoe/Documents/MovieTrailerProgram/`).
+
+2. Execute the command `python3 ./VerifyFrames.py`.
+
+Once the script terminates, it will tell you whether there were any 'errors' (i.e., # of frames generated does not match what it should be), or if everything passed.
+
 ## Project Files
 
 By default, the project contains the following file and directory layout:
@@ -127,6 +137,7 @@ By default, the project contains the following file and directory layout:
     Movie_Trailer_Program
     │   Program.py (Main Python Program)
     |   GenerateFrames.py (Generates individual frames for each movie trailer given to it)
+    |   VerifyFrames.py (Verifies that the correct number of frames were generated for each movie trailer)
     |   setup-script.sh (Installs required dependencies and modules)
     |   README.md (This guide)
     |   .gitignore (Tells Git what files should be ignored)
