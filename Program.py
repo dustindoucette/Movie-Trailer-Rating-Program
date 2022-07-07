@@ -970,7 +970,7 @@ def funnyNextFrame(event=None):
         + "/image*"
     )
 
-    if currentFunny + 1 <= (len(tempNumber)-1):
+    if currentFunny + 1 <= (len(tempNumber) - 1):
         funnySpecificFrame(currentFunny + 1)
         scaleFunny.set(currentFunny)
 
@@ -1171,7 +1171,7 @@ def scaryNextFrame(event=None):
         + "/image*"
     )
 
-    if currentScary + 1 <= (len(tempNumber)-1):
+    if currentScary + 1 <= (len(tempNumber) - 1):
         scarySpecificFrame(currentScary + 1)
         scaleScary.set(currentScary)
 
@@ -1372,7 +1372,7 @@ def sexyNextFrame(event=None):
         + "/image*"
     )
 
-    if currentSexy + 1 <= (len(tempNumber)-1):
+    if currentSexy + 1 <= (len(tempNumber) - 1):
         sexySpecificFrame(currentSexy + 1)
         scaleSexy.set(currentSexy)
 
