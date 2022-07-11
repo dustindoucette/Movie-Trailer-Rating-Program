@@ -301,7 +301,6 @@ def SayThankYou():
     # Another window will popup at the end thanking the user for their participation
     # RatingsWindow.withdraw()
     ThankYouWindow.update()
-    ThankYouWindow.deiconify()
 
     ThankYouWindow.title("Movie Trailer Rating Program")
     ThankYouWindow.geometry("500x100")
@@ -506,17 +505,14 @@ def ShowIndividualFrames():
 
     if (isFunny.get() == 1) and (hasBeenToFunny == False):
         FrameSelectionWindowFunny.update()
-        FrameSelectionWindowFunny.deiconify()
         hasBeenToFunny = True
         center(FrameSelectionWindowFunny)
     elif (isScary.get() == 1) and (hasBeenToScary == False):
         FrameSelectionWindowScary.update()
-        FrameSelectionWindowScary.deiconify()
         hasBeenToScary = True
         center(FrameSelectionWindowScary)
     elif (isSexy.get() == 1) and (hasBeenToSexy == False):
         FrameSelectionWindowSexy.update()
-        FrameSelectionWindowSexy.deiconify()
         hasBeenToSexy = True
         center(FrameSelectionWindowSexy)
     else:
@@ -556,7 +552,6 @@ def CreateSpecificRatingsWindow():
     else:
         RatingsWindow.withdraw()
         SpecificRatingsWindow.update()
-        SpecificRatingsWindow.deiconify()
 
         center(SpecificRatingsWindow)
 
@@ -583,7 +578,6 @@ def CreateRatingsWindow():
 
     VideoWindow.withdraw()
     RatingsWindow.update()
-    RatingsWindow.deiconify()
     center(RatingsWindow)
 
 
@@ -591,7 +585,6 @@ def CreateTrailerBlockWindow():
     global userID
     userIDWindow.withdraw()
     trailerBlockWindow.update()
-    trailerBlockWindow.deiconify()
     center(trailerBlockWindow)
 
     userID = userIDInput.get()
@@ -600,7 +593,6 @@ def CreateTrailerBlockWindow():
 def CreateVideoWindow():
     SelectVideoWindow.withdraw()
     VideoWindow.update()
-    VideoWindow.deiconify()
     center(VideoWindow)
 
     # Send a signal to the BIOPAC so it knows when the movie trailer has begun (over port FIO0)
@@ -628,7 +620,6 @@ def CreateVideoWindow():
 def CreateSelectVideoWindow():
     trailerBlockWindow.withdraw()
     SelectVideoWindow.update()
-    SelectVideoWindow.deiconify()
     center(SelectVideoWindow)
 
     tempNumber = glob.glob(
@@ -694,7 +685,6 @@ def CreateSelectVideoWindow():
 def CreateuserIDWindow():
     mainWindow.withdraw()
     userIDWindow.update()
-    userIDWindow.deiconify()
     center(userIDWindow)
 
 
@@ -919,7 +909,7 @@ def funnySpecificFrame(val):
     myvar.grid(row=1, column=0, columnspan=2)
 
     FrameSelectionWindowFunny.update()
-    FrameSelectionWindowFunny.deiconify()
+    center(FrameSelectionWindowFunny)
 
 
 def funnyClickBegin(event=None):
@@ -1121,7 +1111,7 @@ def scarySpecificFrame(val):
     myvar.grid(row=1, column=0, columnspan=2)
 
     FrameSelectionWindowScary.update()
-    FrameSelectionWindowScary.deiconify()
+    center(FrameSelectionWindowScary)
 
 
 def scaryClickBegin(event=None):
@@ -1322,7 +1312,7 @@ def sexySpecificFrame(val):
     myvar.grid(row=1, column=0, columnspan=2)
 
     FrameSelectionWindowSexy.update()
-    FrameSelectionWindowSexy.deiconify()
+    center(FrameSelectionWindowSexy)
 
 
 def sexyClickBegin(event=None):
