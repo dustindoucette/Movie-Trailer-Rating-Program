@@ -631,6 +631,15 @@ def CreateSelectVideoWindow():
     SelectVideoWindow.deiconify()
     center(SelectVideoWindow)
 
+    tempNumber = glob.glob(
+        "./Movie-Trailers/"
+        + "Block_"
+        + str(trailerBlock)
+        + "/"
+        + MovieTrailerList[trailerBlock][currentMovieNumber]
+        + "/image*"
+    )
+
     # Set Funny Frames
     im = Image.open(
         "./Movie-Trailers/"
@@ -645,6 +654,7 @@ def CreateSelectVideoWindow():
     myvar = Label(FrameSelectionWindowFunny, image=tkimage)
     myvar.image = tkimage
     myvar.grid(row=1, column=0, columnspan=2)
+    scaleFunny.config(to=len(tempNumber) - 1)
 
     # Set Scary Frames
     im = Image.open(
@@ -660,6 +670,7 @@ def CreateSelectVideoWindow():
     myvar = Label(FrameSelectionWindowScary, image=tkimage)
     myvar.image = tkimage
     myvar.grid(row=1, column=0, columnspan=2)
+    scaleScary.config(to=len(tempNumber) - 1)
 
     # Set Sexy Frames
     im = Image.open(
@@ -675,6 +686,7 @@ def CreateSelectVideoWindow():
     myvar = Label(FrameSelectionWindowSexy, image=tkimage)
     myvar.image = tkimage
     myvar.grid(row=1, column=0, columnspan=2)
+    scaleSexy.config(to=len(tempNumber) - 1)
 
     nextMovieTrailerlbl.config(text=MovieTrailerList[trailerBlock][currentMovieNumber])
 
